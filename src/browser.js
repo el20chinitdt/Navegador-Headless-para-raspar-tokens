@@ -12,6 +12,34 @@ import {
   loadPlatforms
 } from './utils.js';
 
+function isStreamManifest(url = '', contentType = '') {
+  if (isMpdManifest(url, contentType)) return true;
+  const u = String(url).toLowerCase();
+  const ct = String(contentType).toLowerCase();
+  return (
+    /\.m3u8(\?|$|#)/i.test(u) ||
+    ct.includes('application/vnd.apple.mpegurl') ||
+    ct.includes('application/x-mpegurl') ||
+    ct.includes('application/dash+xml')
+  );
+}
+
+function extractStreamUrlsFromJson(obj, found = new Set()) {
+  if (typeof obj === 'string') {
+    const matches = obj.match(/https?:\/\/[^\s"'<>]+/g);
+    if (matches) {
+      for (const u of matches) {
+        if (/\.(mpd|m3u8)(\?|$|#)/i.test(u)) found.add(u);
+      }
+    }
+  } else if (Array.isArray(obj)) {
+    for (const item of obj) extractStreamUrlsFromJson(item, found);
+  } else if (obj && typeof obj === 'object') {
+    for (const val of Object.values(obj)) extractStreamUrlsFromJson(val, found);
+  }
+  return Array.from(found);
+}
+
 export class ChromeHeadlessConsole {
   constructor(options = {}) {
     this.options = {
@@ -56,7 +84,8 @@ export class ChromeHeadlessConsole {
     const launchArgs = [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage'
+      '--disable-dev-shm-usage',
+      '--autoplay-policy=no-user-gesture-required'
     ];
 
     if (this.options.devtoolsPort) {
@@ -110,12 +139,12 @@ export class ChromeHeadlessConsole {
     this.networkLog.push(entry);
     if (this.networkLog.length > 500) this.networkLog.shift();
 
-    if (isMpdManifest(entry.url, entry.contentType)) {
+    if (isStreamManifest(entry.url, entry.contentType)) {
       if (!this.seenMpd.has(entry.url)) {
         this.seenMpd.add(entry.url);
         this.mpdStreams.push(entry);
         if (this.liveMode !== 'off') {
-          console.log(`\n[F12 MPD] ${entry.url}`);
+          console.log(`\n[F12 STREAM] ${entry.url}`);
         }
       }
       return;
@@ -207,6 +236,19 @@ export class ChromeHeadlessConsole {
             if (matches.length > 0) {
               this.tokenFindings.jsonResponses.push({ url: resUrl, status, matches });
             }
+
+            const embeddedStreams = extractStreamUrlsFromJson(json);
+            for (const streamUrl of embeddedStreams) {
+              this.recordNetwork({
+                time: new Date().toISOString(),
+                url: streamUrl,
+                status: 200,
+                contentType: streamUrl.toLowerCase().includes('.m3u8')
+                  ? 'application/vnd.apple.mpegurl'
+                  : 'application/dash+xml',
+                type: 'json-extract'
+              });
+            }
           } catch {
             // Respuesta vacía o JSON no válido
           }
@@ -223,16 +265,247 @@ export class ChromeHeadlessConsole {
     this.tokenFindings = { requestHeaders: [], urlParams: [], jsonResponses: [] };
   }
 
+  async hasVideoElement() {
+    for (const frame of this.page.frames()) {
+      try {
+        const count = await frame.evaluate(() => {
+          const walk = (root) => {
+            let n = root.querySelectorAll('video').length;
+            for (const el of root.querySelectorAll('*')) {
+              if (el.shadowRoot) n += walk(el.shadowRoot);
+            }
+            return n;
+          };
+          return walk(document);
+        });
+        if (count > 0) return true;
+      } catch {
+        // Frame detached o cross-origin bloqueado
+      }
+    }
+    return false;
+  }
+
+  async tryOpenChannel(channelName = '') {
+    const hasVideo = await this.hasVideoElement();
+    if (hasVideo && !channelName) return false;
+
+    const target = String(channelName || '').trim().toLowerCase();
+
+    const coords = await this.page.evaluate((query) => {
+      const isVisible = (el) => {
+        const r = el.getBoundingClientRect();
+        const st = window.getComputedStyle(el);
+        return (
+          r.width >= 24 &&
+          r.height >= 24 &&
+          st.display !== 'none' &&
+          st.visibility !== 'hidden' &&
+          parseFloat(st.opacity || '1') > 0.05
+        );
+      };
+
+      const isInNav = (el) => Boolean(el.closest('nav, header'));
+      const candidates = Array.from(
+        document.querySelectorAll(
+          'a, button, [role="button"], .carousel__slide, [class*="channel" i], [class*="card" i], [class*="item" i], [class*="slide" i], img'
+        )
+      ).filter((el) => isVisible(el));
+
+      let chosen = null;
+
+      if (query) {
+        const scored = [];
+        for (const el of candidates) {
+          const text = [
+            el.innerText,
+            el.getAttribute('aria-label'),
+            el.getAttribute('title'),
+            el.getAttribute('alt'),
+            el.getAttribute('data-name'),
+            el.getAttribute('data-channel'),
+            el.getAttribute('src'),
+            el.querySelector('img')?.getAttribute('alt'),
+            el.querySelector('img')?.getAttribute('title'),
+            el.querySelector('img')?.getAttribute('src')
+          ]
+            .filter(Boolean)
+            .join(' ')
+            .toLowerCase();
+
+          if (text.includes(query)) {
+            const r = el.getBoundingClientRect();
+            scored.push({ el, area: r.width * r.height });
+          }
+        }
+        scored.sort((a, b) => a.area - b.area);
+        if (scored.length) chosen = scored[0].el;
+      }
+
+      if (!chosen) {
+        // Si no se especificó canal (o no hubo coincidencia), abre la primera tarjeta/logo del catálogo
+        const gridCards = candidates.filter((el) => {
+          if (isInNav(el)) return false;
+          const r = el.getBoundingClientRect();
+          if (r.width < 45 || r.height < 35) return false;
+          if (r.width > window.innerWidth * 0.9 && r.height > window.innerHeight * 0.7) return false;
+          if (el.tagName === 'IMG') {
+            const src = (el.getAttribute('src') || '').toLowerCase();
+            if (src.includes('logojoy') || src.includes('banner')) return false;
+            return true;
+          }
+          return Boolean(el.querySelector('img')) || el.className.toString().toLowerCase().includes('slide');
+        });
+        if (gridCards.length) chosen = gridCards[0];
+      }
+
+      if (!chosen) return null;
+
+      chosen.scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
+      const r = chosen.getBoundingClientRect();
+      return {
+        x: Math.round(r.left + r.width / 2),
+        y: Math.round(r.top + r.height / 2),
+        label: (chosen.innerText || chosen.getAttribute('alt') || chosen.getAttribute('title') || chosen.tagName).slice(0, 60)
+      };
+    }, target);
+
+    if (!coords) {
+      console.log('[Canal] No se encontró tarjeta/logo clickeable en la página.');
+      return false;
+    }
+
+    console.log(`[Canal] Haciendo clic en "${coords.label.trim() || 'elemento'}" (${coords.x}, ${coords.y})...`);
+    await Promise.all([
+      this.page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 8000 }).catch(() => {}),
+      this.page.mouse.click(coords.x, coords.y)
+    ]);
+    await new Promise((r) => setTimeout(r, 2500));
+    return true;
+  }
+
+  async forcePlayAllPlayers() {
+    const playSelectors = [
+      '.vjs-big-play-button',
+      '.shaka-play-button',
+      '.jw-icon-playback',
+      '.jw-display-icon-container',
+      '.plyr__control--overlaid',
+      '.bmpui-ui-hugeplaybacktogglebutton',
+      '.clappr-play-button',
+      '[data-shaka-player-container] button',
+      'button[aria-label*="play" i]',
+      'button[aria-label*="reproducir" i]',
+      '[data-testid*="play" i]',
+      '[class*="play-button" i]',
+      '[class*="playButton" i]',
+      '[class*="big-play" i]'
+    ];
+
+    for (let pass = 1; pass <= 2; pass++) {
+      let anyPlaying = false;
+
+      for (const frame of this.page.frames()) {
+        try {
+          // 1. Clic real en botones de play visibles dentro del frame
+          for (const sel of playSelectors) {
+            const btns = await frame.$$(sel).catch(() => []);
+            for (const btn of btns) {
+              const box = await btn.boundingBox().catch(() => null);
+              if (box && box.width > 8 && box.height > 8) {
+                console.log(`[Play Forzado] Clic en botón "${sel}" (paso ${pass})`);
+                await btn.click().catch(() => {});
+                await new Promise((r) => setTimeout(r, 400));
+              }
+            }
+          }
+
+          // 2. Forzar .play() en todos los <video> (incluyendo Shadow DOM)
+          const res = await frame.evaluate(async () => {
+            const videos = [];
+            const collect = (root) => {
+              videos.push(...root.querySelectorAll('video'));
+              for (const el of root.querySelectorAll('*')) {
+                if (el.shadowRoot) collect(el.shadowRoot);
+              }
+            };
+            collect(document);
+
+            let playing = 0;
+            let firstPausedBox = null;
+
+            for (const v of videos) {
+              try {
+                v.muted = true;
+                v.playsInline = true;
+                await v.play().catch(() => {});
+              } catch {}
+
+              if (!v.paused && !v.ended) {
+                playing++;
+              } else if (!firstPausedBox) {
+                const r = v.getBoundingClientRect();
+                if (r.width > 20 && r.height > 20) {
+                  firstPausedBox = {
+                    x: Math.round(r.left + r.width / 2),
+                    y: Math.round(r.top + r.height / 2)
+                  };
+                }
+              }
+            }
+            return { total: videos.length, playing, firstPausedBox };
+          });
+
+          if (res.playing > 0) {
+            anyPlaying = true;
+          } else if (res.total > 0 && res.firstPausedBox && frame === this.page.mainFrame()) {
+            console.log(`[Play Forzado] Clic en centro del <video> (${res.firstPausedBox.x}, ${res.firstPausedBox.y})`);
+            await this.page.mouse.click(res.firstPausedBox.x, res.firstPausedBox.y).catch(() => {});
+            await this.page.keyboard.press('Space').catch(() => {});
+          }
+        } catch {
+          // Frame inaccesible o cerrado
+        }
+      }
+
+      if (anyPlaying || this.mpdStreams.length > 0) {
+        console.log('[Play Forzado] Reproductor activo.');
+        break;
+      }
+
+      if (pass < 2) {
+        await new Promise((r) => setTimeout(r, 1500));
+      }
+    }
+  }
+
   async gotoUrl(targetUrl, waitMs = this.options.waitMs) {
     if (!isHttpUrl(targetUrl)) {
       throw new Error('La URL debe comenzar con http:// o https://');
     }
 
-    console.log(`[Navegando] ${targetUrl} ...`);
-    await this.page.goto(targetUrl, {
-      waitUntil: 'networkidle2',
-      timeout: this.options.timeout
-    });
+    const normalize = (u) => u.replace(/\/+$/, '');
+    const current = normalize(this.page.url() || '');
+    const desired = normalize(targetUrl);
+
+    if (current !== desired) {
+      console.log(`[Navegando] ${targetUrl} ...`);
+      await this.page.goto(targetUrl, {
+        waitUntil: 'networkidle2',
+        timeout: this.options.timeout
+      });
+    } else {
+      console.log(`[En página] Ya estamos en ${targetUrl}, evitando recarga.`);
+    }
+
+    await new Promise((r) => setTimeout(r, 2000));
+
+    // Si estamos en una grilla de canales/logos sin video, intenta entrar al canal
+    await this.tryOpenChannel(this.options.channel);
+
+    // Fuerza Play en cualquier reproductor (HTML5, Video.js, Shaka, JWPlayer, iframes, etc.)
+    await this.forcePlayAllPlayers();
+
     if (waitMs > 0) {
       await new Promise((r) => setTimeout(r, waitMs));
     }
@@ -279,7 +552,7 @@ export class ChromeHeadlessConsole {
       ]);
     }
 
-    await new Promise((r) => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 2500));
     console.log(`[Login] Paso completado. URL actual: ${this.page.url()}`);
   }
 
@@ -291,6 +564,7 @@ export class ChromeHeadlessConsole {
     if (Array.isArray(config.keywords) && this.options.keywords.length === 0) {
       this.keywords = config.keywords.map((k) => k.toLowerCase());
     }
+    this.options.channel = channelName;
     const targetUrl = config.urlTemplate.replace('{canal}', encodeURIComponent(channelName));
     await this.gotoUrl(targetUrl);
   }
@@ -434,7 +708,7 @@ Comandos tipo DevTools / Navegador:
   <cualquier código JS>        Ejecuta directo en la Consola F12 (ej: document.title)
   /goto <url>                  Navega a una URL
   /channel <plat> <canal>      Abre plataforma de platforms.json con ese canal
-  /mpd                         Muestra los manifiestos .mpd detectados (sin keys)
+  /mpd                         Muestra los manifiestos .mpd/.m3u8 detectados (sin keys)
   /net [filtro]                Muestra peticiones Network (ej: /net .mpd o /net token)
   /tokens                      Muestra tokens detectados en headers, URLs y JSON
   /dom [selector]              Muestra el HTML del selector (pestaña Elements)
