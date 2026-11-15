@@ -20,10 +20,18 @@ on:
         required: false
         default: '7000'
       use_login:
-        description: 'Usar login con GitHub Secrets'
+        description: 'Iniciar sesión (usa inputs manuales o GitHub Secrets)'
         required: false
         type: boolean
         default: false
+      platform_user:
+        description: 'Usuario de la plataforma (opcional, sobrescribe Secret PLATFORM_USER)'
+        required: false
+        default: ''
+      platform_pass:
+        description: 'Contraseña de la plataforma (opcional, sobrescribe Secret PLATFORM_PASS)'
+        required: false
+        default: ''
 
 jobs:
   inspect:
@@ -32,6 +40,12 @@ jobs:
       PUPPETEER_SKIP_DOWNLOAD: 'true'
 
     steps:
+      - name: Enmascarar contraseña manual en logs
+        if: inputs.platform_pass != ''
+        env:
+          RAW_PASS: ${{ inputs.platform_pass }}
+        run: printf '::add-mask::%s\n' "$RAW_PASS"
+
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
@@ -52,9 +66,9 @@ jobs:
           INPUT_CHANNEL: ${{ inputs.channel }}
           INPUT_URL: ${{ inputs.target_url }}
           INPUT_WAIT_MS: ${{ inputs.wait_ms }}
-          USE_LOGIN: ${{ inputs.use_login }}
-          PLATFORM_USER: ${{ secrets.PLATFORM_USER }}
-          PLATFORM_PASS: ${{ secrets.PLATFORM_PASS }}
+          USE_LOGIN: ${{ inputs.use_login || (inputs.platform_user != '' && inputs.platform_pass != '') }}
+          PLATFORM_USER: ${{ inputs.platform_user || secrets.PLATFORM_USER }}
+          PLATFORM_PASS: ${{ inputs.platform_pass || secrets.PLATFORM_PASS }}
           PLATFORM_LOGIN_URL: ${{ secrets.PLATFORM_LOGIN_URL }}
           USER_SELECTOR: ${{ secrets.USER_SELECTOR }}
           PASS_SELECTOR: ${{ secrets.PASS_SELECTOR }}
