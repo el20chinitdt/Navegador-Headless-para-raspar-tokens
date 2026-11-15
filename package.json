@@ -1,0 +1,14 @@
+{
+  "name": "navegador-headless-github",
+  "version": "1.4.0",
+  "type": "module",
+  "description": "Navegador headless con Puppeteer, Chrome oficial, consola F12 y soporte para GitHub Actions, Pages y Codespaces",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "panel": "node server.js"
+  },
+  "dependencies": {
+    "puppeteer": "^24.0.0"
+  }
+}
