@@ -39,6 +39,7 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     env:
       PUPPETEER_SKIP_DOWNLOAD: 'true'
 
@@ -58,18 +59,14 @@ jobs:
           node-version: '22'
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm install --no-audit --no-fund
 
       - name: Preparar Google Chrome en runner
         run: |
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 >/dev/null 2>&1 || true
-          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
-          if [ -z "$CHROME_BIN" ]; then
-            sudo apt-get update -qq && sudo apt-get install -y -qq chromium-browser || true
-            CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
-          fi
-          echo "Chrome detectado: ${CHROME_BIN:-ninguno}"
+          CHROME_BIN="$(command -v google-chrome || echo '/usr/bin/google-chrome')"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version || true
 
       - name: Ejecutar navegador headless
         env:
@@ -92,6 +89,9 @@ jobs:
           fi
           if [ -n "$INPUT_URL" ]; then
             ARGS+=(--url "$INPUT_URL")
+            if [ -n "$INPUT_CHANNEL" ]; then
+              ARGS+=(--channel "$INPUT_CHANNEL")
+            fi
           elif [ -n "$INPUT_PLATFORM" ] && [ -n "$INPUT_CHANNEL" ]; then
             ARGS+=(--platform "$INPUT_PLATFORM" --channel "$INPUT_CHANNEL")
           elif [ -n "$INPUT_PLATFORM" ]; then
@@ -99,11 +99,11 @@ jobs:
           fi
 
           set +e
-          node index.js "${ARGS[@]}" > output/run.log 2>&1
+          set -o pipefail
+          timeout -k 10s 90s node index.js "${ARGS[@]}" < /dev/null 2>&1 | tee output/run.log
           EXIT_CODE=$?
           set -e
 
-          cat output/run.log
           echo "EXIT_CODE=$EXIT_CODE" >> "$GITHUB_ENV"
           exit "$EXIT_CODE"
 
