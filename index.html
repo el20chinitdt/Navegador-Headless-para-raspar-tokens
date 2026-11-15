@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Extractor - Producciones El Chini</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #e0e0e0; padding: 20px; max-width: 400px; margin: auto; }
+        input, button { width: 100%; padding: 12px; margin: 8px 0; background: #1e1e1e; color: #fff; border: 1px solid #333; border-radius: 6px; box-sizing: border-box; }
+        button { background: #007acc; border: none; font-weight: bold; cursor: pointer; }
+        button:active { background: #005999; }
+        #log { background: #1a1a1a; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin-top: 15px; border: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <h2>Extractor Dinámico</h2>
+    
+    <label>GitHub Personal Access Token (PAT):</label>
+    <input type="password" id="gh_token" placeholder="ghp_xxxxxxxxxxxx">
+
+    <label>URL de la plataforma / Login:</label>
+    <input type="text" id="target_url" placeholder="https://ejemplo.com/login">
+
+    <label>Canal o Botón a presionar (Texto o Selector CSS):</label>
+    <input type="text" id="channel_query" placeholder="Ej: Telefe o #btn-canal-12">
+
+    <label>Usuario:</label>
+    <input type="text" id="user" placeholder="Tu usuario o email">
+
+    <label>Contraseña:</label>
+    <input type="password" id="pass" placeholder="Tu contraseña">
+
+    <button onclick="ejecutarAccion()">Disparar Extracción</button>
+
+    <div id="log">Estado: Esperando datos...</div>
+
+    <script>
+        async function ejecutarAccion() {
+            const token = document.getElementById('gh_token').value.trim();
+            const targetUrl = document.getElementById('target_url').value.trim();
+            const channelQuery = document.getElementById('channel_query').value.trim();
+            const usuario = document.getElementById('user').value.trim();
+            const clave = document.getElementById('pass').value.trim();
+            const logDiv = document.getElementById('log');
+
+            // Reemplaza con tus datos de GitHub
+            const REPO_OWNER = "tu-usuario-github";
+            const REPO_NAME = "tu-repositorio";
+            const WORKFLOW_FILE = "extractor.yml";
+
+            if (!token || !targetUrl || !usuario || !clave) {
+                alert("Por favor completa al menos el Token, la URL, el usuario y la contraseña.");
+                return;
+            }
+
+            logDiv.innerText = "Estado: Enviando petición a GitHub Actions...";
+
+            try {
+                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/actions/workflows/${WORKFLOW_FILE}/dispatches`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/vnd.github+json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ref: 'main',
+                        inputs: {
+                            target_url: targetUrl,
+                            channel_query: channelQuery,
+                            username: usuario,
+                            password: clave
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    logDiv.innerText = "¡Acción disparada con éxito!\nEl runner está corriendo. Revisa el archivo 'token-result.json' en tu repositorio en unos segundos.";
+                } else {
+                    const errText = await response.text();
+                    logDiv.innerText = `Error al disparar (${response.status}):\n${errText}`;
+                }
+            } catch (e) {
+                logDiv.innerText = `Error de red: ${e.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
