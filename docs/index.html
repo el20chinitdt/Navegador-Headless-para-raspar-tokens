@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel GitHub Actions — Headless F12</title>
   <style>
-    :root { --bg:#0f172a; --panel:#1e293b; --border:#334155; --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; }
+    :root { --bg:#0f172a; --panel:#1e293b; --border:#334155; --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --ok:#22c55e; --err:#ef4444; }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 24px; max-width: 820px; margin-inline: auto; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 24px; max-width: 860px; margin-inline: auto; }
     h1 { font-size: 20px; margin: 0 0 8px; }
+    h2 { font-size: 15px; margin: 0 0 10px; }
+    h3 { font-size: 13px; margin: 14px 0 6px; color: var(--muted); }
     p.sub { color: var(--muted); font-size: 13px; margin: 0 0 20px; }
     .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 16px; }
     label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
@@ -22,15 +24,20 @@
     .toggle-pass { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); margin: 0; padding: 4px 8px; font-size: 11px; background: #334155; color: var(--text); border-radius: 4px; }
     button { margin-top: 14px; padding: 10px 16px; border: 0; border-radius: 6px; background: var(--accent); color: #082f49; font-weight: 600; cursor: pointer; font-size: 13px; }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
-    .run-item { border: 1px solid var(--border); background: #0b1220; border-radius: 8px; padding: 10px 12px; margin-top: 8px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    .btn-sec { background: #334155; color: var(--text); }
+    .btn-mini { margin: 0; padding: 4px 10px; font-size: 11px; flex-shrink: 0; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .badge.ok { background: rgba(34,197,94,0.18); color: var(--ok); }
+    .badge.err { background: rgba(239,68,68,0.18); color: var(--err); }
+    .url-item { border: 1px solid var(--border); background: #0b1220; border-radius: 6px; padding: 8px 10px; margin-top: 6px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 12px; word-break: break-all; }
+    pre { background: #0b1220; border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 12px; overflow: auto; max-height: 360px; white-space: pre-wrap; word-break: break-word; margin: 6px 0 0; }
+    img.shot { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 6px; background: #000; }
     .note { font-size: 12px; color: var(--muted); background: #0b1220; border-left: 3px solid var(--accent); padding: 10px 12px; border-radius: 4px; margin-top: 12px; }
   </style>
 </head>
 <body>
   <h1>Panel GitHub Pages → GitHub Actions (Headless F12)</h1>
-  <p class="sub">Dispara Chrome Headless en tu repositorio privado usando GitHub Actions y GitHub Secrets.</p>
+  <p class="sub">Dispara Chrome Headless en tu repositorio privado y muestra el resultado directo abajo, sin descargar nada.</p>
 
   <div class="card">
     <div class="row">
@@ -39,8 +46,8 @@
       <div><label for="branch">Rama</label><input id="branch" value="main" /></div>
     </div>
 
-    <label for="pat">GitHub Fine-Grained PAT (permiso: Actions Read & Write en este repo)</label>
-    <input id="pat" type="password" placeholder="github_pat_..." autocomplete="off" />
+    <label for="pat">GitHub Token Classic (permiso: repo)</label>
+    <input id="pat" type="password" placeholder="ghp_..." autocomplete="off" />
 
     <div class="row">
       <div><label for="platform">Plataforma (platforms.json)</label><input id="platform" placeholder="ejemplo-web" /></div>
@@ -72,21 +79,20 @@
     </div>
 
     <div class="note">
-      Si completás usuario y contraseña acá, se enviarán en el disparo del workflow (asegurate de declararlos en
-      <code>inspect.yml</code>). Si los dejás vacíos con la casilla marcada, se usarán los Secrets
-      <strong>PLATFORM_USER</strong> y <strong>PLATFORM_PASS</strong> del repositorio privado.
+      Si dejás usuario y contraseña vacíos con la casilla marcada, se usan los Secrets
+      <strong>PLATFORM_USER</strong> y <strong>PLATFORM_PASS</strong>.
     </div>
 
     <div class="row">
       <button id="btnRun">Ejecutar en GitHub Actions</button>
-      <button id="btnCheck" style="background:#334155; color:var(--text);">Actualizar Ejecuciones</button>
+      <button id="btnCheck" class="btn-sec">Ver último resultado</button>
     </div>
     <p id="msg" style="font-size:13px; margin:12px 0 0; color:var(--muted);"></p>
   </div>
 
   <div class="card">
-    <h2 style="font-size:15px; margin:0 0 8px;">Últimas ejecuciones (descargá el Artifact con el MPD y captura)</h2>
-    <div id="runs">Sin consultar todavía.</div>
+    <h2>Resultado</h2>
+    <div id="result">Todavía no se consultó ningún resultado.</div>
   </div>
 
   <script>
@@ -96,7 +102,8 @@
     $('branch').value = localStorage.getItem('gh_branch') || 'main';
     $('pat').value = sessionStorage.getItem('gh_pat') || '';
 
-    // Marca automáticamente "Iniciar sesión" si se escribe usuario o contraseña
+    let pollTimer = null;
+
     function syncLoginCheckbox() {
       if ($('platformUser').value.trim() || $('platformPass').value) {
         $('useLogin').checked = true;
@@ -105,7 +112,6 @@
     $('platformUser').addEventListener('input', syncLoginCheckbox);
     $('platformPass').addEventListener('input', syncLoginCheckbox);
 
-    // Mostrar u ocultar contraseña
     $('togglePass').addEventListener('click', () => {
       const input = $('platformPass');
       const isPass = input.type === 'password';
@@ -113,9 +119,9 @@
       $('togglePass').textContent = isPass ? 'Ocultar' : 'Ver';
     });
 
-    function ghHeaders(token) {
+    function ghHeaders(token, accept = 'application/vnd.github+json') {
       return {
-        'Accept': 'application/vnd.github+json',
+        'Accept': accept,
         'Authorization': 'Bearer ' + token,
         'Content-Type': 'application/json'
       };
@@ -128,40 +134,165 @@
       sessionStorage.setItem('gh_pat', $('pat').value.trim());
     }
 
-    async function fetchRuns() {
+    function extractUrls(obj, found = new Set()) {
+      if (typeof obj === 'string') {
+        const matches = obj.match(/https?:\/\/[^\s"'<>]+/g);
+        if (matches) matches.forEach(u => found.add(u));
+      } else if (Array.isArray(obj)) {
+        obj.forEach(item => extractUrls(item, found));
+      } else if (obj && typeof obj === 'object') {
+        Object.values(obj).forEach(val => extractUrls(val, found));
+      }
+      return Array.from(found);
+    }
+
+    async function loadLatestResult() {
       const owner = $('owner').value.trim();
       const repo = $('repo').value.trim();
       const pat = $('pat').value.trim();
       if (!owner || !repo || !pat) return;
 
+      const box = $('result');
       const res = await fetch(
-        `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/runs?event=workflow_dispatch&per_page=5`,
-        { headers: ghHeaders(pat) }
+        `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/latest.json?ref=results`,
+        { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
       );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'No se pudieron leer las ejecuciones');
 
-      const container = $('runs');
-      container.textContent = '';
-      if (!data.workflow_runs?.length) {
-        container.textContent = 'No hay ejecuciones todavía.';
+      if (res.status === 403) {
+        throw new Error('Tu token no tiene permisos suficientes. Usá un Token Classic con el permiso "repo" marcado.');
+      }
+      if (res.status === 404) {
+        box.textContent = 'Todavía no hay resultados en la rama "results". Ejecutá el workflow al menos una vez.';
         return;
       }
-
-      for (const run of data.workflow_runs) {
-        const div = document.createElement('div');
-        div.className = 'run-item';
-        const left = document.createElement('span');
-        left.textContent = `#${run.run_number} — ${run.status}${run.conclusion ? ' (' + run.conclusion + ')' : ''}`;
-        const link = document.createElement('a');
-        link.href = run.html_url;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = 'Abrir Run / Artifact';
-        div.appendChild(left);
-        div.appendChild(link);
-        container.appendChild(div);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'No se pudo leer latest.json');
       }
+
+      const data = await res.json();
+      box.textContent = '';
+
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.alignItems = 'center';
+      header.style.gap = '10px';
+      header.style.flexWrap = 'wrap';
+
+      const badge = document.createElement('span');
+      badge.className = 'badge ' + (data.ok ? 'ok' : 'err');
+      badge.textContent = data.ok ? 'OK (exit 0)' : `Falló (exit ${data.exit_code})`;
+
+      const meta = document.createElement('span');
+      meta.style.fontSize = '12px';
+      meta.style.color = 'var(--muted)';
+      meta.textContent = `Run #${data.run_number} — ${new Date(data.timestamp).toLocaleString()}`;
+
+      header.appendChild(badge);
+      header.appendChild(meta);
+      box.appendChild(header);
+
+      const urls = extractUrls(data.reports);
+      const streamUrls = urls.filter(u => /\.(mpd|m3u8)|manifest|license|widevine|playready/i.test(u));
+      const listUrls = streamUrls.length ? streamUrls : urls;
+
+      if (listUrls.length) {
+        const h3 = document.createElement('h3');
+        h3.textContent = `URLs detectadas (${listUrls.length})`;
+        box.appendChild(h3);
+
+        for (const u of listUrls) {
+          const item = document.createElement('div');
+          item.className = 'url-item';
+          const span = document.createElement('span');
+          span.textContent = u;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn-mini';
+          btn.textContent = 'Copiar';
+          btn.addEventListener('click', () => {
+            navigator.clipboard.writeText(u);
+            btn.textContent = 'Copiado';
+            setTimeout(() => (btn.textContent = 'Copiar'), 1500);
+          });
+          item.appendChild(span);
+          item.appendChild(btn);
+          box.appendChild(item);
+        }
+      }
+
+      if (data.reports?.length) {
+        const h3 = document.createElement('h3');
+        h3.textContent = 'Reporte JSON';
+        box.appendChild(h3);
+        const pre = document.createElement('pre');
+        pre.textContent = JSON.stringify(data.reports, null, 2);
+        box.appendChild(pre);
+      }
+
+      if (data.screenshot) {
+        const imgRes = await fetch(
+          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${encodeURIComponent(data.screenshot)}?ref=results`,
+          { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
+        );
+        if (imgRes.ok) {
+          const blob = await imgRes.blob();
+          const h3 = document.createElement('h3');
+          h3.textContent = 'Captura de pantalla';
+          const img = document.createElement('img');
+          img.className = 'shot';
+          img.src = URL.createObjectURL(blob);
+          box.appendChild(h3);
+          box.appendChild(img);
+        }
+      }
+
+      if (data.log) {
+        const h3 = document.createElement('h3');
+        h3.textContent = 'Log de ejecución';
+        const pre = document.createElement('pre');
+        pre.textContent = data.log;
+        box.appendChild(h3);
+        box.appendChild(pre);
+      }
+    }
+
+    async function waitForRunAndShow(owner, repo, pat, startedAfterIso) {
+      if (pollTimer) clearInterval(pollTimer);
+      let attempts = 0;
+
+      const check = async () => {
+        attempts++;
+        try {
+          const res = await fetch(
+            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/runs?event=workflow_dispatch&per_page=3`,
+            { headers: ghHeaders(pat), cache: 'no-store' }
+          );
+          const data = await res.json();
+          const run = data.workflow_runs?.find(r => new Date(r.created_at) >= new Date(startedAfterIso - 15000)) || data.workflow_runs?.[0];
+
+          if (run) {
+            $('msg').textContent = `Run #${run.run_number}: ${run.status}${run.conclusion ? ' (' + run.conclusion + ')' : ''}...`;
+            if (run.status === 'completed') {
+              clearInterval(pollTimer);
+              pollTimer = null;
+              await loadLatestResult();
+              $('msg').textContent = `Run #${run.run_number} finalizado (${run.conclusion}).`;
+              return;
+            }
+          }
+          if (attempts >= 60) {
+            clearInterval(pollTimer);
+            pollTimer = null;
+            $('msg').textContent = 'Tiempo de espera agotado. Tocá "Ver último resultado" en unos segundos.';
+          }
+        } catch (err) {
+          $('msg').textContent = 'Consultando estado: ' + err.message;
+        }
+      };
+
+      setTimeout(check, 2500);
+      pollTimer = setInterval(check, 3000);
     }
 
     $('btnRun').addEventListener('click', async () => {
@@ -171,7 +302,7 @@
       const branch = $('branch').value.trim() || 'main';
       const pat = $('pat').value.trim();
       if (!owner || !repo || !pat) {
-        $('msg').textContent = 'Completá usuario, repositorio y PAT.';
+        $('msg').textContent = 'Completá usuario, repositorio y token.';
         return;
       }
 
@@ -192,26 +323,27 @@
 
       $('btnRun').disabled = true;
       $('msg').textContent = 'Enviando orden a GitHub Actions...';
+      $('result').textContent = 'Esperando que termine el navegador headless...';
+
+      const startedAt = Date.now();
       try {
         const res = await fetch(
           `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/dispatches`,
           {
             method: 'POST',
             headers: ghHeaders(pat),
-            body: JSON.stringify({
-              ref: branch,
-              inputs
-            })
+            body: JSON.stringify({ ref: branch, inputs })
           }
         );
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
           throw new Error(err.message || 'Error al disparar workflow');
         }
-        $('msg').textContent = 'Workflow iniciado. Actualizando lista...';
-        setTimeout(() => fetchRuns().catch(() => {}), 3000);
+        $('msg').textContent = 'Workflow iniciado. Esperando resultado...';
+        waitForRunAndShow(owner, repo, pat, startedAt);
       } catch (err) {
         $('msg').textContent = 'Error: ' + err.message;
+        $('result').textContent = 'No se pudo iniciar el workflow.';
       } finally {
         $('btnRun').disabled = false;
       }
@@ -219,8 +351,10 @@
 
     $('btnCheck').addEventListener('click', async () => {
       saveFields();
+      $('msg').textContent = 'Cargando último resultado...';
       try {
-        await fetchRuns();
+        await loadLatestResult();
+        $('msg').textContent = 'Resultado actualizado.';
       } catch (err) {
         $('msg').textContent = 'Error: ' + err.message;
       }
