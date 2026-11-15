@@ -38,7 +38,7 @@ permissions:
 
 jobs:
   inspect:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     env:
       PUPPETEER_SKIP_DOWNLOAD: 'true'
@@ -59,14 +59,10 @@ jobs:
           node-version: '22'
 
       - name: Instalar dependencias
-        run: npm install --no-audit --no-fund
+        run: npm install
 
-      - name: Preparar Google Chrome en runner
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 >/dev/null 2>&1 || true
-          CHROME_BIN="$(command -v google-chrome || echo '/usr/bin/google-chrome')"
-          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          "$CHROME_BIN" --version || true
+      - name: Verificar Google Chrome en runner
+        run: which google-chrome && google-chrome --version
 
       - name: Ejecutar navegador headless
         env:
@@ -83,10 +79,7 @@ jobs:
           SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
         run: |
           mkdir -p output
-          ARGS=(--once --save --screenshot --wait "${INPUT_WAIT_MS:-7000}")
-          if [ -n "$CHROME_BIN" ]; then
-            ARGS+=(--executable-path "$CHROME_BIN")
-          fi
+          ARGS=(--once --save --screenshot --executable-path /usr/bin/google-chrome --wait "${INPUT_WAIT_MS:-7000}")
           if [ -n "$INPUT_URL" ]; then
             ARGS+=(--url "$INPUT_URL")
             if [ -n "$INPUT_CHANNEL" ]; then
@@ -99,11 +92,11 @@ jobs:
           fi
 
           set +e
-          set -o pipefail
-          timeout -k 10s 90s node index.js "${ARGS[@]}" < /dev/null 2>&1 | tee output/run.log
+          node index.js "${ARGS[@]}" > output/run.log 2>&1
           EXIT_CODE=$?
           set -e
 
+          cat output/run.log
           echo "EXIT_CODE=$EXIT_CODE" >> "$GITHUB_ENV"
           exit "$EXIT_CODE"
 
