@@ -15,8 +15,11 @@
     input { width: 100%; padding: 9px 10px; border-radius: 6px; border: 1px solid var(--border); background: #0b1220; color: var(--text); font-size: 13px; }
     .row { display: flex; gap: 10px; }
     .row > * { flex: 1; }
-    .check { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; }
+    .check { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--text); cursor: pointer; }
     .check input { width: auto; }
+    .pass-wrap { position: relative; }
+    .pass-wrap input { padding-right: 64px; }
+    .toggle-pass { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); margin: 0; padding: 4px 8px; font-size: 11px; background: #334155; color: var(--text); border-radius: 4px; }
     button { margin-top: 14px; padding: 10px 16px; border: 0; border-radius: 6px; background: var(--accent); color: #082f49; font-weight: 600; cursor: pointer; font-size: 13px; }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
     .run-item { border: 1px solid var(--border); background: #0b1220; border-radius: 8px; padding: 10px 12px; margin-top: 8px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
@@ -37,7 +40,7 @@
     </div>
 
     <label for="pat">GitHub Fine-Grained PAT (permiso: Actions Read & Write en este repo)</label>
-    <input id="pat" type="password" placeholder="github_pat_..." />
+    <input id="pat" type="password" placeholder="github_pat_..." autocomplete="off" />
 
     <div class="row">
       <div><label for="platform">Plataforma (platforms.json)</label><input id="platform" placeholder="ejemplo-web" /></div>
@@ -51,12 +54,27 @@
 
     <label class="check">
       <input id="useLogin" type="checkbox" />
-      Iniciar sesión con GitHub Secrets (PLATFORM_USER / PLATFORM_PASS)
+      Iniciar sesión en la plataforma
     </label>
 
+    <div class="row">
+      <div>
+        <label for="platformUser">Usuario / Email (opcional si usás Secrets)</label>
+        <input id="platformUser" placeholder="usuario@ejemplo.com" autocomplete="off" />
+      </div>
+      <div>
+        <label for="platformPass">Contraseña (opcional si usás Secrets)</label>
+        <div class="pass-wrap">
+          <input id="platformPass" type="password" placeholder="••••••••" autocomplete="off" />
+          <button type="button" id="togglePass" class="toggle-pass">Ver</button>
+        </div>
+      </div>
+    </div>
+
     <div class="note">
-      Por seguridad, usuario y contraseña de la plataforma no se envían desde el navegador: guardalos en
-      <strong>Settings → Secrets and variables → Actions</strong> de tu repositorio privado.
+      Si completás usuario y contraseña acá, se enviarán en el disparo del workflow (asegurate de declararlos en
+      <code>inspect.yml</code>). Si los dejás vacíos con la casilla marcada, se usarán los Secrets
+      <strong>PLATFORM_USER</strong> y <strong>PLATFORM_PASS</strong> del repositorio privado.
     </div>
 
     <div class="row">
@@ -77,6 +95,23 @@
     $('repo').value = localStorage.getItem('gh_repo') || '';
     $('branch').value = localStorage.getItem('gh_branch') || 'main';
     $('pat').value = sessionStorage.getItem('gh_pat') || '';
+
+    // Marca automáticamente "Iniciar sesión" si se escribe usuario o contraseña
+    function syncLoginCheckbox() {
+      if ($('platformUser').value.trim() || $('platformPass').value) {
+        $('useLogin').checked = true;
+      }
+    }
+    $('platformUser').addEventListener('input', syncLoginCheckbox);
+    $('platformPass').addEventListener('input', syncLoginCheckbox);
+
+    // Mostrar u ocultar contraseña
+    $('togglePass').addEventListener('click', () => {
+      const input = $('platformPass');
+      const isPass = input.type === 'password';
+      input.type = isPass ? 'text' : 'password';
+      $('togglePass').textContent = isPass ? 'Ocultar' : 'Ver';
+    });
 
     function ghHeaders(token) {
       return {
@@ -140,6 +175,21 @@
         return;
       }
 
+      const inputs = {
+        platform: $('platform').value.trim(),
+        channel: $('channel').value.trim(),
+        target_url: $('targetUrl').value.trim(),
+        wait_ms: String($('waitMs').value || 7000),
+        use_login: $('useLogin').checked
+      };
+
+      if ($('useLogin').checked) {
+        const platformUser = $('platformUser').value.trim();
+        const platformPass = $('platformPass').value;
+        if (platformUser) inputs.platform_user = platformUser;
+        if (platformPass) inputs.platform_pass = platformPass;
+      }
+
       $('btnRun').disabled = true;
       $('msg').textContent = 'Enviando orden a GitHub Actions...';
       try {
@@ -150,13 +200,7 @@
             headers: ghHeaders(pat),
             body: JSON.stringify({
               ref: branch,
-              inputs: {
-                platform: $('platform').value.trim(),
-                channel: $('channel').value.trim(),
-                target_url: $('targetUrl').value.trim(),
-                wait_ms: String($('waitMs').value || 7000),
-                use_login: $('useLogin').checked
-              }
+              inputs
             })
           }
         );
