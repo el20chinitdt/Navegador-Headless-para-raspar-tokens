@@ -1,0 +1,77 @@
+name: Headless F12 Inspector
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Plataforma de platforms.json (opcional si usás URL directa)'
+        required: false
+        default: ''
+      channel:
+        description: 'Canal o identificador'
+        required: false
+        default: ''
+      target_url:
+        description: 'URL directa (opcional)'
+        required: false
+        default: ''
+      wait_ms:
+        description: 'Espera extra en ms'
+        required: false
+        default: '7000'
+      use_login:
+        description: 'Usar login con GitHub Secrets'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Verificar Google Chrome en runner
+        run: which google-chrome && google-chrome --version
+
+      - name: Ejecutar navegador headless
+        env:
+          INPUT_PLATFORM: ${{ inputs.platform }}
+          INPUT_CHANNEL: ${{ inputs.channel }}
+          INPUT_URL: ${{ inputs.target_url }}
+          INPUT_WAIT_MS: ${{ inputs.wait_ms }}
+          USE_LOGIN: ${{ inputs.use_login }}
+          PLATFORM_USER: ${{ secrets.PLATFORM_USER }}
+          PLATFORM_PASS: ${{ secrets.PLATFORM_PASS }}
+          PLATFORM_LOGIN_URL: ${{ secrets.PLATFORM_LOGIN_URL }}
+          USER_SELECTOR: ${{ secrets.USER_SELECTOR }}
+          PASS_SELECTOR: ${{ secrets.PASS_SELECTOR }}
+          SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
+        run: |
+          ARGS=(--once --save --screenshot --executable-path /usr/bin/google-chrome --wait "${INPUT_WAIT_MS:-7000}")
+          if [ -n "$INPUT_URL" ]; then
+            ARGS+=(--url "$INPUT_URL")
+          elif [ -n "$INPUT_PLATFORM" ] && [ -n "$INPUT_CHANNEL" ]; then
+            ARGS+=(--platform "$INPUT_PLATFORM" --channel "$INPUT_CHANNEL")
+          fi
+          node index.js "${ARGS[@]}"
+
+      - name: Subir reporte JSON y captura como Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f12-report-${{ github.run_number }}
+          path: output/
+          retention-days: 7
