@@ -1,0 +1,50 @@
+name: Extractor de Tokens Headless
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'URL de la plataforma'
+        required: true
+      channel_query:
+        description: 'Texto o selector del canal a presionar'
+        required: false
+      username:
+        description: 'Usuario'
+        required: true
+      password:
+        description: 'Contraseña'
+        required: true
+
+jobs:
+  run-puppeteer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout al repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias (Puppeteer)
+        run: npm install puppeteer
+
+      - name: Ejecutar script extractor
+        env:
+          INPUT_URL: ${{ github.event.inputs.target_url }}
+          INPUT_CHANNEL: ${{ github.event.inputs.channel_query }}
+          TARGET_USER: ${{ github.event.inputs.username }}
+          TARGET_PASS: ${{ github.event.inputs.password }}
+        run: node script.js
+
+      - name: Guardar y subir resultado al repositorio
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add token-result.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Token extraído exitosamente [skip ci]" && git push)
