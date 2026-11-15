@@ -1,0 +1,18 @@
+{
+  "ejemplo-web": {
+    "urlTemplate": "https://ejemplo.com/live/{canal}",
+    "loginUrl": "https://ejemplo.com/login",
+    "userSelector": "input[type=\"email\"], input[name=\"username\"], #username",
+    "passSelector": "input[type=\"password\"]",
+    "submitSelector": "button[type=\"submit\"]",
+    "keywords": ["token", "access_token", "authorization", "jwt"]
+  },
+  "mi-api-staging": {
+    "urlTemplate": "https://staging.miapp.local/channels/{canal}",
+    "loginUrl": "https://staging.miapp.local/login",
+    "userSelector": "#email",
+    "passSelector": "#password",
+    "submitSelector": "button[type=\"submit\"]",
+    "keywords": ["token", "session", "auth"]
+  }
+}
