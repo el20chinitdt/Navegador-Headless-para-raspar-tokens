@@ -38,8 +38,7 @@ permissions:
 
 jobs:
   inspect:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    runs-on: ubuntu-latest
     env:
       PUPPETEER_SKIP_DOWNLOAD: 'true'
 
@@ -61,8 +60,16 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      - name: Verificar Google Chrome en runner
-        run: which google-chrome && google-chrome --version
+      - name: Preparar Google Chrome en runner
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 >/dev/null 2>&1 || true
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME_BIN" ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq chromium-browser || true
+            CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          fi
+          echo "Chrome detectado: ${CHROME_BIN:-ninguno}"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
       - name: Ejecutar navegador headless
         env:
@@ -79,12 +86,12 @@ jobs:
           SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
         run: |
           mkdir -p output
-          ARGS=(--once --save --screenshot --executable-path /usr/bin/google-chrome --wait "${INPUT_WAIT_MS:-7000}")
+          ARGS=(--once --save --screenshot --wait "${INPUT_WAIT_MS:-7000}")
+          if [ -n "$CHROME_BIN" ]; then
+            ARGS+=(--executable-path "$CHROME_BIN")
+          fi
           if [ -n "$INPUT_URL" ]; then
             ARGS+=(--url "$INPUT_URL")
-            if [ -n "$INPUT_CHANNEL" ]; then
-              ARGS+=(--channel "$INPUT_CHANNEL")
-            fi
           elif [ -n "$INPUT_PLATFORM" ] && [ -n "$INPUT_CHANNEL" ]; then
             ARGS+=(--platform "$INPUT_PLATFORM" --channel "$INPUT_CHANNEL")
           elif [ -n "$INPUT_PLATFORM" ]; then
