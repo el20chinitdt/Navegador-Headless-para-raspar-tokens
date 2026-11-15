@@ -33,6 +33,9 @@ on:
         required: false
         default: ''
 
+permissions:
+  contents: write
+
 jobs:
   inspect:
     runs-on: ubuntu-latest
@@ -57,8 +60,16 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      - name: Verificar Google Chrome en runner
-        run: which google-chrome && google-chrome --version
+      - name: Preparar Google Chrome en runner
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 >/dev/null 2>&1 || true
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME_BIN" ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq chromium-browser || true
+            CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          fi
+          echo "Chrome detectado: ${CHROME_BIN:-ninguno}"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
       - name: Ejecutar navegador headless
         env:
@@ -74,18 +85,118 @@ jobs:
           PASS_SELECTOR: ${{ secrets.PASS_SELECTOR }}
           SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
         run: |
-          ARGS=(--once --save --screenshot --executable-path /usr/bin/google-chrome --wait "${INPUT_WAIT_MS:-7000}")
+          mkdir -p output
+          ARGS=(--once --save --screenshot --wait "${INPUT_WAIT_MS:-7000}")
+          if [ -n "$CHROME_BIN" ]; then
+            ARGS+=(--executable-path "$CHROME_BIN")
+          fi
           if [ -n "$INPUT_URL" ]; then
             ARGS+=(--url "$INPUT_URL")
           elif [ -n "$INPUT_PLATFORM" ] && [ -n "$INPUT_CHANNEL" ]; then
             ARGS+=(--platform "$INPUT_PLATFORM" --channel "$INPUT_CHANNEL")
+          elif [ -n "$INPUT_PLATFORM" ]; then
+            ARGS+=(--platform "$INPUT_PLATFORM")
           fi
-          node index.js "${ARGS[@]}"
 
-      - name: Subir reporte JSON y captura como Artifact
+          set +e
+          node index.js "${ARGS[@]}" > output/run.log 2>&1
+          EXIT_CODE=$?
+          set -e
+
+          cat output/run.log
+          echo "EXIT_CODE=$EXIT_CODE" >> "$GITHUB_ENV"
+          exit "$EXIT_CODE"
+
+      - name: Publicar resultado en rama results (sin descargar ZIP)
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: f12-report-${{ github.run_number }}
-          path: output/
-          retention-days: 7
+        env:
+          INPUT_PLATFORM: ${{ inputs.platform }}
+          INPUT_CHANNEL: ${{ inputs.channel }}
+          INPUT_URL: ${{ inputs.target_url }}
+          PLATFORM_PASS: ${{ inputs.platform_pass || secrets.PLATFORM_PASS }}
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+
+          const outDir = 'output';
+          const destDir = '/tmp/gh-results';
+          fs.mkdirSync(destDir, { recursive: true });
+
+          function walk(dir) {
+            if (!fs.existsSync(dir)) return [];
+            let files = [];
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) files = files.concat(walk(full));
+              else files.push(full);
+            }
+            return files;
+          }
+
+          const allFiles = walk(outDir);
+          const pass = process.env.PLATFORM_PASS || '';
+          const sanitize = (str) => (pass ? str.split(pass).join('***') : str);
+
+          const reports = [];
+          for (const f of allFiles.filter(f => f.endsWith('.json'))) {
+            const raw = sanitize(fs.readFileSync(f, 'utf8'));
+            try {
+              reports.push({ file: path.relative(outDir, f), data: JSON.parse(raw) });
+            } catch {
+              reports.push({ file: path.relative(outDir, f), data: raw });
+            }
+          }
+
+          const pngs = allFiles
+            .filter(f => f.toLowerCase().endsWith('.png'))
+            .map(f => ({ f, mtime: fs.statSync(f).mtimeMs }))
+            .sort((a, b) => b.mtime - a.mtime);
+
+          let screenshot = null;
+          if (pngs.length) {
+            fs.copyFileSync(pngs[0].f, path.join(destDir, 'latest.png'));
+            screenshot = 'latest.png';
+          }
+
+          const logPath = path.join(outDir, 'run.log');
+          let log = '';
+          if (fs.existsSync(logPath)) {
+            const lines = sanitize(fs.readFileSync(logPath, 'utf8')).split('\n');
+            log = lines.slice(-120).join('\n');
+          } else {
+            log = 'No se generó output/run.log (el workflow falló en un paso previo a node index.js).';
+          }
+
+          const exitCode = Number(process.env.EXIT_CODE ?? 1);
+          const payload = {
+            run_id: process.env.GITHUB_RUN_ID,
+            run_number: Number(process.env.GITHUB_RUN_NUMBER),
+            ok: exitCode === 0,
+            exit_code: exitCode,
+            timestamp: new Date().toISOString(),
+            input: {
+              platform: process.env.INPUT_PLATFORM || '',
+              channel: process.env.INPUT_CHANNEL || '',
+              target_url: process.env.INPUT_URL || ''
+            },
+            reports,
+            screenshot,
+            log
+          };
+
+          fs.writeFileSync(path.join(destDir, 'latest.json'), JSON.stringify(payload, null, 2));
+          EOF
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan results
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          mkdir -p .tmp-res
+          cp /tmp/gh-results/* .tmp-res/
+          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.tmp-res' -exec rm -rf {} +
+          mv .tmp-res/* .
+          rmdir .tmp-res
+          git add -A
+          git commit -m "Resultado run #${GITHUB_RUN_NUMBER}"
+          git push -f origin results
