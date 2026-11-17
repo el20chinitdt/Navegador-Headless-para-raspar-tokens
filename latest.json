@@ -1,0 +1,1161 @@
+{
+  "run_id": "44153290027",
+  "run_number": 82,
+  "ok": true,
+  "exit_code": 0,
+  "timestamp": "2026-11-17T18:57:49.164Z",
+  "input": {
+    "platform": "",
+    "channel": "",
+    "target_url": "https://www.chatbro.com/es/68zQh/"
+  },
+  "reports": [
+    {
+      "file": "f12-report-1794941868928.json",
+      "data": {
+        "running": true,
+        "currentUrl": "https://www.chatbro.com/es/68zQh/",
+        "title": "Chat Deportes/Eventos - TV Libre",
+        "drm": {
+          "secureContext": true,
+          "emeSupported": true,
+          "widevineAvailable": true,
+          "error": null
+        },
+        "mpdStreams": [],
+        "tokenFindings": {
+          "requestHeaders": [],
+          "urlParams": [
+            {
+              "url": "https://mc.yandex.ru/sync_cookie_image_start?cid=43328209&redirect_domain=mc.yandex.com&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.Yd2B_rnIELIuGVqwCxxj4D2AaJDBqraeOBWI_H1nMfMMcdqQQ8Tj3z6K4l11jhUd.lizmNmqQWKmkYSRGFHEofnCUZ2I%2C",
+              "matches": [
+                {
+                  "param": "token",
+                  "value": "11206.Yd2B_rnIELIuGVqwCxxj4D2AaJDBqraeOBWI_H1nMfMMcdqQQ8Tj3z6K4l11jhUd.lizmNmqQWKmkYSRGFHEofnCUZ2I,"
+                }
+              ]
+            },
+            {
+              "url": "https://mc.yandex.com/sync_cookie_image_decide?cid=43328209&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.trUUNBfZNo4ZIk_LlrQEUTo1JgieIUxGEiGznkeqmJNozCai6GRkuBzBth0_mg6cxpcdc9Gb2aLMMuifpq-HJH5xDkVxcrGqC1CtDNHAt58%2C.Wk0y8rkO432Wss56eISYA0_f1vM%2C",
+              "matches": [
+                {
+                  "param": "token",
+                  "value": "11206.trUUNBfZNo4ZIk_LlrQEUTo1JgieIUxGEiGznkeqmJNozCai6GRkuBzBth0_mg6cxpcdc9Gb2aLMMuifpq-HJH5xDkVxcrGqC1CtDNHAt58,.Wk0y8rkO432Wss56eISYA0_f1vM,"
+                }
+              ]
+            },
+            {
+              "url": "https://mc.yandex.ru/sync_cookie_image_start_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.G15mszdrQCEs-BiTOF_dRO6mgvVdHqPbkFRNHu_R5x8td5iqdRUlM2-nnBxsASxs.C69A7A3H-zds8HCDD5BG6RR6K3M%2C",
+              "matches": [
+                {
+                  "param": "token",
+                  "value": "11206.G15mszdrQCEs-BiTOF_dRO6mgvVdHqPbkFRNHu_R5x8td5iqdRUlM2-nnBxsASxs.C69A7A3H-zds8HCDD5BG6RR6K3M,"
+                }
+              ]
+            },
+            {
+              "url": "https://mc.yandex.com/sync_cookie_image_decide_secondary?cid=43328209&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.DG2KoXQHB3NHs5m6rwjDR-ttLD729XwgXccWTMih3o6ByoEPKoSZ4e-SoO7w1LYZgUHk2pLMwqtDfbxxBvbOiRdhkYfNheEBTR4WcKisrkY%2C.osR0Nmj3yuoBOSSPQx8kq9m3-OM%2C",
+              "matches": [
+                {
+                  "param": "token",
+                  "value": "11206.DG2KoXQHB3NHs5m6rwjDR-ttLD729XwgXccWTMih3o6ByoEPKoSZ4e-SoO7w1LYZgUHk2pLMwqtDfbxxBvbOiRdhkYfNheEBTR4WcKisrkY,.osR0Nmj3yuoBOSSPQx8kq9m3-OM,"
+                }
+              ]
+            },
+            {
+              "url": "https://mc.yandex.ru/sync_cookie_image_finish_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.frHzPlRUCRHcrPtiLknS3pU3HBxoYBnTCuQHsy6XtwLes-8tYarsfDZaJdKhmeQVQQO2VI8uRbaD821vzmI1juR3wGpLXaiVD39Aq7I_uopWu-PB4mT7uAlq7yQiE0D2FlDfJtq-65sBxVrDVyvRy8j0s3_g7d6EAmrzDIo3c8ABHw6npqH1kasc1yoZhvRA6X51t6TB617RFoOFAgeD5w%2C%2C.OSeqcBM7WEt6Iq3DHleBT16AsWA%2C",
+              "matches": [
+                {
+                  "param": "token",
+                  "value": "11206.frHzPlRUCRHcrPtiLknS3pU3HBxoYBnTCuQHsy6XtwLes-8tYarsfDZaJdKhmeQVQQO2VI8uRbaD821vzmI1juR3wGpLXaiVD39Aq7I_uopWu-PB4mT7uAlq7yQiE0D2FlDfJtq-65sBxVrDVyvRy8j0s3_g7d6EAmrzDIo3c8ABHw6npqH1kasc1yoZhvRA6X51t6TB617RFoOFAgeD5w,,.OSeqcBM7WEt6Iq3DHleBT16AsWA,"
+                }
+              ]
+            }
+          ],
+          "jsonResponses": [
+            {
+              "url": "https://mc.yandex.com/watch/43328209/1?wmode=7&page-url=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&charset=utf-8&site-info=%7B%22ip_adress%22%3A%2284.233.234.199%22%7D&uah=chu%0A%22Not-A.Brand%22%3Bv%3D%2299%22%2C%22Google%20Chrome%22%3Bv%3D%22157%22%2C%22Chromium%22%3Bv%3D%22157%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A157.0.8103.78%0Achl%0A%22Not-A.Brand%22%3Bv%3D%2299.0.0.0%22%2C%22Google%20Chrome%22%3Bv%3D%22157.0.8103.78%22%2C%22Chromium%22%3Bv%3D%22157.0.8103.78%22%0Achm%0A%3F0%0Achp%0ALinux&browser-info=pv%3A1%3Avf%3Amhmyuf0ptuoop7vkeik5v3yfq6tgb%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2710%3Acn%3A1%3Adp%3A0%3Als%3A585188540637%3Ahid%3A521200319%3Az%3A0%3Ai%3A20261117185738%3Aet%3A1794941858%3Aetms%3A1794941858242%3Ac%3A1%3Arn%3A805122477%3Arqn%3A1%3Au%3A1794941858773534511%3Aw%3A1366x768%3As%3A800x600x24%3Ask%3A1%3Ads%3A26%2C40%2C622%2C6%2C2%2C0%2C%2C93%2C0%2C%2C%2C%2C800%3Aco%3A0%3Ahdl%3A1%3Acpf%3A1%3Ans%3A1794941856360%3Agi%3AR0ExLjIuMTEwODM0MTA3OC4xNzk0OTQxODU3%3Aadb%3A2%3Arqnl%3A1%3Ast%3A1794941859%3At%3AChat%20Deportes%2FEventos%20-%20TV%20Libre&t=gdpr%2814%29clc%280-0-0%29rqnt%281%29aw%281%29nvt%280%29rcm%281%29cdl%28na%29eco%28804992%29ti%281%29&redirnss=1",
+              "status": 200,
+              "matches": [
+                {
+                  "path": "$.settings.hittoken",
+                  "key": "hittoken",
+                  "value": "1794941859_76dab472bec6f9b7e04194d7d5a3c3afc571ff7381a51bce8e220489737315b3"
+                },
+                {
+                  "path": "$.settings.wstoken",
+                  "key": "wstoken",
+                  "value": "11206.7s0O14KfmNO7LTnfpv25iUH1_rchFYn7_XAHczofV81mFEW68ZzVT4zLiVyFEwgavHi0dlFi_6EBgjZ9Gkk2NnsFn9XDgC9_ZM0_N03wz8M,.4hYvxzNo6elK8bAoefneq9ewr9Y,"
+                }
+              ]
+            }
+          ]
+        },
+        "storage": {
+          "localStorage": {
+            "_ym_synced": "{\"com\":29915697}",
+            "_ym_retryReqs": "{}",
+            "1558906|client_id": "{\"clientId\":\"e999de98-c2b0-48ca-a02f-a3d5cb05b570\"}",
+            "_ym43328209_lsid": "585188540637",
+            "chatbroScriptVersion": "6f0afab7eafe13234e",
+            "_ym_uid": "\"1794941858773534511\"",
+            "embedParamsVersion": "1607",
+            "_ym43328209:0_reqNum": "1"
+          },
+          "sessionStorage": {}
+        },
+        "cookies": [
+          {
+            "name": "siteLanguage",
+            "value": "ES",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1826477857.05625,
+            "size": 14,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "csrfToken",
+            "value": "rfI0BuvXl-attAKSruH8lDLnfSf-Jyxs",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1826477857.058859,
+            "size": 41,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_ga",
+            "value": "GA1.2.1108341078.1794941857",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1829501857.440972,
+            "size": 30,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_gid",
+            "value": "GA1.2.2060422931.1794941857",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1795028257,
+            "size": 31,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_gat_kir",
+            "value": "1",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1794941917,
+            "size": 9,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_gat_armen",
+            "value": "1",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1794941917,
+            "size": 11,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_ga_EERL8CJ3D0",
+            "value": "GS2.2.s1794941857$o1$g0$t1794941857$j60$l0$h0",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1829501857.614761,
+            "size": 59,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_ga_93N8ERC4GW",
+            "value": "GS2.2.s1794941857$o1$g0$t1794941857$j60$l0$h0",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1829501857.669123,
+            "size": 59,
+            "httpOnly": false,
+            "secure": false,
+            "session": false,
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "bh",
+            "value": "EkEiTm90LUEuQnJhbmQiO3Y9Ijk5IiwgIkdvb2dsZSBDaHJvbWUiO3Y9IjE1NyIsICJDaHJvbWl1bSI7dj0iMTU3IioCPzA6ByJMaW51eCJgocfy1wZqGdzK6YgO8qy3pQv7+vDnDev//fYP0OHPhwg=",
+            "domain": ".yandex.ru",
+            "path": "/",
+            "expires": 1829501857.997261,
+            "size": 154,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_ym_uid",
+            "value": "1794941858773534511",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1826477858,
+            "size": 26,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_ym_d",
+            "value": "1794941858",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1826477858,
+            "size": 15,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "sync_cookie_csrf",
+            "value": "357892436fake",
+            "domain": ".mc.yandex.com",
+            "path": "/",
+            "expires": 1794942458,
+            "size": 29,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "_ym_isad",
+            "value": "2",
+            "domain": ".chatbro.com",
+            "path": "/",
+            "expires": 1795013858,
+            "size": 9,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "sync_cookie_csrf",
+            "value": "1028698938fake",
+            "domain": ".mc.yandex.ru",
+            "path": "/",
+            "expires": 1794942458,
+            "size": 30,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "yabs-sid",
+            "value": "2313872211794941859",
+            "domain": "mc.yandex.com",
+            "path": "/",
+            "expires": -1,
+            "size": 27,
+            "httpOnly": false,
+            "secure": true,
+            "session": true,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "i",
+            "value": "CTthNtAXOjOV4ylayvQJwfR2D7IYPNz+RVE4y5/YPUkgYdmxdfv3osUs4kGriQCcJjZn77CyxWVh8KQSXGQPz/G9eXQ=",
+            "domain": ".yandex.com",
+            "path": "/",
+            "expires": 1829501859.109515,
+            "size": 93,
+            "httpOnly": true,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "yandexuid",
+            "value": "959554781794941859",
+            "domain": ".yandex.com",
+            "path": "/",
+            "expires": 1829501859.109535,
+            "size": 27,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "yuidss",
+            "value": "959554781794941859",
+            "domain": ".yandex.com",
+            "path": "/",
+            "expires": 1826477859,
+            "size": 24,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "ymex",
+            "value": "1826477859.yrts.1794941859#1826477859.yrtsi.1794941859",
+            "domain": ".yandex.com",
+            "path": "/",
+            "expires": 1826477859,
+            "size": 58,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "bh",
+            "value": "EkEiTm90LUEuQnJhbmQiO3Y9Ijk5IiwgIkdvb2dsZSBDaHJvbWUiO3Y9IjE1NyIsICJDaHJvbWl1bSI7dj0iMTU3IhoDeDg2Ig0xNTcuMC44MTAzLjc4KgI/MDoHIkxpbnV4IkoCNjRSWSJOb3QtQS5CcmFuZCI7dj0iOTkuMC4wLjAiLCJHb29nbGUgQ2hyb21lIjt2PSIxNTcuMC44MTAzLjc4IiwiQ2hyb21pdW0iO3Y9IjE1Ny4wLjgxMDMuNzgiYKPH8tcGahncyumIDvKst6UL+/rw5w3r//32D9Dhz4cI",
+            "domain": ".yandex.com",
+            "path": "/",
+            "expires": 1829501859,
+            "size": 306,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "sync_cookie_csrf_secondary",
+            "value": "2484313489fake",
+            "domain": ".mc.yandex.com",
+            "path": "/",
+            "expires": 1794942459,
+            "size": 40,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "sync_cookie_csrf_secondary",
+            "value": "4278496937fake",
+            "domain": ".mc.yandex.ru",
+            "path": "/",
+            "expires": 1794942459,
+            "size": 40,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "sync_cookie_ok_secondary",
+            "value": "synced",
+            "domain": ".mc.yandex.com",
+            "path": "/",
+            "expires": 1795028259,
+            "size": 30,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "yandexuid",
+            "value": "959554781794941859",
+            "domain": ".yandex.ru",
+            "path": "/",
+            "expires": 1829501860.181218,
+            "size": 27,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "yuidss",
+            "value": "959554781794941859",
+            "domain": ".yandex.ru",
+            "path": "/",
+            "expires": 1829501860.181288,
+            "size": 24,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "i",
+            "value": "CTthNtAXOjOV4ylayvQJwfR2D7IYPNz+RVE4y5/YPUkgYdmxdfv3osUs4kGriQCcJjZn77CyxWVh8KQSXGQPz/G9eXQ=",
+            "domain": ".yandex.ru",
+            "path": "/",
+            "expires": 1829501860.1813,
+            "size": 93,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          }
+        ],
+        "consoleLogs": [
+          {
+            "time": "2026-11-17T18:57:48.931Z",
+            "type": "warn",
+            "text": "It is recommended that a robustness level be specified. Not specifying the robustness level could result in unexpected behavior."
+          }
+        ],
+        "networkLog": [
+          {
+            "time": "2026-11-17T18:57:37.061Z",
+            "url": "https://www.chatbro.com/es/68zQh/",
+            "status": 200,
+            "contentType": "text/html;charset=utf-8",
+            "type": "document"
+          },
+          {
+            "time": "2026-11-17T18:57:37.062Z",
+            "url": "https://www.chatbro.com/es/68zQh/",
+            "status": 200,
+            "contentType": "text/html",
+            "type": "cdp:Document"
+          },
+          {
+            "time": "2026-11-17T18:57:37.150Z",
+            "url": "https://www.chatbro.com/css/view_chat.css?5344896",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-17T18:57:37.150Z",
+            "url": "https://www.chatbro.com/css/view_chat.css?5344896",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "cdp:Stylesheet"
+          },
+          {
+            "time": "2026-11-17T18:57:37.157Z",
+            "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+            "status": 200,
+            "contentType": "text/javascript;charset=UTF-8",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.157Z",
+            "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+            "status": 200,
+            "contentType": "text/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.306Z",
+            "url": "https://www.chatbro.com/embed.js?eyJlbWJlZENoYXRzUGFyYW1ldGVycyI6W3siZW5jb2RlZENoYXRJZCI6IjY4elFoIiwiY29udGFpbmVyRGl2SWQiOiJjaGF0IiwiYWxsb3dNb3ZlQ2hhdCI6ZmFsc2UsImFsbG93TWluaW1pemVDaGF0IjpmYWxzZSwiY2hhdFN0YXRlIjoibWF4aW1pemVkIiwic2l0ZURvbWFpbiI6ImNoYXRicm8uY29tIiwiY2hhdEhlaWdodCI6IjEwMCUiLCJjaGF0V2lkdGgiOiIxMDAlIiwiYWxsb3dVcGxvYWRGaWxlIjp0cnVlLCJzaWduYXR1cmUiOiI3YzBjMjNlZjdlNWVkZjRmMDY2OWM4NTg5YzUyODBkNyIsImNoYXRUb3BMZWZ0Qm9yZGVyUmFkaXVzIjoiMHB4IiwiY2hhdFRvcFJpZ2h0Qm9yZGVyUmFkaXVzIjoiMHB4IiwiY2hhdEJvdHRvbVJpZ2h0Qm9yZGVyUmFkaXVzIjoiMHB4IiwiY2hhdEJvdHRvbUxlZnRCb3JkZXJSYWRpdXMiOiIwcHgifV0sImxhbmciOiJlbi1VUyIsIm5lZWRMb2FkQ29kZSI6dHJ1ZX0=",
+            "status": 200,
+            "contentType": "application/javascript;charset=utf-8",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:37.307Z",
+            "url": "https://www.chatbro.com/embed.js?eyJlbWJlZENoYXRzUGFyYW1ldGVycyI6W3siZW5jb2RlZENoYXRJZCI6IjY4elFoIiwiY29udGFpbmVyRGl2SWQiOiJjaGF0IiwiYWxsb3dNb3ZlQ2hhdCI6ZmFsc2UsImFsbG93TWluaW1pemVDaGF0IjpmYWxzZSwiY2hhdFN0YXRlIjoibWF4aW1pemVkIiwic2l0ZURvbWFpbiI6ImNoYXRicm8uY29tIiwiY2hhdEhlaWdodCI6IjEwMCUiLCJjaGF0V2lkdGgiOiIxMDAlIiwiYWxsb3dVcGxvYWRGaWxlIjp0cnVlLCJzaWduYXR1cmUiOiI3YzBjMjNlZjdlNWVkZjRmMDY2OWM4NTg5YzUyODBkNyIsImNoYXRUb3BMZWZ0Qm9yZGVyUmFkaXVzIjoiMHB4IiwiY2hhdFRvcFJpZ2h0Qm9yZGVyUmFkaXVzIjoiMHB4IiwiY2hhdEJvdHRvbVJpZ2h0Qm9yZGVyUmFkaXVzIjoiMHB4IiwiY2hhdEJvdHRvbUxlZnRCb3JkZXJSYWRpdXMiOiIwcHgifV0sImxhbmciOiJlbi1VUyIsIm5lZWRMb2FkQ29kZSI6dHJ1ZX0=",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:37.372Z",
+            "url": "https://www.chatbro.com/images/chat_facebook_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.373Z",
+            "url": "https://www.chatbro.com/images/chat_facebook_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.374Z",
+            "url": "https://www.chatbro.com/images/no_connection.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.374Z",
+            "url": "https://www.chatbro.com/images/no_connection.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.374Z",
+            "url": "https://www.chatbro.com/images/chat_google_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.374Z",
+            "url": "https://www.chatbro.com/images/chat_google_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.374Z",
+            "url": "https://www.chatbro.com/images/chat_telegram_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.374Z",
+            "url": "https://www.chatbro.com/images/chat_telegram_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.375Z",
+            "url": "https://www.chatbro.com/images/chat_vk_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.375Z",
+            "url": "https://www.chatbro.com/images/chat_vk_logo.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:37.375Z",
+            "url": "https://www.chatbro.com/fonts/chatbro.woff?10",
+            "status": 200,
+            "contentType": "application/font-woff",
+            "type": "font"
+          },
+          {
+            "time": "2026-11-17T18:57:37.375Z",
+            "url": "https://www.chatbro.com/fonts/chatbro.woff?10",
+            "status": 200,
+            "contentType": "application/font-woff",
+            "type": "cdp:Font"
+          },
+          {
+            "time": "2026-11-17T18:57:37.377Z",
+            "url": "https://www.google-analytics.com/analytics.js",
+            "status": 200,
+            "contentType": "text/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.377Z",
+            "url": "https://www.google-analytics.com/analytics.js",
+            "status": 200,
+            "contentType": "text/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.463Z",
+            "url": "https://www.google-analytics.com/j/collect?v=1&_v=j102&a=746176220&t=pageview&_s=1&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&ul=en-us&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sr=800x600&vp=1366x768&_u=IGBAgAABAAAAAC~&jid=1193061218&gjid=836286249&cid=1108341078.1794941857&tid=UA-10376190-9&_gid=2060422931.1794941857&_slc=1&z=1693008733",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:37.464Z",
+            "url": "https://www.google-analytics.com/j/collect?v=1&_v=j102&a=746176220&t=pageview&_s=1&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&ul=en-us&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sr=800x600&vp=1366x768&_u=IGBAgAABAAAAAC~&jid=1193061218&gjid=836286249&cid=1108341078.1794941857&tid=UA-10376190-9&_gid=2060422931.1794941857&_slc=1&z=1693008733",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:37.464Z",
+            "url": "https://www.google-analytics.com/j/collect?v=1&_v=j102&a=746176220&t=pageview&_s=1&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&ul=en-us&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sr=800x600&vp=1366x768&_u=IGDAgAABAAAAAG~&jid=1462278319&gjid=1599222926&cid=1108341078.1794941857&tid=UA-88703604-6&_gid=2060422931.1794941857&_slc=1&z=112680723",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:37.465Z",
+            "url": "https://www.google-analytics.com/j/collect?v=1&_v=j102&a=746176220&t=pageview&_s=1&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&ul=en-us&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sr=800x600&vp=1366x768&_u=IGDAgAABAAAAAG~&jid=1462278319&gjid=1599222926&cid=1108341078.1794941857&tid=UA-88703604-6&_gid=2060422931.1794941857&_slc=1&z=112680723",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:37.482Z",
+            "url": "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-10376190-9&cid=1108341078.1794941857&jid=1193061218&gjid=836286249&_gid=2060422931.1794941857&_u=IGBAgAABAAAAAG~&z=1038086340",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:37.482Z",
+            "url": "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-10376190-9&cid=1108341078.1794941857&jid=1193061218&gjid=836286249&_gid=2060422931.1794941857&_u=IGBAgAABAAAAAG~&z=1038086340",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:37.482Z",
+            "url": "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-88703604-6&cid=1108341078.1794941857&jid=1462278319&gjid=1599222926&_gid=2060422931.1794941857&_u=IGDAgAABAAAAAG~&z=1883032657",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:37.483Z",
+            "url": "https://stats.g.doubleclick.net/j/collect?t=dc&aip=1&_r=3&v=1&_v=j102&tid=UA-88703604-6&cid=1108341078.1794941857&jid=1462278319&gjid=1599222926&_gid=2060422931.1794941857&_u=IGDAgAABAAAAAG~&z=1883032657",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:37.532Z",
+            "url": "https://lpgs.chatbro.com/g",
+            "status": 200,
+            "contentType": "text/plain;charset=utf-8",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:37.532Z",
+            "url": "https://lpgs.chatbro.com/g",
+            "status": 200,
+            "contentType": "text/plain",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:37.564Z",
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-EERL8CJ3D0&cx=c&_slc=1",
+            "status": 200,
+            "contentType": "application/javascript; charset=UTF-8",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.564Z",
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-EERL8CJ3D0&cx=c&_slc=1",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.564Z",
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-93N8ERC4GW&cx=c&_slc=1",
+            "status": 200,
+            "contentType": "application/javascript; charset=UTF-8",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.564Z",
+            "url": "https://www.googletagmanager.com/gtag/js?id=G-93N8ERC4GW&cx=c&_slc=1",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.677Z",
+            "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-EERL8CJ3D0&gtm=45je6bg0v9125230750za20gxf1&_p=1794941857460&gcd=13l3l3l3l2l1&npa=0&dma=0&_eu=EBAI&cid=1108341078.1794941857&frm=0&ir=1&ngs=1&pscdl=noapi&rcb=3&sr=800x600&uaa=x86&uab=64&uafvl=Not-A.Brand%3B99.0.0.0%7CGoogle%2520Chrome%3B157.0.8103.78%7CChromium%3B157.0.8103.78&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=100940092~115616986~115938466~115938469~118897920~118897930~119793973~120213116~120385423~120412528~120420416~120469145~120469153~121246026~121246034&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sid=1794941857&sct=1&seg=0&en=page_view&_fv=1&_ss=1&_ee=1&tfd=1256",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:37.677Z",
+            "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-EERL8CJ3D0&gtm=45je6bg0v9125230750za20gxf1&_p=1794941857460&gcd=13l3l3l3l2l1&npa=0&dma=0&_eu=EBAI&cid=1108341078.1794941857&frm=0&ir=1&ngs=1&pscdl=noapi&rcb=3&sr=800x600&uaa=x86&uab=64&uafvl=Not-A.Brand%3B99.0.0.0%7CGoogle%2520Chrome%3B157.0.8103.78%7CChromium%3B157.0.8103.78&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&_s=1&tag_exp=100940092~115616986~115938466~115938469~118897920~118897930~119793973~120213116~120385423~120412528~120420416~120469145~120469153~121246026~121246034&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sid=1794941857&sct=1&seg=0&en=page_view&_fv=1&_ss=1&_ee=1&tfd=1256",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "cdp:Fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:37.688Z",
+            "url": "https://stats.g.doubleclick.net/g/collect?v=2&tid=G-93N8ERC4GW&cid=1108341078.1794941857&gtm=45je6bg0v9126410252za20gxf1&rcb=12&aip=1&dma=0&gcd=13l3l3l3l2l1&npa=0&frm=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120412528~120420414~120469145~120469153~121246026~121246034",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "ping"
+          },
+          {
+            "time": "2026-11-17T18:57:37.688Z",
+            "url": "https://stats.g.doubleclick.net/g/collect?v=2&tid=G-93N8ERC4GW&cid=1108341078.1794941857&gtm=45je6bg0v9126410252za20gxf1&rcb=12&aip=1&dma=0&gcd=13l3l3l3l2l1&npa=0&frm=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120412528~120420414~120469145~120469153~121246026~121246034",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "cdp:Ping"
+          },
+          {
+            "time": "2026-11-17T18:57:37.697Z",
+            "url": "https://www.googletagmanager.com/gtag/destination?id=G-93N8ERC4GW&cx=c&gtm=4e6bg0",
+            "status": 200,
+            "contentType": "application/javascript; charset=UTF-8",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.697Z",
+            "url": "https://www.googletagmanager.com/gtag/destination?id=G-93N8ERC4GW&cx=c&gtm=4e6bg0",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.720Z",
+            "url": "https://www.googletagmanager.com/gtag/destination?id=G-EERL8CJ3D0&cx=c&gtm=4e6bg0",
+            "status": 200,
+            "contentType": "application/javascript; charset=UTF-8",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.720Z",
+            "url": "https://www.googletagmanager.com/gtag/destination?id=G-EERL8CJ3D0&cx=c&gtm=4e6bg0",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:37.722Z",
+            "url": "https://analytics.google.com/g/collect?v=2&tid=G-93N8ERC4GW&gtm=45je6bg0v9126410252za20gxf1&_p=1794941857460&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&_eu=EBAIAGA&cid=1108341078.1794941857&frm=0&ir=1&pscdl=noapi&rcb=12&sr=800x600&uaa=x86&uab=64&uafvl=Not-A.Brand%3B99.0.0.0%7CGoogle%2520Chrome%3B157.0.8103.78%7CChromium%3B157.0.8103.78&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120412528~120420414~120469145~120469153~121246026~121246034&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sid=1794941857&sct=1&seg=0&en=page_view&_fv=1&_ss=1&_ee=1&tfd=1310",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:37.722Z",
+            "url": "https://analytics.google.com/g/collect?v=2&tid=G-93N8ERC4GW&gtm=45je6bg0v9126410252za20gxf1&_p=1794941857460&_gaz=1&gcd=13l3l3l3l2l1&npa=0&dma=0&_eu=EBAIAGA&cid=1108341078.1794941857&frm=0&ir=1&pscdl=noapi&rcb=12&sr=800x600&uaa=x86&uab=64&uafvl=Not-A.Brand%3B99.0.0.0%7CGoogle%2520Chrome%3B157.0.8103.78%7CChromium%3B157.0.8103.78&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385422~120412528~120420414~120469145~120469153~121246026~121246034&dl=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&dt=Chat%20Deportes%2FEventos%20-%20TV%20Libre&sid=1794941857&sct=1&seg=0&en=page_view&_fv=1&_ss=1&_ee=1&tfd=1310",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "cdp:Fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:38.228Z",
+            "url": "https://mc.yandex.ru/metrika/watch.js",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-17T18:57:38.229Z",
+            "url": "https://mc.yandex.ru/metrika/watch.js",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-17T18:57:38.475Z",
+            "url": "https://mc.yandex.com/sync_cookie_image_check?scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&cid=43328209",
+            "status": 302,
+            "contentType": "",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:38.476Z",
+            "url": "https://mc.yandex.com/metrika/advert.gif?t=gdpr(14)ti(4)",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:38.476Z",
+            "url": "https://mc.yandex.com/metrika/advert.gif?t=gdpr(14)ti(4)",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:38.686Z",
+            "url": "https://mc.yandex.ru/sync_cookie_image_start?cid=43328209&redirect_domain=mc.yandex.com&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.Yd2B_rnIELIuGVqwCxxj4D2AaJDBqraeOBWI_H1nMfMMcdqQQ8Tj3z6K4l11jhUd.lizmNmqQWKmkYSRGFHEofnCUZ2I%2C",
+            "status": 302,
+            "contentType": "",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:38.896Z",
+            "url": "https://mc.yandex.com/sync_cookie_image_decide?cid=43328209&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.trUUNBfZNo4ZIk_LlrQEUTo1JgieIUxGEiGznkeqmJNozCai6GRkuBzBth0_mg6cxpcdc9Gb2aLMMuifpq-HJH5xDkVxcrGqC1CtDNHAt58%2C.Wk0y8rkO432Wss56eISYA0_f1vM%2C",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:38.896Z",
+            "url": "https://mc.yandex.com/sync_cookie_image_decide?cid=43328209&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.trUUNBfZNo4ZIk_LlrQEUTo1JgieIUxGEiGznkeqmJNozCai6GRkuBzBth0_mg6cxpcdc9Gb2aLMMuifpq-HJH5xDkVxcrGqC1CtDNHAt58%2C.Wk0y8rkO432Wss56eISYA0_f1vM%2C",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:38.924Z",
+            "url": "https://www.chatbro.com/images/logo/favicon_small.png?5344896",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-17T18:57:38.924Z",
+            "url": "https://www.chatbro.com/images/logo/favicon_small.png?5344896",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Other"
+          },
+          {
+            "time": "2026-11-17T18:57:38.956Z",
+            "url": "https://www.chatbro.com/cdn-cgi/rum?",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "xhr"
+          },
+          {
+            "time": "2026-11-17T18:57:38.956Z",
+            "url": "https://www.chatbro.com/cdn-cgi/rum?",
+            "status": 204,
+            "contentType": "text/plain",
+            "type": "cdp:XHR"
+          },
+          {
+            "time": "2026-11-17T18:57:39.045Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f61e.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.046Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f61e.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.048Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f419.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.048Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f419.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.049Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f61a.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.049Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f61a.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.051Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f602.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.052Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f602.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.053Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f46e.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.053Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/1f46e.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.060Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/2708.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.060Z",
+            "url": "https://www.chatbro.com/libs/emojione/assets/png/2708.png?v=2.2.3",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.080Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocI6Dc-Nkgj03QXmBfB_xrEnEqaJ9-PPecNPEzOLDc7eBucYz2bu=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.080Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocI6Dc-Nkgj03QXmBfB_xrEnEqaJ9-PPecNPEzOLDc7eBucYz2bu=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.123Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocK8Zp86FoWhudbpWOfbTYqddLiCRIivMBMn9ltNi3vNAHCvAcHY=s96-c",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.124Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocK8Zp86FoWhudbpWOfbTYqddLiCRIivMBMn9ltNi3vNAHCvAcHY=s96-c",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.124Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocLziWFaXCleiqswE-Wzb0VxK9h9xcYtBf8tQAfRyY-QIzHvK2g=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.124Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocLziWFaXCleiqswE-Wzb0VxK9h9xcYtBf8tQAfRyY-QIzHvK2g=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.124Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocKa6hfoFopBtVoMQPhmDfgCV0Xtc9YSlZ7Prh5wAxAZorCFeY97Ug=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.124Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocKa6hfoFopBtVoMQPhmDfgCV0Xtc9YSlZ7Prh5wAxAZorCFeY97Ug=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.124Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocKINsmUW3vTSAMluF7KzRCyEzjmcGkKwgeU279wJBBN6YXKLy9Mug=s96-c",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.125Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocKINsmUW3vTSAMluF7KzRCyEzjmcGkKwgeU279wJBBN6YXKLy9Mug=s96-c",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.130Z",
+            "url": "https://mc.yandex.com/watch/43328209?wmode=7&page-url=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&charset=utf-8&site-info=%7B%22ip_adress%22%3A%2284.233.234.199%22%7D&uah=chu%0A%22Not-A.Brand%22%3Bv%3D%2299%22%2C%22Google%20Chrome%22%3Bv%3D%22157%22%2C%22Chromium%22%3Bv%3D%22157%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A157.0.8103.78%0Achl%0A%22Not-A.Brand%22%3Bv%3D%2299.0.0.0%22%2C%22Google%20Chrome%22%3Bv%3D%22157.0.8103.78%22%2C%22Chromium%22%3Bv%3D%22157.0.8103.78%22%0Achm%0A%3F0%0Achp%0ALinux&browser-info=pv%3A1%3Avf%3Amhmyuf0ptuoop7vkeik5v3yfq6tgb%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2710%3Acn%3A1%3Adp%3A0%3Als%3A585188540637%3Ahid%3A521200319%3Az%3A0%3Ai%3A20261117185738%3Aet%3A1794941858%3Aetms%3A1794941858242%3Ac%3A1%3Arn%3A805122477%3Arqn%3A1%3Au%3A1794941858773534511%3Aw%3A1366x768%3As%3A800x600x24%3Ask%3A1%3Ads%3A26%2C40%2C622%2C6%2C2%2C0%2C%2C93%2C0%2C%2C%2C%2C800%3Aco%3A0%3Ahdl%3A1%3Acpf%3A1%3Ans%3A1794941856360%3Agi%3AR0ExLjIuMTEwODM0MTA3OC4xNzk0OTQxODU3%3Aadb%3A2%3Arqnl%3A1%3Ast%3A1794941859%3At%3AChat%20Deportes%2FEventos%20-%20TV%20Libre&t=gdpr(14)clc(0-0-0)rqnt(1)aw(1)nvt(0)rcm(1)cdl(na)eco(804992)ti(1)",
+            "status": 302,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:39.130Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocJ8EF0qPNwR9kbpt1hHr99kFOiKxthDR9sBI8rWIwEoFmlOE3c=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.130Z",
+            "url": "https://lh3.googleusercontent.com/a/ACg8ocJ8EF0qPNwR9kbpt1hHr99kFOiKxthDR9sBI8rWIwEoFmlOE3c=s96-c",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.338Z",
+            "url": "https://mc.yandex.com/watch/43328209/1?wmode=7&page-url=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&charset=utf-8&site-info=%7B%22ip_adress%22%3A%2284.233.234.199%22%7D&uah=chu%0A%22Not-A.Brand%22%3Bv%3D%2299%22%2C%22Google%20Chrome%22%3Bv%3D%22157%22%2C%22Chromium%22%3Bv%3D%22157%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A157.0.8103.78%0Achl%0A%22Not-A.Brand%22%3Bv%3D%2299.0.0.0%22%2C%22Google%20Chrome%22%3Bv%3D%22157.0.8103.78%22%2C%22Chromium%22%3Bv%3D%22157.0.8103.78%22%0Achm%0A%3F0%0Achp%0ALinux&browser-info=pv%3A1%3Avf%3Amhmyuf0ptuoop7vkeik5v3yfq6tgb%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2710%3Acn%3A1%3Adp%3A0%3Als%3A585188540637%3Ahid%3A521200319%3Az%3A0%3Ai%3A20261117185738%3Aet%3A1794941858%3Aetms%3A1794941858242%3Ac%3A1%3Arn%3A805122477%3Arqn%3A1%3Au%3A1794941858773534511%3Aw%3A1366x768%3As%3A800x600x24%3Ask%3A1%3Ads%3A26%2C40%2C622%2C6%2C2%2C0%2C%2C93%2C0%2C%2C%2C%2C800%3Aco%3A0%3Ahdl%3A1%3Acpf%3A1%3Ans%3A1794941856360%3Agi%3AR0ExLjIuMTEwODM0MTA3OC4xNzk0OTQxODU3%3Aadb%3A2%3Arqnl%3A1%3Ast%3A1794941859%3At%3AChat%20Deportes%2FEventos%20-%20TV%20Libre&t=gdpr%2814%29clc%280-0-0%29rqnt%281%29aw%281%29nvt%280%29rcm%281%29cdl%28na%29eco%28804992%29ti%281%29&redirnss=1",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:39.339Z",
+            "url": "https://mc.yandex.com/watch/43328209/1?wmode=7&page-url=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&charset=utf-8&site-info=%7B%22ip_adress%22%3A%2284.233.234.199%22%7D&uah=chu%0A%22Not-A.Brand%22%3Bv%3D%2299%22%2C%22Google%20Chrome%22%3Bv%3D%22157%22%2C%22Chromium%22%3Bv%3D%22157%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A157.0.8103.78%0Achl%0A%22Not-A.Brand%22%3Bv%3D%2299.0.0.0%22%2C%22Google%20Chrome%22%3Bv%3D%22157.0.8103.78%22%2C%22Chromium%22%3Bv%3D%22157.0.8103.78%22%0Achm%0A%3F0%0Achp%0ALinux&browser-info=pv%3A1%3Avf%3Amhmyuf0ptuoop7vkeik5v3yfq6tgb%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2710%3Acn%3A1%3Adp%3A0%3Als%3A585188540637%3Ahid%3A521200319%3Az%3A0%3Ai%3A20261117185738%3Aet%3A1794941858%3Aetms%3A1794941858242%3Ac%3A1%3Arn%3A805122477%3Arqn%3A1%3Au%3A1794941858773534511%3Aw%3A1366x768%3As%3A800x600x24%3Ask%3A1%3Ads%3A26%2C40%2C622%2C6%2C2%2C0%2C%2C93%2C0%2C%2C%2C%2C800%3Aco%3A0%3Ahdl%3A1%3Acpf%3A1%3Ans%3A1794941856360%3Agi%3AR0ExLjIuMTEwODM0MTA3OC4xNzk0OTQxODU3%3Aadb%3A2%3Arqnl%3A1%3Ast%3A1794941859%3At%3AChat%20Deportes%2FEventos%20-%20TV%20Libre&t=gdpr%2814%29clc%280-0-0%29rqnt%281%29aw%281%29nvt%280%29rcm%281%29cdl%28na%29eco%28804992%29ti%281%29&redirnss=1",
+            "status": 200,
+            "contentType": "application/json",
+            "type": "cdp:Fetch"
+          },
+          {
+            "time": "2026-11-17T18:57:39.550Z",
+            "url": "https://mc.yandex.com/sync_cookie_image_check_secondary?scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&cid=43328209",
+            "status": 302,
+            "contentType": "",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.762Z",
+            "url": "https://mc.yandex.ru/sync_cookie_image_start_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.G15mszdrQCEs-BiTOF_dRO6mgvVdHqPbkFRNHu_R5x8td5iqdRUlM2-nnBxsASxs.C69A7A3H-zds8HCDD5BG6RR6K3M%2C",
+            "status": 302,
+            "contentType": "",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:39.972Z",
+            "url": "https://mc.yandex.com/sync_cookie_image_decide_secondary?cid=43328209&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.DG2KoXQHB3NHs5m6rwjDR-ttLD729XwgXccWTMih3o6ByoEPKoSZ4e-SoO7w1LYZgUHk2pLMwqtDfbxxBvbOiRdhkYfNheEBTR4WcKisrkY%2C.osR0Nmj3yuoBOSSPQx8kq9m3-OM%2C",
+            "status": 302,
+            "contentType": "",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:40.183Z",
+            "url": "https://mc.yandex.ru/sync_cookie_image_finish_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.frHzPlRUCRHcrPtiLknS3pU3HBxoYBnTCuQHsy6XtwLes-8tYarsfDZaJdKhmeQVQQO2VI8uRbaD821vzmI1juR3wGpLXaiVD39Aq7I_uopWu-PB4mT7uAlq7yQiE0D2FlDfJtq-65sBxVrDVyvRy8j0s3_g7d6EAmrzDIo3c8ABHw6npqH1kasc1yoZhvRA6X51t6TB617RFoOFAgeD5w%2C%2C.OSeqcBM7WEt6Iq3DHleBT16AsWA%2C",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-17T18:57:40.184Z",
+            "url": "https://mc.yandex.ru/sync_cookie_image_finish_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.frHzPlRUCRHcrPtiLknS3pU3HBxoYBnTCuQHsy6XtwLes-8tYarsfDZaJdKhmeQVQQO2VI8uRbaD821vzmI1juR3wGpLXaiVD39Aq7I_uopWu-PB4mT7uAlq7yQiE0D2FlDfJtq-65sBxVrDVyvRy8j0s3_g7d6EAmrzDIo3c8ABHw6npqH1kasc1yoZhvRA6X51t6TB617RFoOFAgeD5w%2C%2C.OSeqcBM7WEt6Iq3DHleBT16AsWA%2C",
+            "status": 200,
+            "contentType": "image/gif",
+            "type": "cdp:Image"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshot": "latest.png",
+  "log": "[Navegando] https://www.chatbro.com/es/68zQh/ ...\n[Canal] No se encontró tarjeta/logo clickeable en la página.\n[Listo] Título: \"Chat Deportes/Eventos - TV Libre\" | URL actual: https://www.chatbro.com/es/68zQh/\n\n=== MPD ===\n []\n\n=== TOKENS ===\n {\n  \"requestHeaders\": [],\n  \"urlParams\": [\n    {\n      \"url\": \"https://mc.yandex.ru/sync_cookie_image_start?cid=43328209&redirect_domain=mc.yandex.com&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.Yd2B_rnIELIuGVqwCxxj4D2AaJDBqraeOBWI_H1nMfMMcdqQQ8Tj3z6K4l11jhUd.lizmNmqQWKmkYSRGFHEofnCUZ2I%2C\",\n      \"matches\": [\n        {\n          \"param\": \"token\",\n          \"value\": \"11206.Yd2B_rnIELIuGVqwCxxj4D2AaJDBqraeOBWI_H1nMfMMcdqQQ8Tj3z6K4l11jhUd.lizmNmqQWKmkYSRGFHEofnCUZ2I,\"\n        }\n      ]\n    },\n    {\n      \"url\": \"https://mc.yandex.com/sync_cookie_image_decide?cid=43328209&scid=aebb0166-3043-25a3-1ed1-1c7266eeb177&token=11206.trUUNBfZNo4ZIk_LlrQEUTo1JgieIUxGEiGznkeqmJNozCai6GRkuBzBth0_mg6cxpcdc9Gb2aLMMuifpq-HJH5xDkVxcrGqC1CtDNHAt58%2C.Wk0y8rkO432Wss56eISYA0_f1vM%2C\",\n      \"matches\": [\n        {\n          \"param\": \"token\",\n          \"value\": \"11206.trUUNBfZNo4ZIk_LlrQEUTo1JgieIUxGEiGznkeqmJNozCai6GRkuBzBth0_mg6cxpcdc9Gb2aLMMuifpq-HJH5xDkVxcrGqC1CtDNHAt58,.Wk0y8rkO432Wss56eISYA0_f1vM,\"\n        }\n      ]\n    },\n    {\n      \"url\": \"https://mc.yandex.ru/sync_cookie_image_start_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.G15mszdrQCEs-BiTOF_dRO6mgvVdHqPbkFRNHu_R5x8td5iqdRUlM2-nnBxsASxs.C69A7A3H-zds8HCDD5BG6RR6K3M%2C\",\n      \"matches\": [\n        {\n          \"param\": \"token\",\n          \"value\": \"11206.G15mszdrQCEs-BiTOF_dRO6mgvVdHqPbkFRNHu_R5x8td5iqdRUlM2-nnBxsASxs.C69A7A3H-zds8HCDD5BG6RR6K3M,\"\n        }\n      ]\n    },\n    {\n      \"url\": \"https://mc.yandex.com/sync_cookie_image_decide_secondary?cid=43328209&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.DG2KoXQHB3NHs5m6rwjDR-ttLD729XwgXccWTMih3o6ByoEPKoSZ4e-SoO7w1LYZgUHk2pLMwqtDfbxxBvbOiRdhkYfNheEBTR4WcKisrkY%2C.osR0Nmj3yuoBOSSPQx8kq9m3-OM%2C\",\n      \"matches\": [\n        {\n          \"param\": \"token\",\n          \"value\": \"11206.DG2KoXQHB3NHs5m6rwjDR-ttLD729XwgXccWTMih3o6ByoEPKoSZ4e-SoO7w1LYZgUHk2pLMwqtDfbxxBvbOiRdhkYfNheEBTR4WcKisrkY,.osR0Nmj3yuoBOSSPQx8kq9m3-OM,\"\n        }\n      ]\n    },\n    {\n      \"url\": \"https://mc.yandex.ru/sync_cookie_image_finish_secondary?cid=43328209&redirect_domain=mc.yandex.com&scid=f8738db4-c288-9bac-f1d5-f85c69a9b019&token=11206.frHzPlRUCRHcrPtiLknS3pU3HBxoYBnTCuQHsy6XtwLes-8tYarsfDZaJdKhmeQVQQO2VI8uRbaD821vzmI1juR3wGpLXaiVD39Aq7I_uopWu-PB4mT7uAlq7yQiE0D2FlDfJtq-65sBxVrDVyvRy8j0s3_g7d6EAmrzDIo3c8ABHw6npqH1kasc1yoZhvRA6X51t6TB617RFoOFAgeD5w%2C%2C.OSeqcBM7WEt6Iq3DHleBT16AsWA%2C\",\n      \"matches\": [\n        {\n          \"param\": \"token\",\n          \"value\": \"11206.frHzPlRUCRHcrPtiLknS3pU3HBxoYBnTCuQHsy6XtwLes-8tYarsfDZaJdKhmeQVQQO2VI8uRbaD821vzmI1juR3wGpLXaiVD39Aq7I_uopWu-PB4mT7uAlq7yQiE0D2FlDfJtq-65sBxVrDVyvRy8j0s3_g7d6EAmrzDIo3c8ABHw6npqH1kasc1yoZhvRA6X51t6TB617RFoOFAgeD5w,,.OSeqcBM7WEt6Iq3DHleBT16AsWA,\"\n        }\n      ]\n    }\n  ],\n  \"jsonResponses\": [\n    {\n      \"url\": \"https://mc.yandex.com/watch/43328209/1?wmode=7&page-url=https%3A%2F%2Fwww.chatbro.com%2Fes%2F68zQh%2F&charset=utf-8&site-info=%7B%22ip_adress%22%3A%2284.233.234.199%22%7D&uah=chu%0A%22Not-A.Brand%22%3Bv%3D%2299%22%2C%22Google%20Chrome%22%3Bv%3D%22157%22%2C%22Chromium%22%3Bv%3D%22157%22%0Acha%0Ax86%0Achb%0A64%0Achf%0A157.0.8103.78%0Achl%0A%22Not-A.Brand%22%3Bv%3D%2299.0.0.0%22%2C%22Google%20Chrome%22%3Bv%3D%22157.0.8103.78%22%2C%22Chromium%22%3Bv%3D%22157.0.8103.78%22%0Achm%0A%3F0%0Achp%0ALinux&browser-info=pv%3A1%3Avf%3Amhmyuf0ptuoop7vkeik5v3yfq6tgb%3Afu%3A0%3Aen%3Autf-8%3Ala%3Aen-US%3Av%3A2710%3Acn%3A1%3Adp%3A0%3Als%3A585188540637%3Ahid%3A521200319%3Az%3A0%3Ai%3A20261117185738%3Aet%3A1794941858%3Aetms%3A1794941858242%3Ac%3A1%3Arn%3A805122477%3Arqn%3A1%3Au%3A1794941858773534511%3Aw%3A1366x768%3As%3A800x600x24%3Ask%3A1%3Ads%3A26%2C40%2C622%2C6%2C2%2C0%2C%2C93%2C0%2C%2C%2C%2C800%3Aco%3A0%3Ahdl%3A1%3Acpf%3A1%3Ans%3A1794941856360%3Agi%3AR0ExLjIuMTEwODM0MTA3OC4xNzk0OTQxODU3%3Aadb%3A2%3Arqnl%3A1%3Ast%3A1794941859%3At%3AChat%20Deportes%2FEventos%20-%20TV%20Libre&t=gdpr%2814%29clc%280-0-0%29rqnt%281%29aw%281%29nvt%280%29rcm%281%29cdl%28na%29eco%28804992%29ti%281%29&redirnss=1\",\n      \"status\": 200,\n      \"matches\": [\n        {\n          \"path\": \"$.settings.hittoken\",\n          \"key\": \"hittoken\",\n          \"value\": \"1794941859_76dab472bec6f9b7e04194d7d5a3c3afc571ff7381a51bce8e220489737315b3\"\n        },\n        {\n          \"path\": \"$.settings.wstoken\",\n          \"key\": \"wstoken\",\n          \"value\": \"11206.7s0O14KfmNO7LTnfpv25iUH1_rchFYn7_XAHczofV81mFEW68ZzVT4zLiVyFEwgavHi0dlFi_6EBgjZ9Gkk2NnsFn9XDgC9_ZM0_N03wz8M,.4hYvxzNo6elK8bAoefneq9ewr9Y,\"\n        }\n      ]\n    }\n  ]\n}\n[Guardado] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/f12-report-1794941868928.json\n[Captura] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/screenshot-1794941868938.png\n"
+}
