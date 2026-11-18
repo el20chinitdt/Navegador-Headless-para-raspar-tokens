@@ -36,6 +36,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: headless-inspect
+  cancel-in-progress: true
+
 jobs:
   inspect:
     runs-on: ubuntu-latest
@@ -107,7 +111,7 @@ jobs:
           echo "EXIT_CODE=$EXIT_CODE" >> "$GITHUB_ENV"
           exit "$EXIT_CODE"
 
-      - name: Publicar resultado en rama results (sin descargar ZIP)
+      - name: Publicar resultado directo en main
         if: always()
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
@@ -188,15 +192,9 @@ jobs:
           fs.writeFileSync(path.join(destDir, 'latest.json'), JSON.stringify(payload, null, 2));
           EOF
 
+          cp /tmp/gh-results/* .
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan results
-          git rm -rf --cached . >/dev/null 2>&1 || true
-          mkdir -p .tmp-res
-          cp /tmp/gh-results/* .tmp-res/
-          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.tmp-res' -exec rm -rf {} +
-          mv .tmp-res/* .
-          rmdir .tmp-res
-          git add -A
-          git commit -m "Resultado run #${GITHUB_RUN_NUMBER}"
-          git push -f origin results
+          git add -f latest.json
+          if [ -f latest.png ]; then git add -f latest.png; fi
+          git diff --staged --quiet || (git commit -m "Resultado run #${GITHUB_RUN_NUMBER} [skip ci]" && git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "${GITHUB_REF_NAME}")
