@@ -1,9 +1,9 @@
 {
-  "run_id": "44325408365",
-  "run_number": 93,
+  "run_id": "44325595866",
+  "run_number": 94,
   "ok": true,
   "exit_code": 0,
-  "timestamp": "2026-11-18T14:33:19.134Z",
+  "timestamp": "2026-11-18T14:34:17.227Z",
   "input": {
     "platform": "",
     "channel": "Canal 9 La Rioja",
@@ -11,7 +11,7 @@
   },
   "reports": [
     {
-      "file": "f12-report-1795012398576.json",
+      "file": "f12-report-1795012456691.json",
       "data": {
         "running": true,
         "currentUrl": "https://streaming7.locucionar.com:2020/public/canal9larioja",
@@ -24,7 +24,7 @@
         },
         "mpdStreams": [
           {
-            "time": "2026-11-18T14:33:10.897Z",
+            "time": "2026-11-18T14:34:08.889Z",
             "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8",
             "status": 200,
             "contentType": "application/vnd.apple.mpegurl",
@@ -43,7 +43,7 @@
         "cookies": [
           {
             "name": "PHPSESSID",
-            "value": "l4bvjvr4igivqeoqubhp0d4m0q",
+            "value": "cf80btds4uq1lpovdpru2c9ob2",
             "domain": "streaming7.locucionar.com",
             "path": "/",
             "expires": -1,
@@ -59,528 +59,608 @@
         ],
         "consoleLogs": [
           {
-            "time": "2026-11-18T14:33:07.878Z",
+            "time": "2026-11-18T14:34:05.965Z",
             "type": "log",
             "text": "autoplay"
           },
           {
-            "time": "2026-11-18T14:33:11.438Z",
+            "time": "2026-11-18T14:34:09.269Z",
             "type": "log",
             "text": "[object Object]"
           },
           {
-            "time": "2026-11-18T14:33:11.439Z",
+            "time": "2026-11-18T14:34:09.270Z",
             "type": "log",
             "text": "Broadcast is Online"
           },
           {
-            "time": "2026-11-18T14:33:11.439Z",
+            "time": "2026-11-18T14:34:09.270Z",
             "type": "log",
             "text": "autoplay started"
           },
           {
-            "time": "2026-11-18T14:33:11.983Z",
+            "time": "2026-11-18T14:34:09.685Z",
             "type": "log",
             "text": "[object Object]"
           },
           {
-            "time": "2026-11-18T14:33:11.983Z",
+            "time": "2026-11-18T14:34:09.685Z",
             "type": "log",
             "text": "Broadcast is Online"
           },
           {
-            "time": "2026-11-18T14:33:18.583Z",
+            "time": "2026-11-18T14:34:09.780Z",
+            "type": "log",
+            "text": "[object Object]"
+          },
+          {
+            "time": "2026-11-18T14:34:09.780Z",
+            "type": "log",
+            "text": "Broadcast is Online"
+          },
+          {
+            "time": "2026-11-18T14:34:16.697Z",
             "type": "warn",
             "text": "It is recommended that a robustness level be specified. Not specifying the robustness level could result in unexpected behavior."
           }
         ],
         "networkLog": [
           {
-            "time": "2026-11-18T14:33:07.172Z",
+            "time": "2026-11-18T14:34:05.340Z",
             "url": "https://streaming7.locucionar.com:2020/public/canal9larioja",
             "status": 200,
             "contentType": "text/html; charset=UTF-8",
             "type": "document"
           },
           {
-            "time": "2026-11-18T14:33:07.172Z",
+            "time": "2026-11-18T14:34:05.341Z",
             "url": "https://streaming7.locucionar.com:2020/public/canal9larioja",
             "status": 200,
             "contentType": "text/html",
             "type": "cdp:Document"
           },
           {
-            "time": "2026-11-18T14:33:07.322Z",
-            "url": "https://streaming7.locucionar.com:2020/dist/material.css?v=20261022",
-            "status": 200,
-            "contentType": "text/css",
-            "type": "stylesheet"
-          },
-          {
-            "time": "2026-11-18T14:33:07.322Z",
-            "url": "https://streaming7.locucionar.com:2020/dist/material.css?v=20261022",
-            "status": 200,
-            "contentType": "text/css",
-            "type": "cdp:Stylesheet"
-          },
-          {
-            "time": "2026-11-18T14:33:07.369Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.369Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.402Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/bootstrap.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.402Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/bootstrap.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.406Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/perfect-scrollbar.jquery.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.406Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/perfect-scrollbar.jquery.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.410Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/jquery.tagsinput.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.410Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/jquery.tagsinput.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.410Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material-dashboard.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.411Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material-dashboard.js?v=dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.413Z",
+            "time": "2026-11-18T14:34:05.457Z",
             "url": "https://use.fontawesome.com/releases/v5.5.0/css/all.css",
             "status": 200,
             "contentType": "text/css",
             "type": "stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.413Z",
+            "time": "2026-11-18T14:34:05.457Z",
             "url": "https://use.fontawesome.com/releases/v5.5.0/css/all.css",
             "status": 200,
             "contentType": "text/css",
             "type": "cdp:Stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.434Z",
+            "time": "2026-11-18T14:34:05.464Z",
+            "url": "https://streaming7.locucionar.com:2020/dist/material.css?v=20261022",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:34:05.464Z",
+            "url": "https://streaming7.locucionar.com:2020/dist/material.css?v=20261022",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "cdp:Stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:34:05.489Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.489Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.508Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/jquery.tagsinput.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.510Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/jquery.tagsinput.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.513Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/perfect-scrollbar.jquery.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.514Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/perfect-scrollbar.jquery.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.514Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material-dashboard.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.514Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/material-dashboard.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.538Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/bootstrap.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.538Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/assets/js/bootstrap.min.js?v=dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.539Z",
             "url": "https://streaming7.locucionar.com:2020/system/misc/jQuery/jquery.min.js?dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.435Z",
+            "time": "2026-11-18T14:34:05.539Z",
             "url": "https://streaming7.locucionar.com:2020/system/misc/jQuery/jquery.min.js?dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.438Z",
+            "time": "2026-11-18T14:34:05.539Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/jquery.prettydropdowns.js?v=dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.438Z",
+            "time": "2026-11-18T14:34:05.539Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/jquery.prettydropdowns.js?v=dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.460Z",
+            "time": "2026-11-18T14:34:05.550Z",
+            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment-timezone.min.js?dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.551Z",
+            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment-timezone.min.js?dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.554Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/main.js?dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.554Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/main.js?dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.554Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/datetimepicker/js/bootstrap-datetimepicker.min.js",
             "status": 200,
             "contentType": "application/javascript",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.460Z",
+            "time": "2026-11-18T14:34:05.554Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/datetimepicker/js/bootstrap-datetimepicker.min.js",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.469Z",
+            "time": "2026-11-18T14:34:05.554Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/jquery-ui-lightness/jquery-ui-1.10.3.custom.min.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:34:05.555Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/jquery-ui-lightness/jquery-ui-1.10.3.custom.min.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "cdp:Stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:34:05.555Z",
+            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment.min.js?dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.555Z",
+            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment.min.js?dcbbd2967e563cc0ce204487750d7faa",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:34:05.561Z",
             "url": "https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons&display=swap",
             "status": 200,
             "contentType": "text/css; charset=utf-8",
             "type": "stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.470Z",
+            "time": "2026-11-18T14:34:05.561Z",
             "url": "https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons&display=swap",
             "status": 200,
             "contentType": "text/css",
             "type": "cdp:Stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.470Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/jquery-ui-lightness/jquery-ui-1.10.3.custom.min.css",
-            "status": 200,
-            "contentType": "text/css",
-            "type": "stylesheet"
-          },
-          {
-            "time": "2026-11-18T14:33:07.470Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/jquery-ui-lightness/jquery-ui-1.10.3.custom.min.css",
-            "status": 200,
-            "contentType": "text/css",
-            "type": "cdp:Stylesheet"
-          },
-          {
-            "time": "2026-11-18T14:33:07.512Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/main.js?dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.512Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/main.js?dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.513Z",
-            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment-timezone.min.js?dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.513Z",
-            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment-timezone.min.js?dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.515Z",
-            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment.min.js?dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.516Z",
-            "url": "https://streaming7.locucionar.com:2020/system/misc/moment/moment.min.js?dcbbd2967e563cc0ce204487750d7faa",
-            "status": 200,
-            "contentType": "application/javascript",
-            "type": "cdp:Script"
-          },
-          {
-            "time": "2026-11-18T14:33:07.516Z",
+            "time": "2026-11-18T14:34:05.601Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/fluid.js?dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.516Z",
+            "time": "2026-11-18T14:34:05.601Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/fluid.js?dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.519Z",
+            "time": "2026-11-18T14:34:05.601Z",
             "url": "https://streaming7.locucionar.com:2020/system/misc/jquery-ui/jquery-ui.custom.min.js?dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.519Z",
+            "time": "2026-11-18T14:34:05.602Z",
             "url": "https://streaming7.locucionar.com:2020/system/misc/jquery-ui/jquery-ui.custom.min.js?dcbbd2967e563cc0ce204487750d7faa",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.648Z",
+            "time": "2026-11-18T14:34:05.722Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/images/public-page/juan-manuel-nunez-mendez-1904-unsplash.jpg",
             "status": 200,
             "contentType": "image/jpeg",
             "type": "image"
           },
           {
-            "time": "2026-11-18T14:33:07.649Z",
+            "time": "2026-11-18T14:34:05.722Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/images/public-page/juan-manuel-nunez-mendez-1904-unsplash.jpg",
             "status": 200,
             "contentType": "image/jpeg",
             "type": "cdp:Image"
           },
           {
-            "time": "2026-11-18T14:33:07.658Z",
+            "time": "2026-11-18T14:34:05.738Z",
+            "url": "https://streaming7.locucionar.com:2020/VideoPlayer/canal9larioja",
+            "status": 200,
+            "contentType": "text/html",
+            "type": "cdp:Document"
+          },
+          {
+            "time": "2026-11-18T14:34:05.740Z",
+            "url": "https://streaming7.locucionar.com:2020/VideoPlayer/canal9larioja",
+            "status": 200,
+            "contentType": "text/html; charset=UTF-8",
+            "type": "document"
+          },
+          {
+            "time": "2026-11-18T14:34:05.744Z",
             "url": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
             "status": 200,
             "contentType": "font/woff2",
             "type": "font"
           },
           {
-            "time": "2026-11-18T14:33:07.659Z",
+            "time": "2026-11-18T14:34:05.745Z",
             "url": "https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
             "status": 200,
             "contentType": "font/woff2",
             "type": "cdp:Font"
           },
           {
-            "time": "2026-11-18T14:33:07.674Z",
-            "url": "https://streaming7.locucionar.com:2020/VideoPlayer/canal9larioja",
+            "time": "2026-11-18T14:34:05.777Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/videojs-iframe.css?20261022",
             "status": 200,
-            "contentType": "text/html; charset=UTF-8",
-            "type": "document"
-          },
-          {
-            "time": "2026-11-18T14:33:07.674Z",
-            "url": "https://streaming7.locucionar.com:2020/VideoPlayer/canal9larioja",
-            "status": 200,
-            "contentType": "text/html",
-            "type": "cdp:Document"
-          },
-          {
-            "time": "2026-11-18T14:33:07.722Z",
-            "url": "https://cdn.jsdelivr.net/npm/silvermine-videojs-quality-selector@1.1.2/dist/css/quality-selector.min.css",
-            "status": 200,
-            "contentType": "text/css; charset=utf-8",
+            "contentType": "text/css",
             "type": "stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.722Z",
-            "url": "https://cdn.jsdelivr.net/npm/silvermine-videojs-quality-selector@1.1.2/dist/css/quality-selector.min.css",
+            "time": "2026-11-18T14:34:05.778Z",
+            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/videojs-iframe.css?20261022",
             "status": 200,
             "contentType": "text/css",
             "type": "cdp:Stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.722Z",
-            "url": "https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css",
-            "status": 200,
-            "contentType": "text/css; charset=utf-8",
-            "type": "stylesheet"
-          },
-          {
-            "time": "2026-11-18T14:33:07.722Z",
-            "url": "https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css",
-            "status": 200,
-            "contentType": "text/css",
-            "type": "cdp:Stylesheet"
-          },
-          {
-            "time": "2026-11-18T14:33:07.771Z",
+            "time": "2026-11-18T14:34:05.819Z",
             "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
             "status": 200,
             "contentType": "image/svg+xml",
             "type": "image"
           },
           {
-            "time": "2026-11-18T14:33:07.771Z",
+            "time": "2026-11-18T14:34:05.819Z",
             "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
             "status": 200,
             "contentType": "image/svg+xml",
             "type": "cdp:Image"
           },
           {
-            "time": "2026-11-18T14:33:07.772Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/videojs-iframe.css?20261022",
+            "time": "2026-11-18T14:34:05.821Z",
+            "url": "https://cdn.jsdelivr.net/npm/silvermine-videojs-quality-selector@1.1.2/dist/css/quality-selector.min.css",
             "status": 200,
-            "contentType": "text/css",
+            "contentType": "text/css; charset=utf-8",
             "type": "stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.772Z",
-            "url": "https://streaming7.locucionar.com:2020/system/theme/Material/css/videojs-iframe.css?20261022",
+            "time": "2026-11-18T14:34:05.822Z",
+            "url": "https://cdn.jsdelivr.net/npm/silvermine-videojs-quality-selector@1.1.2/dist/css/quality-selector.min.css",
             "status": 200,
             "contentType": "text/css",
             "type": "cdp:Stylesheet"
           },
           {
-            "time": "2026-11-18T14:33:07.775Z",
+            "time": "2026-11-18T14:34:05.822Z",
+            "url": "https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css",
+            "status": 200,
+            "contentType": "text/css; charset=utf-8",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:34:05.823Z",
+            "url": "https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "cdp:Stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:34:05.826Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/videojs-iframe-support.js?20261022",
             "status": 200,
             "contentType": "application/javascript",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.776Z",
+            "time": "2026-11-18T14:34:05.826Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/js/videojs-iframe-support.js?20261022",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.776Z",
+            "time": "2026-11-18T14:34:05.884Z",
+            "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik05OCw0OXY0Yy0yNC45LDAtNDUsMjAuMS00NSw0NQoJYzAsMTgsMTAuNiwzMy42LDI1LjksNDAuOGwtMS43LDMuNmMwLjEsMCwwLjIsMC4xLDAuMywwLjFjLTAuMSwwLTAuMi0wLjEtMC4zLTAuMWwwLDBDNjAuNSwxMzQuNSw0OSwxMTcuNiw0OSw5OAoJQzQ5LDcwLjksNzAuOSw0OSw5OCw0OXoiLz4KPC9zdmc+Cg==",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.884Z",
+            "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDcsOThjMCwxOS42LTExLjUsMzYuNS0yOC4yLDQ0LjRsMCwwYy0wLjEsMC0wLjIsMC4xLTAuMywwLjEKCWMwLjEsMCwwLjItMC4xLDAuMy0wLjFsLTEuNy0zLjZDMTMyLjQsMTMxLjYsMTQzLDExNiwxNDMsOThjMC0yNC45LTIwLjEtNDUtNDUtNDV2LTRDMTI1LjEsNDksMTQ3LDcwLjksMTQ3LDk4eiIvPgo8L3N2Zz4K",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.885Z",
+            "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTggNXYxNGwxMS03eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.885Z",
+            "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTMgOXY2aDRsNSA1VjRMNyA5SDN6bTEzLjUgM2MwLTEuNzctMS4wMi0zLjI5LTIuNS00LjAzdjguMDVjMS40OC0uNzMgMi41LTIuMjUgMi41LTQuMDJ6TTE0IDMuMjN2Mi4wNmMyLjg5Ljg2IDUgMy41NCA1IDYuNzFzLTIuMTEgNS44NS01IDYuNzF2Mi4wNmM0LjAxLS45MSA3LTQuNDkgNy04Ljc3cy0yLjk5LTcuODYtNy04Ljc3eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.885Z",
+            "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTcgMTRINXY1aDV2LTJIN3YtM3ptLTItNGgyVjdoM1Y1SDV2NXptMTIgN2gtM3YyaDV2LTVoLTJ2M3pNMTQgNXYyaDN2M2gyVjVoLTV6Ii8+Cjwvc3ZnPgo=",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.888Z",
+            "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik05OCw0OXY0Yy0yNC45LDAtNDUsMjAuMS00NSw0NQoJYzAsMTgsMTAuNiwzMy42LDI1LjksNDAuOGwtMS43LDMuNmMwLjEsMCwwLjIsMC4xLDAuMywwLjFjLTAuMSwwLTAuMi0wLjEtMC4zLTAuMWwwLDBDNjAuNSwxMzQuNSw0OSwxMTcuNiw0OSw5OAoJQzQ5LDcwLjksNzAuOSw0OSw5OCw0OXoiLz4KPC9zdmc+Cg==",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.888Z",
+            "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOTYgMTk2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxOTYgMTk2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNDcsOThjMCwxOS42LTExLjUsMzYuNS0yOC4yLDQ0LjRsMCwwYy0wLjEsMC0wLjIsMC4xLTAuMywwLjEKCWMwLjEsMCwwLjItMC4xLDAuMy0wLjFsLTEuNy0zLjZDMTMyLjQsMTMxLjYsMTQzLDExNiwxNDMsOThjMC0yNC45LTIwLjEtNDUtNDUtNDV2LTRDMTI1LjEsNDksMTQ3LDcwLjksMTQ3LDk4eiIvPgo8L3N2Zz4K",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.888Z",
+            "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTggNXYxNGwxMS03eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.888Z",
+            "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTMgOXY2aDRsNSA1VjRMNyA5SDN6bTEzLjUgM2MwLTEuNzctMS4wMi0zLjI5LTIuNS00LjAzdjguMDVjMS40OC0uNzMgMi41LTIuMjUgMi41LTQuMDJ6TTE0IDMuMjN2Mi4wNmMyLjg5Ljg2IDUgMy41NCA1IDYuNzFzLTIuMTEgNS44NS01IDYuNzF2Mi4wNmM0LjAxLS45MSA3LTQuNDkgNy04Ljc3cy0yLjk5LTcuODYtNy04Ljc3eiIvPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4K",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.889Z",
+            "url": "data:image/svg+xml;base64,PHN2ZyBmaWxsPSJXaW5kb3ciIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTcgMTRINXY1aDV2LTJIN3YtM3ptLTItNGgyVjdoM1Y1SDV2NXptMTIgN2gtM3YyaDV2LTVoLTJ2M3pNMTQgNXYyaDN2M2gyVjVoLTV6Ii8+Cjwvc3ZnPgo=",
+            "status": 200,
+            "contentType": "image/svg+xml",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-18T14:34:05.889Z",
             "url": "https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js",
             "status": 200,
             "contentType": "application/javascript; charset=utf-8",
             "type": "script"
           },
           {
-            "time": "2026-11-18T14:33:07.777Z",
+            "time": "2026-11-18T14:34:05.889Z",
             "url": "https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js",
             "status": 200,
             "contentType": "application/javascript",
             "type": "cdp:Script"
           },
           {
-            "time": "2026-11-18T14:33:07.891Z",
+            "time": "2026-11-18T14:34:05.978Z",
             "url": "data:application/font-woff;charset=utf-8;base64,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",
             "status": 200,
             "contentType": "application/font-woff;charset=utf-8",
             "type": "font"
           },
           {
-            "time": "2026-11-18T14:33:07.891Z",
+            "time": "2026-11-18T14:34:05.978Z",
             "url": "data:application/font-woff;charset=utf-8;base64,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",
             "status": 200,
             "contentType": "application/font-woff",
             "type": "cdp:Font"
           },
           {
-            "time": "2026-11-18T14:33:07.944Z",
+            "time": "2026-11-18T14:34:06.015Z",
             "url": "https://streaming7.locucionar.com:2020/favicon.ico?t=1782951226",
             "status": 200,
             "contentType": "image/x-icon",
             "type": "other"
           },
           {
-            "time": "2026-11-18T14:33:07.945Z",
+            "time": "2026-11-18T14:34:06.015Z",
             "url": "https://streaming7.locucionar.com:2020/favicon.ico?t=1782951226",
             "status": 200,
             "contentType": "image/x-icon",
             "type": "cdp:Other"
           },
           {
-            "time": "2026-11-18T14:33:07.982Z",
+            "time": "2026-11-18T14:34:06.038Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/images/favicon.ico",
             "status": 200,
             "contentType": "image/x-icon",
             "type": "other"
           },
           {
-            "time": "2026-11-18T14:33:07.982Z",
+            "time": "2026-11-18T14:34:06.039Z",
             "url": "https://streaming7.locucionar.com:2020/system/theme/Material/images/favicon.ico",
             "status": 200,
             "contentType": "image/x-icon",
             "type": "cdp:Other"
           },
           {
-            "time": "2026-11-18T14:33:10.897Z",
+            "time": "2026-11-18T14:34:08.889Z",
             "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8",
             "status": 200,
             "contentType": "application/vnd.apple.mpegurl",
             "type": "media"
           },
           {
-            "time": "2026-11-18T14:33:10.897Z",
+            "time": "2026-11-18T14:34:08.890Z",
             "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8",
             "status": 200,
             "contentType": "application/vnd.apple.mpegurl",
             "type": "cdp:Media"
           },
           {
-            "time": "2026-11-18T14:33:10.983Z",
-            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36457.ts",
+            "time": "2026-11-18T14:34:08.943Z",
+            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36464.ts",
             "status": 206,
             "contentType": "video/mp2t",
             "type": "media"
           },
           {
-            "time": "2026-11-18T14:33:10.984Z",
-            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36457.ts",
+            "time": "2026-11-18T14:34:08.943Z",
+            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36464.ts",
             "status": 206,
             "contentType": "video/mp2t",
             "type": "cdp:Media"
           },
           {
-            "time": "2026-11-18T14:33:11.177Z",
-            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36460.ts",
+            "time": "2026-11-18T14:34:09.046Z",
+            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36467.ts",
             "status": 206,
             "contentType": "video/mp2t",
             "type": "media"
           },
           {
-            "time": "2026-11-18T14:33:11.177Z",
-            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36460.ts",
+            "time": "2026-11-18T14:34:09.046Z",
+            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36467.ts",
             "status": 206,
             "contentType": "video/mp2t",
             "type": "cdp:Media"
           },
           {
-            "time": "2026-11-18T14:33:11.440Z",
+            "time": "2026-11-18T14:34:09.271Z",
             "url": "https://streaming7.locucionar.com:2020/favicon.ico?t=1782951226",
             "status": 200,
             "contentType": "image/x-icon",
             "type": "other"
           },
           {
-            "time": "2026-11-18T14:33:11.440Z",
+            "time": "2026-11-18T14:34:09.271Z",
             "url": "https://streaming7.locucionar.com:2020/favicon.ico?t=1782951226",
             "status": 200,
             "contentType": "image/x-icon",
             "type": "cdp:Other"
           },
           {
-            "time": "2026-11-18T14:33:11.451Z",
-            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36461.ts",
+            "time": "2026-11-18T14:34:09.271Z",
+            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36468.ts",
             "status": 206,
             "contentType": "video/mp2t",
             "type": "media"
           },
           {
-            "time": "2026-11-18T14:33:11.451Z",
-            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36461.ts",
+            "time": "2026-11-18T14:34:09.272Z",
+            "url": "https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja_0_36468.ts",
             "status": 206,
             "contentType": "video/mp2t",
             "type": "cdp:Media"
@@ -590,5 +670,5 @@
     }
   ],
   "screenshot": "latest.png",
-  "log": "[Navegando] https://streaming7.locucionar.com:2020/public/canal9larioja ...\n[Play Forzado] Clic en botón \".vjs-big-play-button\" (paso 1)\n\n[F12 STREAM] https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8\n[Play Forzado] Clic en botón \"[class*=\"big-play\" i]\" (paso 1)\n[Play Forzado] Reproductor activo.\n[Listo] Título: \"Radio y Televisión Riojana\" | URL actual: https://streaming7.locucionar.com:2020/public/canal9larioja\n\n=== MPD ===\n [\n  {\n    \"time\": \"2026-11-18T14:33:10.897Z\",\n    \"url\": \"https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8\",\n    \"status\": 200,\n    \"contentType\": \"application/vnd.apple.mpegurl\",\n    \"type\": \"media\"\n  }\n]\n\n=== TOKENS ===\n {\n  \"requestHeaders\": [],\n  \"urlParams\": [],\n  \"jsonResponses\": []\n}\n[Guardado] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/f12-report-1795012398576.json\n[Captura] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/screenshot-1795012398602.png\n"
+  "log": "[Navegando] https://streaming7.locucionar.com:2020/public/canal9larioja ...\n[Play Forzado] Clic en botón \".vjs-big-play-button\" (paso 1)\n\n[F12 STREAM] https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8\n[Play Forzado] Clic en botón \"[class*=\"big-play\" i]\" (paso 1)\n[Play Forzado] Reproductor activo.\n[Listo] Título: \"Radio y Televisión Riojana\" | URL actual: https://streaming7.locucionar.com:2020/public/canal9larioja\n\n=== MPD ===\n [\n  {\n    \"time\": \"2026-11-18T14:34:08.889Z\",\n    \"url\": \"https://streaming7.locucionar.com:19360/canal9larioja/canal9larioja.m3u8\",\n    \"status\": 200,\n    \"contentType\": \"application/vnd.apple.mpegurl\",\n    \"type\": \"media\"\n  }\n]\n\n=== TOKENS ===\n {\n  \"requestHeaders\": [],\n  \"urlParams\": [],\n  \"jsonResponses\": []\n}\n[Guardado] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/f12-report-1795012456691.json\n[Captura] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/screenshot-1795012456714.png\n"
 }
