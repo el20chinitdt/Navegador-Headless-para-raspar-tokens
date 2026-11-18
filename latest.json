@@ -1,0 +1,1271 @@
+{
+  "run_id": "44319699415",
+  "run_number": 83,
+  "ok": true,
+  "exit_code": 0,
+  "timestamp": "2026-11-18T14:01:44.566Z",
+  "input": {
+    "platform": "",
+    "channel": "Telediario",
+    "target_url": "https://imperiotv.com.ar/vivo/"
+  },
+  "reports": [
+    {
+      "file": "f12-report-1795010504079.json",
+      "data": {
+        "running": true,
+        "currentUrl": "https://imperiotv.com.ar/vivo/",
+        "title": "Imperio Televisión | VIVO",
+        "drm": {
+          "secureContext": true,
+          "emeSupported": true,
+          "widevineAvailable": true,
+          "error": null
+        },
+        "mpdStreams": [
+          {
+            "time": "2026-11-18T14:01:33.081Z",
+            "url": "https://usher.ttvnw.net/api/channel/hls/telediariotelevision.m3u8?acmb=eyJBcHBWZXJzaW9uIjoiNDkyOTA5NzgtMGY1Ni00ZThmLWJlNjItNmVjNTk5YWYxYTkzIiwiQ2xpZW50QXBwIjoidHdpbGlnaHQiLCJVUkwiOiJodHRwczovL3BsYXllci50d2l0Y2gudHYvIn0%3D&allow_source=true&browser_family=chrome&browser_version=157.0&cdm=wv&enable_score=true&fast_bread=true&include_unavailable=true&lang=en&os_name=Linux&os_version=undefined&p=2463368&parent_domains=twitchplayer&platform=web&play_session_id=1ae3474f50804e72954c1726792e2630&player_backend=mediaplayer&player_version=1.59.0-rc.1&playlist_include_framerate=true&reassignments_supported=true&sig=2629cbc9dc10e04cb972b2a5be900e6a5342192e&supported_codecs=av1,h264&token=%7B%22adblock%22%3Afalse%2C%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22blackout_enabled%22%3Afalse%2C%22channel%22%3A%22telediariotelevision%22%2C%22channel_id%22%3A774059522%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%2C%22view_until%22%3A1924905600%7D%2C%22ci_gb%22%3Afalse%2C%22geoblock_reason%22%3A%22%22%2C%22device_id%22%3A%226250dd4eca8cb419%22%2C%22expires%22%3A1795011692%2C%22extended_history_allowed%22%3Afalse%2C%22game%22%3A%22%22%2C%22hide_ads%22%3Afalse%2C%22https_required%22%3Atrue%2C%22mature%22%3Afalse%2C%22notification_id%22%3Anull%2C%22partner%22%3Afalse%2C%22platform%22%3A%22web%22%2C%22player_type%22%3A%22embed%22%2C%22private%22%3A%7B%22allowed_to_view%22%3Atrue%7D%2C%22privileged%22%3Afalse%2C%22role%22%3A%22%22%2C%22server_ads%22%3Atrue%2C%22show_ads%22%3Atrue%2C%22subscriber%22%3Afalse%2C%22turbo%22%3Afalse%2C%22user_id%22%3Anull%2C%22user_ip%22%3A%22132.196.20.194%22%2C%22version%22%3A3%2C%22maximum_resolution%22%3A%22FULL_HD%22%2C%22maximum_video_bitrate_kbps%22%3A12500%2C%22maximum_resolution_reasons%22%3A%7B%22QUAD_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%2C%22ULTRA_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%7D%2C%22maximum_video_bitrate_kbps_reasons%22%3A%5B%22AUTHZ_DISALLOWED_BITRATE%22%5D%7D&transcode_mode=cbr_v1",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.573Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cr8HvhwR_4V_yMYObERrloerjzbpOCA73jYiWCansT-VbUDG9ZYCTbbPA9BZOTz4-FTY-G5ZWmSjVzmLwZhE9pRcsQEwuy4_05tvHfc8Zjwz9unEf9LZ4VygJVwcdVApai6QpwbDESitTyQ6EXrTDc8cpUYHnsNDrC0-Qvb7d2OUQ3zEc58n6ykfKxUMTORGaTpAP8dhjiSk1FnDlgXKwJbYf_uPpxnqGNDfNqt-2f54GI9tYZcXWD7o85-8dSXV2pJIGr4JzlcKoSPZqlCArpPsTcNRskxtrPx5wfmw6Rtg85doQkBNqpa85SfgIpcADB1vgZRkQ01QK7_Sa1Gp8s6Utdk0ogdzYEXD5cOsPdrcZpj4c7kZWM_GK_FQV0ef8M602_4zx1L_3039ICLojeZimaD-17ub-zw2OCRCPmTZ-9koPPL0qQVJdHJ8bxf_A51-MLyv1SLdPjQ0vCrefJ8BG_qirKFd5-9NbYmEt_sEdYUrmPDAAl3Pf8KkaNPo4-bXkXSVLvMqkW3BOK7RRyxxQ2q46r_vtYBbJ7SQCWMwqbD6znmYthWEUfjvPyIWtf2vHFB9fUwZJgzLDBAXnIzYVGgY0OEtHhU7qvoatg3t-ijnWXRm-VZVop32ewxUXekIPr8fstiDFTJUX2l-cJp-EfLVs6hyVzCtRoF5avvbZ_aAll12sNUa3y7xAkpOehkVTJomiLm4Wy9YO8y8DxGJbB-PhJvFRoIDvGZIzo9QyYGvOsZgHB9ceT6AirX5maoWTC-3aLHP-jLbqkOv7MeAdy7ILlOw9eZEhoKr3jdmXgEDtwXZCS4c4-UIFRHXUBsMQQv1cLfgVQ3XGMrXLFuy_E3wbU2zVZ8kFmW2DuI_-wsTW_pbJ3Is7wAGWBsjX5iL_okM7LZWPzVOxK72t9GKRgLLpvsUaLQPQEFGN39QKdiW1tOm3lyvJYNGE0CP752JYdl5FPDz4BEEOsV1bTzpL0Myqqgs7dtyz1cgPsad0-RXBROFCbIiSzbau8k2Y_LfjNj1EXvoEoPGpjAcjYqTCjUPgxt092l8rgp8xhElC4zwTvgYEEM49oyRL-g1THfOqqgecNR9eoUyH_RdqA-kV0iMhP8yBiDlTDhYA-b9dxpxBJfPkjmVSYqzc2Ii7LHzeDi-y6KXAxYDa9zDucoPQ9rZKLjwzQd9XeKpiTpHwo6OK26zQ6ABJXomsk92DB8vGUF_Y6FHRXsauCqrFY6NKKY-oPXBU7eu182W5GhIbJ8tYjTVGQFHRtNiiYNukREaDJ6psaLQAI9DbTXH1SABKgl1cy1lYXN0LTIwyhA.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.035Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          }
+        ],
+        "tokenFindings": {
+          "requestHeaders": [
+            {
+              "url": "https://gql.twitch.tv/gql",
+              "type": "fetch",
+              "authorization": "undefined",
+              "xAccessToken": null,
+              "xAuthToken": null
+            }
+          ],
+          "urlParams": [
+            {
+              "url": "https://usher.ttvnw.net/api/channel/hls/telediariotelevision.m3u8?acmb=eyJBcHBWZXJzaW9uIjoiNDkyOTA5NzgtMGY1Ni00ZThmLWJlNjItNmVjNTk5YWYxYTkzIiwiQ2xpZW50QXBwIjoidHdpbGlnaHQiLCJVUkwiOiJodHRwczovL3BsYXllci50d2l0Y2gudHYvIn0%3D&allow_source=true&browser_family=chrome&browser_version=157.0&cdm=wv&enable_score=true&fast_bread=true&include_unavailable=true&lang=en&os_name=Linux&os_version=undefined&p=2463368&parent_domains=twitchplayer&platform=web&play_session_id=1ae3474f50804e72954c1726792e2630&player_backend=mediaplayer&player_version=1.59.0-rc.1&playlist_include_framerate=true&reassignments_supported=true&sig=2629cbc9dc10e04cb972b2a5be900e6a5342192e&supported_codecs=av1,h264&token=%7B%22adblock%22%3Afalse%2C%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22blackout_enabled%22%3Afalse%2C%22channel%22%3A%22telediariotelevision%22%2C%22channel_id%22%3A774059522%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%2C%22view_until%22%3A1924905600%7D%2C%22ci_gb%22%3Afalse%2C%22geoblock_reason%22%3A%22%22%2C%22device_id%22%3A%226250dd4eca8cb419%22%2C%22expires%22%3A1795011692%2C%22extended_history_allowed%22%3Afalse%2C%22game%22%3A%22%22%2C%22hide_ads%22%3Afalse%2C%22https_required%22%3Atrue%2C%22mature%22%3Afalse%2C%22notification_id%22%3Anull%2C%22partner%22%3Afalse%2C%22platform%22%3A%22web%22%2C%22player_type%22%3A%22embed%22%2C%22private%22%3A%7B%22allowed_to_view%22%3Atrue%7D%2C%22privileged%22%3Afalse%2C%22role%22%3A%22%22%2C%22server_ads%22%3Atrue%2C%22show_ads%22%3Atrue%2C%22subscriber%22%3Afalse%2C%22turbo%22%3Afalse%2C%22user_id%22%3Anull%2C%22user_ip%22%3A%22132.196.20.194%22%2C%22version%22%3A3%2C%22maximum_resolution%22%3A%22FULL_HD%22%2C%22maximum_video_bitrate_kbps%22%3A12500%2C%22maximum_resolution_reasons%22%3A%7B%22QUAD_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%2C%22ULTRA_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%7D%2C%22maximum_video_bitrate_kbps_reasons%22%3A%5B%22AUTHZ_DISALLOWED_BITRATE%22%5D%7D&transcode_mode=cbr_v1",
+              "matches": [
+                {
+                  "param": "play_session_id",
+                  "value": "1ae3474f50804e72954c1726792e2630"
+                },
+                {
+                  "param": "token",
+                  "value": "{\"adblock\":false,\"authorization\":{\"forbidden\":false,\"reason\":\"\"},\"blackout_enabled\":false,\"channel\":\"telediariotelevision\",\"channel_id\":774059522,\"chansub\":{\"restricted_bitrates\":[],\"view_until\":1924905600},\"ci_gb\":false,\"geoblock_reason\":\"\",\"device_id\":\"6250dd4eca8cb419\",\"expires\":1795011692,\"extended_history_allowed\":false,\"game\":\"\",\"hide_ads\":false,\"https_required\":true,\"mature\":false,\"notification_id\":null,\"partner\":false,\"platform\":\"web\",\"player_type\":\"embed\",\"private\":{\"allowed_to_view\":true},\"privileged\":false,\"role\":\"\",\"server_ads\":true,\"show_ads\":true,\"subscriber\":false,\"turbo\":false,\"user_id\":null,\"user_ip\":\"132.196.20.194\",\"version\":3,\"maximum_resolution\":\"FULL_HD\",\"maximum_video_bitrate_kbps\":12500,\"maximum_resolution_reasons\":{\"QUAD_HD\":[\"AUTHZ_NOT_LOGGED_IN\"],\"ULTRA_HD\":[\"AUTHZ_NOT_LOGGED_IN\"]},\"maximum_video_bitrate_kbps_reasons\":[\"AUTHZ_DISALLOWED_BITRATE\"]}"
+                }
+              ]
+            }
+          ],
+          "jsonResponses": []
+        },
+        "storage": {
+          "localStorage": {},
+          "sessionStorage": {}
+        },
+        "cookies": [
+          {
+            "name": "unique_id",
+            "value": "6250dd4eca8cb419",
+            "domain": ".twitch.tv",
+            "path": "/",
+            "expires": 1829138491.827897,
+            "size": 25,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "unique_id_durable",
+            "value": "6250dd4eca8cb419",
+            "domain": ".twitch.tv",
+            "path": "/",
+            "expires": 1829138491.829618,
+            "size": 33,
+            "httpOnly": true,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "server_session_id",
+            "value": "b55e02bd53d446769aa3c1c6a18e3cb2",
+            "domain": ".twitch.tv",
+            "path": "/",
+            "expires": -1,
+            "size": 49,
+            "httpOnly": false,
+            "secure": true,
+            "session": true,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "referrer_url",
+            "value": "https://imperiotv.com.ar/",
+            "domain": ".twitch.tv",
+            "path": "/",
+            "expires": 1795012292,
+            "size": 37,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "experiment_overrides",
+            "value": "{%22experiments%22:{}%2C%22disabled%22:[]}",
+            "domain": ".twitch.tv",
+            "path": "/",
+            "expires": 1829138492,
+            "size": 62,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          },
+          {
+            "name": "api_token",
+            "value": "twilight.794bcfb3b86f4f10bb216c7512a5a556",
+            "domain": ".twitch.tv",
+            "path": "/",
+            "expires": 1829138492,
+            "size": 50,
+            "httpOnly": false,
+            "secure": true,
+            "session": false,
+            "sameSite": "None",
+            "priority": "Medium",
+            "sourceScheme": "Secure",
+            "sourcePort": 443,
+            "sameParty": false
+          }
+        ],
+        "consoleLogs": [
+          {
+            "time": "2026-11-18T14:01:31.718Z",
+            "type": "log",
+            "text": "JQMIGRATE: Migrate is installed, version 1.4.1"
+          },
+          {
+            "time": "2026-11-18T14:01:32.645Z",
+            "type": "warn",
+            "text": "MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 Playing listeners added. Use emitter.setMaxListeners() to increase limit"
+          },
+          {
+            "time": "2026-11-18T14:01:32.697Z",
+            "type": "warn",
+            "text": "14:01:32 - (VideoTransformer) WebGPU adapter unavailable"
+          },
+          {
+            "time": "2026-11-18T14:01:32.881Z",
+            "type": "log",
+            "text": "Amazon IVS Player SDK 1.59.0-rc.1"
+          },
+          {
+            "time": "2026-11-18T14:01:33.831Z",
+            "type": "info",
+            "text": "14:01:33 - (playback-monitor) Config changed [object Object]"
+          },
+          {
+            "time": "2026-11-18T14:01:34.214Z",
+            "type": "warn",
+            "text": "14:01:34 - (playback-monitor) Play - moving to buffered region 0.011333 0"
+          },
+          {
+            "time": "2026-11-18T14:01:44.081Z",
+            "type": "warn",
+            "text": "It is recommended that a robustness level be specified. Not specifying the robustness level could result in unexpected behavior."
+          }
+        ],
+        "networkLog": [
+          {
+            "time": "2026-11-18T14:01:32.446Z",
+            "url": "https://imperiotv.com.ar/wp-content/themes/bridge/js/custom_js.js?ver=1571692248",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.447Z",
+            "url": "https://imperiotv.com.ar/wp-content/themes/bridge/js/custom_js.js?ver=1571692248",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.463Z",
+            "url": "https://assets.twitch.tv/assets/inter-latin-variable-wghtOnly-normal-383d894ed1f69dd95820.woff2",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "font"
+          },
+          {
+            "time": "2026-11-18T14:01:32.475Z",
+            "url": "https://imperiotv.com.ar/wp-includes/js/comment-reply.min.js?ver=63bffba295d1d141a2f1c80fcdfcbc1f",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.476Z",
+            "url": "https://imperiotv.com.ar/wp-includes/js/comment-reply.min.js?ver=63bffba295d1d141a2f1c80fcdfcbc1f",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.477Z",
+            "url": "https://assets.twitch.tv/assets/68199-5ca46df4ad407e2280e7.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.478Z",
+            "url": "https://assets.twitch.tv/assets/player-core-variant-b-7237537bd98bd182bdf5.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.486Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:32.551Z",
+            "url": "https://imperiotv.com.ar/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=4.12",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.551Z",
+            "url": "https://imperiotv.com.ar/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=4.12",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.575Z",
+            "url": "https://imperiotv.com.ar/wp-includes/js/wp-embed.min.js?ver=63bffba295d1d141a2f1c80fcdfcbc1f",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.575Z",
+            "url": "https://imperiotv.com.ar/wp-includes/js/wp-embed.min.js?ver=63bffba295d1d141a2f1c80fcdfcbc1f",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.636Z",
+            "url": "https://imperiotv.com.ar/wp-includes/js/wp-emoji-release.min.js?ver=63bffba295d1d141a2f1c80fcdfcbc1f",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.637Z",
+            "url": "https://imperiotv.com.ar/wp-includes/js/wp-emoji-release.min.js?ver=63bffba295d1d141a2f1c80fcdfcbc1f",
+            "status": 200,
+            "contentType": "application/javascript",
+            "type": "cdp:Script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.642Z",
+            "url": "https://imperiotv.com.ar/wp-content/themes/bridge/css/img/close_side_menu_dark.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:01:32.642Z",
+            "url": "https://imperiotv.com.ar/wp-content/themes/bridge/css/img/close_side_menu_dark.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Image"
+          },
+          {
+            "time": "2026-11-18T14:01:32.647Z",
+            "url": "https://imperiotv.com.ar/wp-content/themes/bridge/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0",
+            "status": 200,
+            "contentType": "font/woff2",
+            "type": "font"
+          },
+          {
+            "time": "2026-11-18T14:01:32.647Z",
+            "url": "https://imperiotv.com.ar/wp-content/themes/bridge/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.3.0",
+            "status": 200,
+            "contentType": "font/woff2",
+            "type": "cdp:Font"
+          },
+          {
+            "time": "2026-11-18T14:01:32.679Z",
+            "url": "https://assets.twitch.tv/assets/features.video-player-core.components.video-ads.stream-display-ad.pushdown.portal-51ef65a454bead56ec1d.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:32.680Z",
+            "url": "https://assets.twitch.tv/assets/features.channel-celebrations.components.celebration-display-6349fcb210522743ac7f.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:32.680Z",
+            "url": "https://assets.twitch.tv/assets/features.video-player-core.components.video-ads.audio-ad-overlay.component-3f26977f46df13d09fd6.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:32.681Z",
+            "url": "https://s.amazon-adsystem.com/",
+            "status": 200,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.684Z",
+            "url": "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1",
+            "status": 200,
+            "contentType": "text/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.685Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.686Z",
+            "url": "https://assets.twitch.tv/assets/features.video-player-core.components.video-ads.stream-display-ad.pushdown.portal-e51712805ab849959778.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.687Z",
+            "url": "blob:https://player.twitch.tv/0134f3d4-9bc3-4213-932e-9a6ea6b35053",
+            "status": 200,
+            "contentType": "",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.688Z",
+            "url": "https://assets.twitch.tv/assets/25276-f7c7e2ba8b6c1525c4a3.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.689Z",
+            "url": "https://assets.twitch.tv/assets/49797-2a17786b1fae2d06829a.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.689Z",
+            "url": "https://assets.twitch.tv/assets/34695-e56b45ad7e12f422a035.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.689Z",
+            "url": "https://assets.twitch.tv/assets/features.consent.components.cmp-api-d8d2c950d7843b0e3e4b.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:32.691Z",
+            "url": "https://assets.twitch.tv/assets/features.channel-celebrations.components.celebration-display-8d3a4d945c41f7ee86b3.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.691Z",
+            "url": "https://assets.twitch.tv/assets/features.video-player-core.components.video-ads.audio-ad-overlay.component-e5b968124ba74fb7fa3f.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.695Z",
+            "url": "https://assets.twitch.tv/assets/features.ads.components.dsa-wizard.components.dsa-modal.dsa-modal-manager-4fa559dd017e49a2e780.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.699Z",
+            "url": "https://assets.twitch.tv/assets/features.video-player-core.components.video-ads.pushdown-sda-eligibility-eb07ab2a8aaf06adcd2c.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.707Z",
+            "url": "https://assets.twitch.tv/assets/91176-7b77c3759774b10f57ec.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.708Z",
+            "url": "https://assets.twitch.tv/assets/features.consent.components.cmp-api-1927f0f2a557616ed3b1.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.708Z",
+            "url": "https://assets.twitch.tv/assets/65261-b74c93b816b199a1eec6.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.717Z",
+            "url": "https://k.twitchcdn.net/149e9513-01fa-4fb0-aad4-566afd725d1b/2d206a39-8ed7-437e-a3be-862e0f06eea3/mfc",
+            "status": 204,
+            "contentType": "",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:32.722Z",
+            "url": "https://assets.twitch.tv/assets/amazon-ivs-wasmworker.min-7218c4cb4e61d2eff3dd.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:32.796Z",
+            "url": "https://www.gstatic.com/cast/sdk/libs/sender/1.0/cast_framework.js",
+            "status": 200,
+            "contentType": "text/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.796Z",
+            "url": "https://www.gstatic.com/eureka/clank/157/cast_sender.js",
+            "status": 200,
+            "contentType": "text/javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.796Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.805Z",
+            "url": "https://k.twitchcdn.net/149e9513-01fa-4fb0-aad4-566afd725d1b/2d206a39-8ed7-437e-a3be-862e0f06eea3/mfc",
+            "status": 200,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.819Z",
+            "url": "https://assets.twitch.tv/assets/amazon-ivs-wasmworker.min-43c63e41c7cceca7f10b.wasm",
+            "status": 200,
+            "contentType": "application/wasm",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.827Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.894Z",
+            "url": "https://k.twitchcdn.net/149e9513-01fa-4fb0-aad4-566afd725d1b/2d206a39-8ed7-437e-a3be-862e0f06eea3/fp?x-kpsdk-v=j-1.2.992",
+            "status": 429,
+            "contentType": "",
+            "type": "document"
+          },
+          {
+            "time": "2026-11-18T14:01:32.903Z",
+            "url": "https://assets.twitch.tv/assets/features.subscribe-button.components.subscribe-button-45c379cfb3bb17f13c26.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:32.903Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.906Z",
+            "url": "https://assets.twitch.tv/assets/48795-f6905b5038ccffa0285e.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.906Z",
+            "url": "https://assets.twitch.tv/assets/features.guest-star.components.guest-star-rtj-channel-content-91eec0ab7a086e8a5790.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.906Z",
+            "url": "https://assets.twitch.tv/assets/56208-38d7697f98919f1d0f61.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.906Z",
+            "url": "https://assets.twitch.tv/assets/74406-262d31ef62c9bc6636b1.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.906Z",
+            "url": "https://assets.twitch.tv/assets/46553-c6b810a519bb7dcd1f71.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.911Z",
+            "url": "https://assets.twitch.tv/assets/76965-98e4a188517def342b70.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.912Z",
+            "url": "https://assets.twitch.tv/assets/80856-93e2d899f6d64636acba.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.919Z",
+            "url": "https://assets.twitch.tv/assets/features.subscribe-button.components.subscribe-button-edd68cbfea9fffd7490f.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.920Z",
+            "url": "https://assets.twitch.tv/assets/34849-cf7fa60aaf8540cfe31c.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.932Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:32.982Z",
+            "url": "https://assets.twitch.tv/assets/features.guest-star.components.guest-star-rtj-channel-content.components.guest-list-6696cc1896edd948f27d.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:32.982Z",
+            "url": "https://assets.twitch.tv/assets/features.guest-star.components.guest-star-rtj-channel-content.components.request-button-46429ecfd4649a04a16c.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.038Z",
+            "url": "https://static-cdn.jtvnw.net/jtv_user_pictures/c9f33e33-1e65-49ea-adc7-fc8531bfdc54-profile_image-150x150.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:01:33.044Z",
+            "url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_telediariotelevision-1280x720.jpg",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "image"
+          },
+          {
+            "time": "2026-11-18T14:01:33.045Z",
+            "url": "https://assets.twitch.tv/assets/features.sub-modal.components.sub-modal-33488b02c2bb1a1bd107.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:33.047Z",
+            "url": "https://assets.twitch.tv/assets/65663-04c1b514b45a3ddb8f5e.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.048Z",
+            "url": "https://assets.twitch.tv/assets/features.sub-modal.components.sub-modal-f8a87c6334072a69ed94.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.065Z",
+            "url": "https://player.stats.live-video.net/",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.071Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.081Z",
+            "url": "https://usher.ttvnw.net/api/channel/hls/telediariotelevision.m3u8?acmb=eyJBcHBWZXJzaW9uIjoiNDkyOTA5NzgtMGY1Ni00ZThmLWJlNjItNmVjNTk5YWYxYTkzIiwiQ2xpZW50QXBwIjoidHdpbGlnaHQiLCJVUkwiOiJodHRwczovL3BsYXllci50d2l0Y2gudHYvIn0%3D&allow_source=true&browser_family=chrome&browser_version=157.0&cdm=wv&enable_score=true&fast_bread=true&include_unavailable=true&lang=en&os_name=Linux&os_version=undefined&p=2463368&parent_domains=twitchplayer&platform=web&play_session_id=1ae3474f50804e72954c1726792e2630&player_backend=mediaplayer&player_version=1.59.0-rc.1&playlist_include_framerate=true&reassignments_supported=true&sig=2629cbc9dc10e04cb972b2a5be900e6a5342192e&supported_codecs=av1,h264&token=%7B%22adblock%22%3Afalse%2C%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22blackout_enabled%22%3Afalse%2C%22channel%22%3A%22telediariotelevision%22%2C%22channel_id%22%3A774059522%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%2C%22view_until%22%3A1924905600%7D%2C%22ci_gb%22%3Afalse%2C%22geoblock_reason%22%3A%22%22%2C%22device_id%22%3A%226250dd4eca8cb419%22%2C%22expires%22%3A1795011692%2C%22extended_history_allowed%22%3Afalse%2C%22game%22%3A%22%22%2C%22hide_ads%22%3Afalse%2C%22https_required%22%3Atrue%2C%22mature%22%3Afalse%2C%22notification_id%22%3Anull%2C%22partner%22%3Afalse%2C%22platform%22%3A%22web%22%2C%22player_type%22%3A%22embed%22%2C%22private%22%3A%7B%22allowed_to_view%22%3Atrue%7D%2C%22privileged%22%3Afalse%2C%22role%22%3A%22%22%2C%22server_ads%22%3Atrue%2C%22show_ads%22%3Atrue%2C%22subscriber%22%3Afalse%2C%22turbo%22%3Afalse%2C%22user_id%22%3Anull%2C%22user_ip%22%3A%22132.196.20.194%22%2C%22version%22%3A3%2C%22maximum_resolution%22%3A%22FULL_HD%22%2C%22maximum_video_bitrate_kbps%22%3A12500%2C%22maximum_resolution_reasons%22%3A%7B%22QUAD_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%2C%22ULTRA_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%7D%2C%22maximum_video_bitrate_kbps_reasons%22%3A%5B%22AUTHZ_DISALLOWED_BITRATE%22%5D%7D&transcode_mode=cbr_v1",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.089Z",
+            "url": "https://assets.twitch.tv/assets/features.support-panel.components.support-panel-container-b87f383c02097384ae16.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:33.098Z",
+            "url": "https://assets.twitch.tv/assets/80548-8855033f1a745c168327.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.099Z",
+            "url": "https://assets.twitch.tv/assets/3270-4fc3b9186c59c9daa24e.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.102Z",
+            "url": "https://assets.twitch.tv/assets/16950-ffb46446db522e6793a0.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.102Z",
+            "url": "https://assets.twitch.tv/assets/83610-805f6c1f98787690dc26.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.102Z",
+            "url": "https://assets.twitch.tv/assets/8577-0ec884000745dec86ca0.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.102Z",
+            "url": "https://assets.twitch.tv/assets/36318-3cc303cf4ae13154b732.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.102Z",
+            "url": "https://assets.twitch.tv/assets/33267-6f5a79e0fc23049c439a.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.102Z",
+            "url": "https://assets.twitch.tv/assets/28144-de8dc8a4277f40748b74.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.103Z",
+            "url": "https://assets.twitch.tv/assets/57321-a8ec9f5fc4541e67c756.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.103Z",
+            "url": "https://assets.twitch.tv/assets/43897-144dcf6881e93c57c83a.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.105Z",
+            "url": "https://assets.twitch.tv/assets/78722-833605668c2875b1e52a.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.106Z",
+            "url": "https://assets.twitch.tv/assets/1706-d9586bbd1d71423b3fd3.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.106Z",
+            "url": "https://assets.twitch.tv/assets/95123-b06db07d846cbc12e9a4.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.107Z",
+            "url": "https://assets.twitch.tv/assets/98894-dc47f5395b5d0624c493.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.107Z",
+            "url": "https://assets.twitch.tv/assets/18353-0ce665d105b96ddad7dd.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.107Z",
+            "url": "https://assets.twitch.tv/assets/55333-e553346da9bca8e8104b.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.114Z",
+            "url": "https://player.stats.live-video.net/",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.119Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.120Z",
+            "url": "https://assets.twitch.tv/assets/37844-6bff7a613441eafebc6f.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.121Z",
+            "url": "https://assets.twitch.tv/assets/77575-14fbc2f9c910723643d9.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.121Z",
+            "url": "https://assets.twitch.tv/assets/94760-10b33887932800d1b026.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.121Z",
+            "url": "https://assets.twitch.tv/assets/64-172df39d0a4ed9dc0876.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.124Z",
+            "url": "https://assets.twitch.tv/assets/94691-8b381dcc9f422b43e18d.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.124Z",
+            "url": "https://assets.twitch.tv/assets/57097-f15cff1c4d3883f52aad.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.125Z",
+            "url": "https://assets.twitch.tv/assets/88745-7808cd472e6e6a757b24.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.125Z",
+            "url": "https://assets.twitch.tv/assets/2892-cc208e13685da952f736.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.125Z",
+            "url": "https://assets.twitch.tv/assets/65380-579028de14b108ee8e52.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.128Z",
+            "url": "https://assets.twitch.tv/assets/83559-64c559f12b843eabe85d.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.129Z",
+            "url": "https://assets.twitch.tv/assets/95707-4feebb1f098eb8fc9071.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.129Z",
+            "url": "https://assets.twitch.tv/assets/83643-a7895bdbffdd7b8f357f.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.130Z",
+            "url": "https://assets.twitch.tv/assets/features.support-panel.components.support-panel-container-f55f7ff448f2463b2c21.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.131Z",
+            "url": "https://assets.twitch.tv/assets/59944-f933ed283c7c8ff35f10.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.164Z",
+            "url": "https://assets.twitch.tv/assets/4355-5f4ed1af6fe058459d80.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.170Z",
+            "url": "https://assets.twitch.tv/assets/89260-a47d9a5b64407f74e2d7.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.237Z",
+            "url": "https://assets.twitch.tv/assets/features.support-panel.components.support-panel-49e1ed263e72291ba735.css",
+            "status": 200,
+            "contentType": "text/css",
+            "type": "stylesheet"
+          },
+          {
+            "time": "2026-11-18T14:01:33.243Z",
+            "url": "https://assets.twitch.tv/assets/92703-4a274e601b68cfe0d5e8.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.243Z",
+            "url": "https://assets.twitch.tv/assets/features.support-panel.components.support-panel-3740f5884b333a92c434.js",
+            "status": 200,
+            "contentType": "application/x-javascript",
+            "type": "script"
+          },
+          {
+            "time": "2026-11-18T14:01:33.336Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.346Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.352Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.353Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.353Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.354Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.471Z",
+            "url": "https://imperiotv.com.ar/wp-content/uploads/logo-favicon.jpg",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:33.471Z",
+            "url": "https://imperiotv.com.ar/wp-content/uploads/logo-favicon.jpg",
+            "status": 200,
+            "contentType": "image/jpeg",
+            "type": "cdp:Other"
+          },
+          {
+            "time": "2026-11-18T14:01:33.573Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cr8HvhwR_4V_yMYObERrloerjzbpOCA73jYiWCansT-VbUDG9ZYCTbbPA9BZOTz4-FTY-G5ZWmSjVzmLwZhE9pRcsQEwuy4_05tvHfc8Zjwz9unEf9LZ4VygJVwcdVApai6QpwbDESitTyQ6EXrTDc8cpUYHnsNDrC0-Qvb7d2OUQ3zEc58n6ykfKxUMTORGaTpAP8dhjiSk1FnDlgXKwJbYf_uPpxnqGNDfNqt-2f54GI9tYZcXWD7o85-8dSXV2pJIGr4JzlcKoSPZqlCArpPsTcNRskxtrPx5wfmw6Rtg85doQkBNqpa85SfgIpcADB1vgZRkQ01QK7_Sa1Gp8s6Utdk0ogdzYEXD5cOsPdrcZpj4c7kZWM_GK_FQV0ef8M602_4zx1L_3039ICLojeZimaD-17ub-zw2OCRCPmTZ-9koPPL0qQVJdHJ8bxf_A51-MLyv1SLdPjQ0vCrefJ8BG_qirKFd5-9NbYmEt_sEdYUrmPDAAl3Pf8KkaNPo4-bXkXSVLvMqkW3BOK7RRyxxQ2q46r_vtYBbJ7SQCWMwqbD6znmYthWEUfjvPyIWtf2vHFB9fUwZJgzLDBAXnIzYVGgY0OEtHhU7qvoatg3t-ijnWXRm-VZVop32ewxUXekIPr8fstiDFTJUX2l-cJp-EfLVs6hyVzCtRoF5avvbZ_aAll12sNUa3y7xAkpOehkVTJomiLm4Wy9YO8y8DxGJbB-PhJvFRoIDvGZIzo9QyYGvOsZgHB9ceT6AirX5maoWTC-3aLHP-jLbqkOv7MeAdy7ILlOw9eZEhoKr3jdmXgEDtwXZCS4c4-UIFRHXUBsMQQv1cLfgVQ3XGMrXLFuy_E3wbU2zVZ8kFmW2DuI_-wsTW_pbJ3Is7wAGWBsjX5iL_okM7LZWPzVOxK72t9GKRgLLpvsUaLQPQEFGN39QKdiW1tOm3lyvJYNGE0CP752JYdl5FPDz4BEEOsV1bTzpL0Myqqgs7dtyz1cgPsad0-RXBROFCbIiSzbau8k2Y_LfjNj1EXvoEoPGpjAcjYqTCjUPgxt092l8rgp8xhElC4zwTvgYEEM49oyRL-g1THfOqqgecNR9eoUyH_RdqA-kV0iMhP8yBiDlTDhYA-b9dxpxBJfPkjmVSYqzc2Ii7LHzeDi-y6KXAxYDa9zDucoPQ9rZKLjwzQd9XeKpiTpHwo6OK26zQ6ABJXomsk92DB8vGUF_Y6FHRXsauCqrFY6NKKY-oPXBU7eu182W5GhIbJ8tYjTVGQFHRtNiiYNukREaDJ6psaLQAI9DbTXH1SABKgl1cy1lYXN0LTIwyhA.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.633Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cr8HvhwR_4V_yMYObERrloerjzbpOCA73jYiWCansT-VbUDG9ZYCTbbPA9BZOTz4-FTY-G5ZWmSjVzmLwZhE9pRcsQEwuy4_05tvHfc8Zjwz9unEf9LZ4VygJVwcdVApai6QpwbDESitTyQ6EXrTDc8cpUYHnsNDrC0-Qvb7d2OUQ3zEc58n6ykfKxUMTORGaTpAP8dhjiSk1FnDlgXKwJbYf_uPpxnqGNDfNqt-2f54GI9tYZcXWD7o85-8dSXV2pJIGr4JzlcKoSPZqlCArpPsTcNRskxtrPx5wfmw6Rtg85doQkBNqpa85SfgIpcADB1vgZRkQ01QK7_Sa1Gp8s6Utdk0ogdzYEXD5cOsPdrcZpj4c7kZWM_GK_FQV0ef8M602_4zx1L_3039ICLojeZimaD-17ub-zw2OCRCPmTZ-9koPPL0qQVJdHJ8bxf_A51-MLyv1SLdPjQ0vCrefJ8BG_qirKFd5-9NbYmEt_sEdYUrmPDAAl3Pf8KkaNPo4-bXkXSVLvMqkW3BOK7RRyxxQ2q46r_vtYBbJ7SQCWMwqbD6znmYthWEUfjvPyIWtf2vHFB9fUwZJgzLDBAXnIzYVGgY0OEtHhU7qvoatg3t-ijnWXRm-VZVop32ewxUXekIPr8fstiDFTJUX2l-cJp-EfLVs6hyVzCtRoF5avvbZ_aAll12sNUa3y7xAkpOehkVTJomiLm4Wy9YO8y8DxGJbB-PhJvFRoIDvGZIzo9QyYGvOsZgHB9ceT6AirX5maoWTC-3aLHP-jLbqkOv7MeAdy7ILlOw9eZEhoKr3jdmXgEDtwXZCS4c4-UIFRHXUBsMQQv1cLfgVQ3XGMrXLFuy_E3wbU2zVZ8kFmW2DuI_-wsTW_pbJ3Is7wAGWBsjX5iL_okM7LZWPzVOxK72t9GKRgLLpvsUaLQPQEFGN39QKdiW1tOm3lyvJYNGE0CP752JYdl5FPDz4BEEOsV1bTzpL0Myqqgs7dtyz1cgPsad0-RXBROFCbIiSzbau8k2Y_LfjNj1EXvoEoPGpjAcjYqTCjUPgxt092l8rgp8xhElC4zwTvgYEEM49oyRL-g1THfOqqgecNR9eoUyH_RdqA-kV0iMhP8yBiDlTDhYA-b9dxpxBJfPkjmVSYqzc2Ii7LHzeDi-y6KXAxYDa9zDucoPQ9rZKLjwzQd9XeKpiTpHwo6OK26zQ6ABJXomsk92DB8vGUF_Y6FHRXsauCqrFY6NKKY-oPXBU7eu182W5GhIbJ8tYjTVGQFHRtNiiYNukREaDJ6psaLQAI9DbTXH1SABKgl1cy1lYXN0LTIwyhA.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:33.673Z",
+            "url": "https://imperiotv.com.ar/wp-content/uploads/cropped-LOGOS-CANAL-13-solo-copia-32x32.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:33.673Z",
+            "url": "https://imperiotv.com.ar/wp-content/uploads/cropped-LOGOS-CANAL-13-solo-copia-32x32.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Other"
+          },
+          {
+            "time": "2026-11-18T14:01:33.823Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCsfT-g4kZ0Iqn4kJRP5Cyb2WCaGS2HKKQMfM741uihlezN-MGGDestgERpioL2j6xE7B9cKKHyWEyKv7ITv-882MJ526VV-H7D_-oPSGmN-oB_nWLUktdEoIQOvn3C5Ct6E9oBiFMERQXfAOAj5VcZmJ-DuWPsKZ9CPBKRDJvt1kKqOoxu0KJUcVD8QZu56X9kFy1KspiYf6SJOYOaULh68nCfbmweLdhfLzauwgwu6X86SvoltOk6YC2nVB_tqlmLNnzq8o4RfFR8l4vWo_3C37oAnRL9u1Qog3k50Ja1DvWI5Hi_QHnfaqVjUPf5zDAhJrT1Q1KoAl81DEf0kujA8mFRJB452aw8c0kXjJMJ-MBa59xA5AY5ojSdri-OgEPJZzdJTj3PKHMk21NonMFeVDjsA-uXXML_Llo754psDHJGZW4EEYGO_6LvsKO8F9Fv_tqHYGYyIqFeKueHPSJ72_a0zTVJ220Sfns_m81CWur_Zm7GgxkgsPzzDoXXFkr_2ggASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.035Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.211Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCah8avC5AVcs0oHr1LWk6rQSllOBtbNHeo3qLkoFZi1bIV6hhbbZXEMcUDvZv7Of7JMwvUsgSY35UZexEACYYpcbauJq8KAc8zOFPUh_yUu-G06Ee1ImPxulS507C6W7fS9qT-fqh6phCbLI2u1LDpDSuT0-tFPDvEmum3h9itKLmg-Phrp7ATVaFnSPg9Vhs3_8ffpmiG2041RbiznvzgI10HtoHM5WJlRiYmIwLFYggESfzZWchCAQcX5IaBn1aDOOqWu-zaulyytQq8lkvb_VIkjpUfqzJ9uC21l5vvHJMoZMBVS3cTyYqvUdh9GYFIm6hjSpEa90UYjQ1UBW5oCn3zot6U6UEvf1EoaxsSkg2XVVZ9dPvhUXj34eBvFwjYa5JM1myqthkrG3-UBRi8N4eZr2etEujbER31fEBiLcvlwnZZAZCBsbrVfXuWGmOSUtRSYlbwzlvGIWVZqdJIofrbDs2Trl15brZQ-pmMo7u3F0oGgxBDDmX9UkFA7f8MwggASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.251Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.255Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.269Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.269Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.281Z",
+            "url": "https://static-cdn.jtvnw.net/jtv_user_pictures/c9f33e33-1e65-49ea-adc7-fc8531bfdc54-profile_image-150x150.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:34.282Z",
+            "url": "https://static-cdn.jtvnw.net/jtv_user_pictures/c9f33e33-1e65-49ea-adc7-fc8531bfdc54-profile_image-150x150.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:34.369Z",
+            "url": "https://global.poe.live-video.net/",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:34.423Z",
+            "url": "https://imperiotv.com.ar/wp-content/uploads/cropped-LOGOS-CANAL-13-solo-copia-192x192.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "other"
+          },
+          {
+            "time": "2026-11-18T14:01:34.424Z",
+            "url": "https://imperiotv.com.ar/wp-content/uploads/cropped-LOGOS-CANAL-13-solo-copia-192x192.png",
+            "status": 200,
+            "contentType": "image/png",
+            "type": "cdp:Other"
+          },
+          {
+            "time": "2026-11-18T14:01:34.646Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:35.076Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:35.226Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCVfUoCNQPXGP1qehRAi1elgyxP8Ru7XixYuJhHiAQp0qcs_mGnB_FC9YcoSI7Wcl3ycNLU1jax3CE1MivTRPYTXQ7Bt5xw-BapN20wosK6JOj6DQBbIJuozyiNiHJg30nxk6XFQWAQjpJUVwDCwVmiYoYfNzib5IDjRD_VpuHgST1TCr0J1tx3_LpgxNAwW4XZMoQ5DXn9jbW3sBLUBLbkkyDLN9IgyneWB3xW2ddm5gRTfPRkVffQ-sfEmTKKnLZ0bLiFe0XGZXobBX5UeqhosMq9-JPwvJYwHejFTi7OnSBUhv06cOZ_Ybu0kDAfXjBn264qytpbR1GEDVjvvzUVfzFECFiAVR5CqWP9wBqHnEyjweN3eusapeSBj0XNwNo-FbJgRKUtv1VVNob4XvbDGdrHi9YdfnrhZ5GXxCjIeWWIU3Z2TxdDxiE_EVpnzRFa9srsH_JOYccFVyDOJweT-A5SsEjtGxlaGaixS9I1S2tKx3zGgzjgTHBDSo-Jg5i1EIgASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:36.320Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:36.353Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:36.472Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCRLdEhX-OvQe7cZwmVHn4yZIEpjNT97djqmPkJQeoJwgBr8FycT4WPIr3dyxrrxFzEqeyW27WqvUJ-79jdN0SHzG755l7nU-P3JhuaKOU90cXNRJZIpxVSGc4O6IbH8vtlho2Cf3eAbKEI2fBQyEv6B9OEDpVyWe781xqwPn--eR8uJB-hOLcxW0rJ2oibw1Rgh7Qlz5sIcEaPVpJlp2ySHywRu-ufmfyrKbZiYo5YkfHKuPhDSZUT3U-jX3a_uvWC1pQPNfLZXmCKL84JlIyyhFSTijrvidVPaIImprmMiIoCXiavb0sNFcsb9M4w9MkEi1jtf_9Rd9P57loNovtu4w8wgl9mW1aLN6K79ohmnPUacyH_h4lemJ4uNS9g9LS5lkwIrPY8izaAJlYHSGjTKSVYcK-6bp-t4cWebrUBqdxWnpwqriU1FHW-RA_koYPzS9lOXU3_8J_oLPFE6iVvJT45HofDXJAjHuLL1EFL3fVHg0rGgwhbmmxBaF_gc7lAnsgASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:37.403Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:37.683Z",
+            "url": "https://prod.ivs-device-config.live-video.net/player-web-v1.json?version=1.0",
+            "status": 200,
+            "contentType": "application/json",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:37.704Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:38.040Z",
+            "url": "https://k.twitchcdn.net/149e9513-01fa-4fb0-aad4-566afd725d1b/2d206a39-8ed7-437e-a3be-862e0f06eea3/fp?x-kpsdk-v=j-1.2.992",
+            "status": 429,
+            "contentType": "",
+            "type": "document"
+          },
+          {
+            "time": "2026-11-18T14:01:38.316Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:38.469Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCgbw22xo2PI_11uy1g_BUI1fi32xYJ18iF4Tm3E4ibcdFPWWBJpZSIzzSfRrLYCFKLJa0VpttzU0cboqpzh3DiAC9kP1RMrXegXBGWRwkmP_s9iYv9NwLpRQLrBYTlhADZPv9W4LYEv_6bsa7gmiw2w4FUMjNxWMbMY4R4ljU2mkk_ixBP-gEXxllLC5dc873o_g8UnQcKP8_gbVox-hYM1Gxoru6K0r31NvP0XLZgsVqQ8FVPvU1uBRfeATKKIwZFjeoxumgRU5Rtubg8RGFBCrJwMHTKKpf6SioCVZsXRYYluDkqkAHPdVK2JFeCQW3i-ydleNnf8P_iqZu4tGu-rYyw3s6IGxETeFrZOPXjPk5XVRyRjSsCdduFMwzpqv8MSckf4Ej_MAgPLdxp_L2mDPGg38NLRXZsCjuJ9ITMxnwKIg4asgHZKpD-W4XI2B3ceqqjQsnet6xai8qFvOip2NUprqaDj_8E8ItiPTaXxn66XEUGgznW13neJVUe-VpN3cgASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:38.755Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:39.252Z",
+            "url": "https://469d09.rufio.hls.live-video.net/v1/segment/Cvsxt5DxD1zTVGfGRnS3bZbDfWd9n_mLrD_cLCEUP_DwyZFTI7l5-J_fUPI0UwrISlULFcJ17WKvUGSqgnTXdS_JthPRczSGwcyEUHTab2bk-AqqNRwV3mbSdVYARxfJC7lHs2w0ec1qUccsZ7BdP5uw10_ZiIXM2VXYDoSPlx8SVCTU1refZHrRaFgew2cR2mr0TZdzw7u78oEYl1pMPAe_SExRUNvHDSdy9p6P_yVM9oZTIgpFdB0gOLCPjUnqcx4WAuf7OQc4GKj0jOqcrTGBfc3wIbjT_8pBLig319s387Ebd5OgTZYhIOpae8RMsaTWOA91POyaQRbG4C9mTzEV1lmH3odwQGhJEmORd63-8Lb5RmcxehzWV222fdMDeQzIFibLqR3m3ND-Lu015_E2GIW6YdFlAEyfIEVzhsMcE_aepawblviu3zpt1J8AqpxYQIH9kgT5wtS9gMTby_7SuCdTSO8x5s4mepbWmfKXe-NsyY18OErgWXUk3movpSE0d8bjQmiqwHgtjcE8tb9_f_1X4LwJtrh2U45qVViyfRaCsyQYGrA8RWG06npeA8qRx4l3c_kXohpNfPH3V9neko2SFo1U8HTJvth-oThOV722AwQztKpUBavEtL6VhJl-951Hj4cAuiNl3tPpwivBsgfZZzaYTOogjnIhw9t2zqncNTXstpWXHcQ-mRexBdjv2xCBeTo2E9OyT-6IoWxu8nK5slzCM9mTe1Rf9nw-V45D20lrQJ_9WpF9_XCl.ts",
+            "status": 204,
+            "contentType": "",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:40.300Z",
+            "url": "https://gql.twitch.tv/gql#origin=twilight",
+            "status": 200,
+            "contentType": "application/json; charset=utf-8",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:40.311Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:41.224Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:41.377Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCmcbL-d1hb5RWTS6FHTrpeBP70em7IjbOu9utNK5TrtY6AYRW47cL_u_J3Flb5Y0WSH-_FokGZELcGvmxCxt1d8pEKF2lIb0Qh7RhJUqRLchqtexdmZGLvPvxtVajZCw_9EOKkAFJU4VzOGBhwHoCvVLwSb5nnNJy9cOCLek8wRzF031dnlOu-TXAzDnfwpCqTE5TryFtgDcI5NQPWPM-CoLjSRv8KORrOrQFB4QDn49pZ7KzdLm7AdLrk2xLb1WPCAIU2tHevOLSybHvqRoxRVfihDXzE7zueB7ZF58dqOKBj3mCHH3otIzT6bMOLZp7-sHzJXoq3rVVjknwcC5XJQMpLzwKP2qxt2TC63HPcOqXZVel20xxTJWpiwVmxHluLM8GBsilKM7pQIonKgcBEu2--p3-ZkabkvHWPWAr_CiFiYjrIcY455OTiaC0ne3fckNMCFNcRJpsv8zte_sIDSijpDxyL5ryrOv7EWZUTjzGcpWiGgzpM6aCEKQGAYJV6BIgASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:42.475Z",
+            "url": "https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8",
+            "status": 200,
+            "contentType": "application/vnd.apple.mpegurl",
+            "type": "fetch"
+          },
+          {
+            "time": "2026-11-18T14:01:42.628Z",
+            "url": "https://889f5150103c.j.cloudfront.hls.ttvnw.net/v1/segment/CvQCtf1svqOi4d-PVSLjdcuSZa6ZN8PzTybI0nqTnXBjTfQhNzVrdwFIZ0NNKwfIBI3nriIY0Tm1jBV74l1hQsaUIp6bBHjS_UYjkOLkVMMCjQrAXm0TRt5Ro2HbIlym23IAu6LKbT00EzsFOyipcGoa-xq4JEtbsP6lKCMSchXz61-gJWoE2juTwhrLeT5BSB50GEIyyA-eJyfMY1h-HWnt7sdjcSDUp8sxz_KW0qKVV5wGd3klWjk32vbXYMpNeYKfRzxZFUPFvVeC4_TQOzMMrzHKdMrPeoSqVfhZ11vV41SCkdyodvUNMgvGLp2WDa9CnXTX30voJh9jtXWirKBDuTdr7eDSXvOTwjFCYdLCM3XWtx6EbAXc4BF3psHMdphKbQ8_lXn3UWnl6KlEfy-Ob9E87clvFiJVHE1Q7v-EMSJe27sV46ZslTJ0pr4Mf51DA9M0WuUfiqIx2MpenVSScf4xNeDwrcRW6KdaC_7amHW3s9G3GgzUfnNGuGhoyAP2iAMgASoJdXMtZWFzdC0yMMoQ.ts?dna=CnkY91GKGEbf_7ctzmStjV2JP3s1ed3QMvbiAjTnlLTMI_ZoT3YCK_84v_0DGytrzjGYnG4hImJGgOlXEbf5t3TI8uGnxNZ9ziggeS7EADVxD9nNhkyQO2lYtmevF6a06Yp9C3CFTFoALVnJgqWNYFtgjtl2rWOAB2vIGgyAKJkpxQzZQyUBeCwgASoJdXMtZWFzdC0yMMoQ",
+            "status": 200,
+            "contentType": "application/octet-stream",
+            "type": "fetch"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshot": "latest.png",
+  "log": "[Navegando] https://imperiotv.com.ar/vivo/ ...\n\n[F12 STREAM] https://usher.ttvnw.net/api/channel/hls/telediariotelevision.m3u8?acmb=eyJBcHBWZXJzaW9uIjoiNDkyOTA5NzgtMGY1Ni00ZThmLWJlNjItNmVjNTk5YWYxYTkzIiwiQ2xpZW50QXBwIjoidHdpbGlnaHQiLCJVUkwiOiJodHRwczovL3BsYXllci50d2l0Y2gudHYvIn0%3D&allow_source=true&browser_family=chrome&browser_version=157.0&cdm=wv&enable_score=true&fast_bread=true&include_unavailable=true&lang=en&os_name=Linux&os_version=undefined&p=2463368&parent_domains=twitchplayer&platform=web&play_session_id=1ae3474f50804e72954c1726792e2630&player_backend=mediaplayer&player_version=1.59.0-rc.1&playlist_include_framerate=true&reassignments_supported=true&sig=2629cbc9dc10e04cb972b2a5be900e6a5342192e&supported_codecs=av1,h264&token=%7B%22adblock%22%3Afalse%2C%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22blackout_enabled%22%3Afalse%2C%22channel%22%3A%22telediariotelevision%22%2C%22channel_id%22%3A774059522%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%2C%22view_until%22%3A1924905600%7D%2C%22ci_gb%22%3Afalse%2C%22geoblock_reason%22%3A%22%22%2C%22device_id%22%3A%226250dd4eca8cb419%22%2C%22expires%22%3A1795011692%2C%22extended_history_allowed%22%3Afalse%2C%22game%22%3A%22%22%2C%22hide_ads%22%3Afalse%2C%22https_required%22%3Atrue%2C%22mature%22%3Afalse%2C%22notification_id%22%3Anull%2C%22partner%22%3Afalse%2C%22platform%22%3A%22web%22%2C%22player_type%22%3A%22embed%22%2C%22private%22%3A%7B%22allowed_to_view%22%3Atrue%7D%2C%22privileged%22%3Afalse%2C%22role%22%3A%22%22%2C%22server_ads%22%3Atrue%2C%22show_ads%22%3Atrue%2C%22subscriber%22%3Afalse%2C%22turbo%22%3Afalse%2C%22user_id%22%3Anull%2C%22user_ip%22%3A%22132.196.20.194%22%2C%22version%22%3A3%2C%22maximum_resolution%22%3A%22FULL_HD%22%2C%22maximum_video_bitrate_kbps%22%3A12500%2C%22maximum_resolution_reasons%22%3A%7B%22QUAD_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%2C%22ULTRA_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%7D%2C%22maximum_video_bitrate_kbps_reasons%22%3A%5B%22AUTHZ_DISALLOWED_BITRATE%22%5D%7D&transcode_mode=cbr_v1\n\n[F12 STREAM] https://use22.playlist.ttvnw.net/v1/playlist/Cr8HvhwR_4V_yMYObERrloerjzbpOCA73jYiWCansT-VbUDG9ZYCTbbPA9BZOTz4-FTY-G5ZWmSjVzmLwZhE9pRcsQEwuy4_05tvHfc8Zjwz9unEf9LZ4VygJVwcdVApai6QpwbDESitTyQ6EXrTDc8cpUYHnsNDrC0-Qvb7d2OUQ3zEc58n6ykfKxUMTORGaTpAP8dhjiSk1FnDlgXKwJbYf_uPpxnqGNDfNqt-2f54GI9tYZcXWD7o85-8dSXV2pJIGr4JzlcKoSPZqlCArpPsTcNRskxtrPx5wfmw6Rtg85doQkBNqpa85SfgIpcADB1vgZRkQ01QK7_Sa1Gp8s6Utdk0ogdzYEXD5cOsPdrcZpj4c7kZWM_GK_FQV0ef8M602_4zx1L_3039ICLojeZimaD-17ub-zw2OCRCPmTZ-9koPPL0qQVJdHJ8bxf_A51-MLyv1SLdPjQ0vCrefJ8BG_qirKFd5-9NbYmEt_sEdYUrmPDAAl3Pf8KkaNPo4-bXkXSVLvMqkW3BOK7RRyxxQ2q46r_vtYBbJ7SQCWMwqbD6znmYthWEUfjvPyIWtf2vHFB9fUwZJgzLDBAXnIzYVGgY0OEtHhU7qvoatg3t-ijnWXRm-VZVop32ewxUXekIPr8fstiDFTJUX2l-cJp-EfLVs6hyVzCtRoF5avvbZ_aAll12sNUa3y7xAkpOehkVTJomiLm4Wy9YO8y8DxGJbB-PhJvFRoIDvGZIzo9QyYGvOsZgHB9ceT6AirX5maoWTC-3aLHP-jLbqkOv7MeAdy7ILlOw9eZEhoKr3jdmXgEDtwXZCS4c4-UIFRHXUBsMQQv1cLfgVQ3XGMrXLFuy_E3wbU2zVZ8kFmW2DuI_-wsTW_pbJ3Is7wAGWBsjX5iL_okM7LZWPzVOxK72t9GKRgLLpvsUaLQPQEFGN39QKdiW1tOm3lyvJYNGE0CP752JYdl5FPDz4BEEOsV1bTzpL0Myqqgs7dtyz1cgPsad0-RXBROFCbIiSzbau8k2Y_LfjNj1EXvoEoPGpjAcjYqTCjUPgxt092l8rgp8xhElC4zwTvgYEEM49oyRL-g1THfOqqgecNR9eoUyH_RdqA-kV0iMhP8yBiDlTDhYA-b9dxpxBJfPkjmVSYqzc2Ii7LHzeDi-y6KXAxYDa9zDucoPQ9rZKLjwzQd9XeKpiTpHwo6OK26zQ6ABJXomsk92DB8vGUF_Y6FHRXsauCqrFY6NKKY-oPXBU7eu182W5GhIbJ8tYjTVGQFHRtNiiYNukREaDJ6psaLQAI9DbTXH1SABKgl1cy1lYXN0LTIwyhA.m3u8\n\n[F12 STREAM] https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8\n[Play Forzado] Reproductor activo.\n[Listo] Título: \"Imperio Televisión | VIVO\" | URL actual: https://imperiotv.com.ar/vivo/\n\n=== MPD ===\n [\n  {\n    \"time\": \"2026-11-18T14:01:33.081Z\",\n    \"url\": \"https://usher.ttvnw.net/api/channel/hls/telediariotelevision.m3u8?acmb=eyJBcHBWZXJzaW9uIjoiNDkyOTA5NzgtMGY1Ni00ZThmLWJlNjItNmVjNTk5YWYxYTkzIiwiQ2xpZW50QXBwIjoidHdpbGlnaHQiLCJVUkwiOiJodHRwczovL3BsYXllci50d2l0Y2gudHYvIn0%3D&allow_source=true&browser_family=chrome&browser_version=157.0&cdm=wv&enable_score=true&fast_bread=true&include_unavailable=true&lang=en&os_name=Linux&os_version=undefined&p=2463368&parent_domains=twitchplayer&platform=web&play_session_id=1ae3474f50804e72954c1726792e2630&player_backend=mediaplayer&player_version=1.59.0-rc.1&playlist_include_framerate=true&reassignments_supported=true&sig=2629cbc9dc10e04cb972b2a5be900e6a5342192e&supported_codecs=av1,h264&token=%7B%22adblock%22%3Afalse%2C%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22blackout_enabled%22%3Afalse%2C%22channel%22%3A%22telediariotelevision%22%2C%22channel_id%22%3A774059522%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%2C%22view_until%22%3A1924905600%7D%2C%22ci_gb%22%3Afalse%2C%22geoblock_reason%22%3A%22%22%2C%22device_id%22%3A%226250dd4eca8cb419%22%2C%22expires%22%3A1795011692%2C%22extended_history_allowed%22%3Afalse%2C%22game%22%3A%22%22%2C%22hide_ads%22%3Afalse%2C%22https_required%22%3Atrue%2C%22mature%22%3Afalse%2C%22notification_id%22%3Anull%2C%22partner%22%3Afalse%2C%22platform%22%3A%22web%22%2C%22player_type%22%3A%22embed%22%2C%22private%22%3A%7B%22allowed_to_view%22%3Atrue%7D%2C%22privileged%22%3Afalse%2C%22role%22%3A%22%22%2C%22server_ads%22%3Atrue%2C%22show_ads%22%3Atrue%2C%22subscriber%22%3Afalse%2C%22turbo%22%3Afalse%2C%22user_id%22%3Anull%2C%22user_ip%22%3A%22132.196.20.194%22%2C%22version%22%3A3%2C%22maximum_resolution%22%3A%22FULL_HD%22%2C%22maximum_video_bitrate_kbps%22%3A12500%2C%22maximum_resolution_reasons%22%3A%7B%22QUAD_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%2C%22ULTRA_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%7D%2C%22maximum_video_bitrate_kbps_reasons%22%3A%5B%22AUTHZ_DISALLOWED_BITRATE%22%5D%7D&transcode_mode=cbr_v1\",\n    \"status\": 200,\n    \"contentType\": \"application/vnd.apple.mpegurl\",\n    \"type\": \"fetch\"\n  },\n  {\n    \"time\": \"2026-11-18T14:01:33.573Z\",\n    \"url\": \"https://use22.playlist.ttvnw.net/v1/playlist/Cr8HvhwR_4V_yMYObERrloerjzbpOCA73jYiWCansT-VbUDG9ZYCTbbPA9BZOTz4-FTY-G5ZWmSjVzmLwZhE9pRcsQEwuy4_05tvHfc8Zjwz9unEf9LZ4VygJVwcdVApai6QpwbDESitTyQ6EXrTDc8cpUYHnsNDrC0-Qvb7d2OUQ3zEc58n6ykfKxUMTORGaTpAP8dhjiSk1FnDlgXKwJbYf_uPpxnqGNDfNqt-2f54GI9tYZcXWD7o85-8dSXV2pJIGr4JzlcKoSPZqlCArpPsTcNRskxtrPx5wfmw6Rtg85doQkBNqpa85SfgIpcADB1vgZRkQ01QK7_Sa1Gp8s6Utdk0ogdzYEXD5cOsPdrcZpj4c7kZWM_GK_FQV0ef8M602_4zx1L_3039ICLojeZimaD-17ub-zw2OCRCPmTZ-9koPPL0qQVJdHJ8bxf_A51-MLyv1SLdPjQ0vCrefJ8BG_qirKFd5-9NbYmEt_sEdYUrmPDAAl3Pf8KkaNPo4-bXkXSVLvMqkW3BOK7RRyxxQ2q46r_vtYBbJ7SQCWMwqbD6znmYthWEUfjvPyIWtf2vHFB9fUwZJgzLDBAXnIzYVGgY0OEtHhU7qvoatg3t-ijnWXRm-VZVop32ewxUXekIPr8fstiDFTJUX2l-cJp-EfLVs6hyVzCtRoF5avvbZ_aAll12sNUa3y7xAkpOehkVTJomiLm4Wy9YO8y8DxGJbB-PhJvFRoIDvGZIzo9QyYGvOsZgHB9ceT6AirX5maoWTC-3aLHP-jLbqkOv7MeAdy7ILlOw9eZEhoKr3jdmXgEDtwXZCS4c4-UIFRHXUBsMQQv1cLfgVQ3XGMrXLFuy_E3wbU2zVZ8kFmW2DuI_-wsTW_pbJ3Is7wAGWBsjX5iL_okM7LZWPzVOxK72t9GKRgLLpvsUaLQPQEFGN39QKdiW1tOm3lyvJYNGE0CP752JYdl5FPDz4BEEOsV1bTzpL0Myqqgs7dtyz1cgPsad0-RXBROFCbIiSzbau8k2Y_LfjNj1EXvoEoPGpjAcjYqTCjUPgxt092l8rgp8xhElC4zwTvgYEEM49oyRL-g1THfOqqgecNR9eoUyH_RdqA-kV0iMhP8yBiDlTDhYA-b9dxpxBJfPkjmVSYqzc2Ii7LHzeDi-y6KXAxYDa9zDucoPQ9rZKLjwzQd9XeKpiTpHwo6OK26zQ6ABJXomsk92DB8vGUF_Y6FHRXsauCqrFY6NKKY-oPXBU7eu182W5GhIbJ8tYjTVGQFHRtNiiYNukREaDJ6psaLQAI9DbTXH1SABKgl1cy1lYXN0LTIwyhA.m3u8\",\n    \"status\": 200,\n    \"contentType\": \"application/vnd.apple.mpegurl\",\n    \"type\": \"fetch\"\n  },\n  {\n    \"time\": \"2026-11-18T14:01:34.035Z\",\n    \"url\": \"https://use22.playlist.ttvnw.net/v1/playlist/Cs8HxrBGH_CJ8r68CfsW_PKA7Kn3DnJVyVEEVXWzTjVlB2hG_dFdWQuU06MqF4Y6zV6OmthG8txpZfwlNud3cGURP1JIGM-MrsUgrTNoBJCnl_60Z2oUpHn6v8FzMAYLtnJT0-KJy_1pxqb2nph_1RYmaso7YF920TnDV4Z1F23qhoDPkkDxiylwxXCC_WvXYOSy1HWJvEjYZAv8VNTe6OAHjKuWAhxoh4EqZp3SjjtaxWiJhDewRegx8XDiJMFI4MFlKIkt5dvou36Bj7Lb1LTu-WCAYXMYCS0-oCWJYPtmfz5D1OVRv7peXYGkkChfqnAL1h_nYxDuIqr8vKwLtDQOPyswXKuiZLK4okzLYXiag9Zu27Qj6jbHViK4LGCEh1x4QoZ0zNbjhwTx1XOtGP9FaE4-7xGge7oK9TDGGaonEQF9PRdgv0nOTlncYUyDuQOBtKQ9VxiJfjT2LbzJC8s735BR_JhGwEcfhoSeDRtKY1-8dmtuP-ukunMEp9GsHK0BC9sNBtWzT5eBHyZjPgtljvTvtYn1-yyF9hwrrX-pyKLBxm_Zn1nNtBCD4h2zLJobNosOW78Ol0vLwB1tW3Cdnv3jvq63PZNV-YUeKDBwpj3oIrvbTUSrwL1OdU14YtJRCST6KA4EqxU0fPkKo3EP-7TnKLXCEn_RZgboXNEGJ9Q0KZMfjmMYlefGvSlyTaccjviBm5BCHDxNVV2DY1Cm9ZC3DwqIKbftlg_rdP3rGixf036Fef-kgHh1fdCt47VmlVj119u6xl0Do1BP_ar4u5_kxTvFN2h1TXzgDuXp4mZmjbgHF65ZXgkj0YMB75uSqTFlY7P3pQvbmsf4WUIMb8U6oKO4yRd807dU18AX3E26LoXQS7NHfFCj41Rs0cXqz4S-A4OB79HyYhjQvcb0nCK6sciThQqRnxjiezmBzambjWi_uJd1QqeO78XcS0UWDz2lX8XDsoMJ3Ct45lLo5WI3rKDTjKh3bpY6e_IDCDWXqmynYYYoeqJgJXfEM_gz-1ujdj0SI1w4rdnU0I0-arpmXE04yt_eOClxkyME-HLmx_R8znuRhaSEoNV35pj0LUxZqF5OJsY-g9MM4g8AzMBFoZBuLuMWbF8vAzDdzIcM6MGcXHT0kvvAmPcylFAChAsiHfhE25tgSUvwLLomgAjpOPYp_DF_neGk6dhbzj53WaIllM3IIY38sXRsmmiFCTn3FOHo4wz0FBUhtnfdwgPwIIFbZAbpGUS5-DrRH4zI_qzHH99ZRP-BxWNrDsDtzfsCmnIs0EEEW8QZxeMQGgwlPAE52eymStH14nMgASoJdXMtZWFzdC0yMMoQ.m3u8\",\n    \"status\": 200,\n    \"contentType\": \"application/vnd.apple.mpegurl\",\n    \"type\": \"fetch\"\n  }\n]\n\n=== TOKENS ===\n {\n  \"requestHeaders\": [\n    {\n      \"url\": \"https://gql.twitch.tv/gql\",\n      \"type\": \"fetch\",\n      \"authorization\": \"undefined\",\n      \"xAccessToken\": null,\n      \"xAuthToken\": null\n    }\n  ],\n  \"urlParams\": [\n    {\n      \"url\": \"https://usher.ttvnw.net/api/channel/hls/telediariotelevision.m3u8?acmb=eyJBcHBWZXJzaW9uIjoiNDkyOTA5NzgtMGY1Ni00ZThmLWJlNjItNmVjNTk5YWYxYTkzIiwiQ2xpZW50QXBwIjoidHdpbGlnaHQiLCJVUkwiOiJodHRwczovL3BsYXllci50d2l0Y2gudHYvIn0%3D&allow_source=true&browser_family=chrome&browser_version=157.0&cdm=wv&enable_score=true&fast_bread=true&include_unavailable=true&lang=en&os_name=Linux&os_version=undefined&p=2463368&parent_domains=twitchplayer&platform=web&play_session_id=1ae3474f50804e72954c1726792e2630&player_backend=mediaplayer&player_version=1.59.0-rc.1&playlist_include_framerate=true&reassignments_supported=true&sig=2629cbc9dc10e04cb972b2a5be900e6a5342192e&supported_codecs=av1,h264&token=%7B%22adblock%22%3Afalse%2C%22authorization%22%3A%7B%22forbidden%22%3Afalse%2C%22reason%22%3A%22%22%7D%2C%22blackout_enabled%22%3Afalse%2C%22channel%22%3A%22telediariotelevision%22%2C%22channel_id%22%3A774059522%2C%22chansub%22%3A%7B%22restricted_bitrates%22%3A%5B%5D%2C%22view_until%22%3A1924905600%7D%2C%22ci_gb%22%3Afalse%2C%22geoblock_reason%22%3A%22%22%2C%22device_id%22%3A%226250dd4eca8cb419%22%2C%22expires%22%3A1795011692%2C%22extended_history_allowed%22%3Afalse%2C%22game%22%3A%22%22%2C%22hide_ads%22%3Afalse%2C%22https_required%22%3Atrue%2C%22mature%22%3Afalse%2C%22notification_id%22%3Anull%2C%22partner%22%3Afalse%2C%22platform%22%3A%22web%22%2C%22player_type%22%3A%22embed%22%2C%22private%22%3A%7B%22allowed_to_view%22%3Atrue%7D%2C%22privileged%22%3Afalse%2C%22role%22%3A%22%22%2C%22server_ads%22%3Atrue%2C%22show_ads%22%3Atrue%2C%22subscriber%22%3Afalse%2C%22turbo%22%3Afalse%2C%22user_id%22%3Anull%2C%22user_ip%22%3A%22132.196.20.194%22%2C%22version%22%3A3%2C%22maximum_resolution%22%3A%22FULL_HD%22%2C%22maximum_video_bitrate_kbps%22%3A12500%2C%22maximum_resolution_reasons%22%3A%7B%22QUAD_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%2C%22ULTRA_HD%22%3A%5B%22AUTHZ_NOT_LOGGED_IN%22%5D%7D%2C%22maximum_video_bitrate_kbps_reasons%22%3A%5B%22AUTHZ_DISALLOWED_BITRATE%22%5D%7D&transcode_mode=cbr_v1\",\n      \"matches\": [\n        {\n          \"param\": \"play_session_id\",\n          \"value\": \"1ae3474f50804e72954c1726792e2630\"\n        },\n        {\n          \"param\": \"token\",\n          \"value\": \"{\\\"adblock\\\":false,\\\"authorization\\\":{\\\"forbidden\\\":false,\\\"reason\\\":\\\"\\\"},\\\"blackout_enabled\\\":false,\\\"channel\\\":\\\"telediariotelevision\\\",\\\"channel_id\\\":774059522,\\\"chansub\\\":{\\\"restricted_bitrates\\\":[],\\\"view_until\\\":1924905600},\\\"ci_gb\\\":false,\\\"geoblock_reason\\\":\\\"\\\",\\\"device_id\\\":\\\"6250dd4eca8cb419\\\",\\\"expires\\\":1795011692,\\\"extended_history_allowed\\\":false,\\\"game\\\":\\\"\\\",\\\"hide_ads\\\":false,\\\"https_required\\\":true,\\\"mature\\\":false,\\\"notification_id\\\":null,\\\"partner\\\":false,\\\"platform\\\":\\\"web\\\",\\\"player_type\\\":\\\"embed\\\",\\\"private\\\":{\\\"allowed_to_view\\\":true},\\\"privileged\\\":false,\\\"role\\\":\\\"\\\",\\\"server_ads\\\":true,\\\"show_ads\\\":true,\\\"subscriber\\\":false,\\\"turbo\\\":false,\\\"user_id\\\":null,\\\"user_ip\\\":\\\"132.196.20.194\\\",\\\"version\\\":3,\\\"maximum_resolution\\\":\\\"FULL_HD\\\",\\\"maximum_video_bitrate_kbps\\\":12500,\\\"maximum_resolution_reasons\\\":{\\\"QUAD_HD\\\":[\\\"AUTHZ_NOT_LOGGED_IN\\\"],\\\"ULTRA_HD\\\":[\\\"AUTHZ_NOT_LOGGED_IN\\\"]},\\\"maximum_video_bitrate_kbps_reasons\\\":[\\\"AUTHZ_DISALLOWED_BITRATE\\\"]}\"\n        }\n      ]\n    }\n  ],\n  \"jsonResponses\": []\n}\n[Guardado] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/f12-report-1795010504079.json\n[Captura] /home/runner/work/Navegador-Headless-para-raspar-tokens/Navegador-Headless-para-raspar-tokens/output/screenshot-1795010504086.png\n"
+}
