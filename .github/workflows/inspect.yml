@@ -4,36 +4,28 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: 'Plataforma de platforms.json (opcional)'
         required: false
         default: ''
       channel:
-        description: 'Canal o ALL para rotar todos'
         required: false
         default: ''
       target_url:
-        description: 'URL directa (opcional)'
         required: false
         default: ''
       wait_ms:
-        description: 'Espera extra en ms'
         required: false
         default: '1500'
       use_login:
-        description: 'Iniciar sesión'
         required: false
         type: boolean
         default: false
       platform_user:
-        description: 'Usuario plataforma'
         required: false
         default: ''
       platform_pass:
-        description: 'Contraseña plataforma'
         required: false
         default: ''
       embed_key:
-        description: 'Contraseña general de cifrado'
         required: false
         default: ''
 
@@ -52,7 +44,7 @@ jobs:
       PUPPETEER_SKIP_DOWNLOAD: 'true'
 
     steps:
-      - name: Enmascarar contraseñas en logs
+      - name: Enmascarar contraseñas
         if: inputs.platform_pass != '' || inputs.embed_key != ''
         env:
           RAW_PASS: ${{ inputs.platform_pass }}
@@ -61,19 +53,16 @@ jobs:
           if [ -n "$RAW_PASS" ]; then printf '::add-mask::%s\n' "$RAW_PASS"; fi
           if [ -n "$RAW_EKEY" ]; then printf '::add-mask::%s\n' "$RAW_EKEY"; fi
 
-      - name: Checkout del repositorio
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
 
-      - name: Instalar dependencias rápido
-        run: npm ci --prefer-offline 2>/dev/null || npm install --prefer-offline
+      - run: npm ci --prefer-offline 2>/dev/null || npm install --prefer-offline
 
-      - name: Preparar Google Chrome en runner
+      - name: Preparar Google Chrome
         run: |
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 >/dev/null 2>&1 || true
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
@@ -83,7 +72,7 @@ jobs:
           fi
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
-      - name: Bucle continuo Headless F12 + Imperio Player Full-Shield
+      - name: Headless continuo + cifrado desde Secret IMPERIO_UI
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
           INPUT_CHANNEL: ${{ inputs.channel }}
@@ -97,6 +86,7 @@ jobs:
           PASS_SELECTOR: ${{ secrets.PASS_SELECTOR }}
           SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
           EMBED_KEY: ${{ inputs.embed_key || secrets.EMBED_SECRET }}
+          IMPERIO_UI: ${{ secrets.IMPERIO_UI }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -113,20 +103,27 @@ jobs:
           const chromeBin = process.env.CHROME_BIN || '';
           const pass = process.env.PLATFORM_PASS || '';
           const embedPassword = process.env.EMBED_KEY || '';
+          const rawUi = process.env.IMPERIO_UI || '';
+          const refName = process.env.GITHUB_REF_NAME || 'main';
+
+          if (!rawUi.trim()) {
+            console.log('Falta configurar el Secret IMPERIO_UI en Settings -> Secrets -> Actions.');
+            process.exit(0);
+          }
+
           const sanitize = (str) => {
             let out = str;
             if (pass) out = out.split(pass).join('***');
             if (embedPassword) out = out.split(embedPassword).join('***');
             return out;
           };
-          const refName = process.env.GITHUB_REF_NAME || 'main';
 
           function walk(dir) {
             if (!fs.existsSync(dir)) return [];
             let files = [];
-            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-              const full = path.join(dir, entry.name);
-              if (entry.isDirectory()) files = files.concat(walk(full));
+            for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+              const full = path.join(dir, e.name);
+              if (e.isDirectory()) files = files.concat(walk(full));
               else files.push(full);
             }
             return files;
@@ -134,8 +131,8 @@ jobs:
 
           function extractUrls(obj, found = new Set()) {
             if (typeof obj === 'string') {
-              const matches = obj.match(/https?:\/\/[^\s"'<>]+/g);
-              if (matches) matches.forEach(u => found.add(u));
+              const m = obj.match(/https?:\/\/[^\s"'<>]+/g);
+              if (m) m.forEach(u => found.add(u));
             } else if (Array.isArray(obj)) obj.forEach(x => extractUrls(x, found));
             else if (obj && typeof obj === 'object') Object.values(obj).forEach(x => extractUrls(x, found));
             return Array.from(found);
@@ -145,26 +142,21 @@ jobs:
             const out = Buffer.allocUnsafe(buf.length);
             const ctr = Buffer.allocUnsafe(36);
             xorSeed.copy(ctr, 0);
-            let blockIdx = 0, mask = null;
+            let idx = 0, mask = null;
             for (let i = 0; i < buf.length; i++) {
-              const offset = i & 31;
-              if (offset === 0) {
-                ctr.writeUInt32BE(blockIdx++, 32);
-                mask = crypto.createHash('sha256').update(ctr).digest();
-              }
-              out[i] = buf[i] ^ mask[offset];
+              const off = i & 31;
+              if (off === 0) { ctr.writeUInt32BE(idx++, 32); mask = crypto.createHash('sha256').update(ctr).digest(); }
+              out[i] = buf[i] ^ mask[offsetFix(off)];
             }
             return out;
           }
+          function offsetFix(o) { return o; }
 
           function sealEnvelope(plainText, ikmBuf, infoStr) {
             const salt = crypto.randomBytes(16);
             const iv = crypto.randomBytes(12);
             const derived = Buffer.from(crypto.hkdfSync('sha512', ikmBuf, salt, Buffer.from(infoStr, 'utf8'), 96));
-            const aesKey = derived.subarray(0, 32);
-            const hmacKey = derived.subarray(32, 64);
-            const xorSeed = derived.subarray(64, 96);
-
+            const aesKey = derived.subarray(0, 32), hmacKey = derived.subarray(32, 64), xorSeed = derived.subarray(64, 96);
             const cipher = crypto.createCipheriv('aes-256-gcm', aesKey, iv);
             const aesOut = Buffer.concat([cipher.update(plainText, 'utf8'), cipher.final(), cipher.getAuthTag()]);
             const masked = xorSha256(aesOut, xorSeed);
@@ -173,13 +165,13 @@ jobs:
             return { s: salt.toString('base64'), v: iv.toString('base64'), d: masked.toString('base64'), m: mac.toString('base64') };
           }
 
-          function buildTargets() {
+          function readTargets() {
             const rawCh = (process.env.INPUT_CHANNEL || '').trim();
             if (rawCh.toUpperCase() === 'ALL' && fs.existsSync('channels/list.json')) {
               try {
                 const list = JSON.parse(fs.readFileSync('channels/list.json', 'utf8'));
                 if (Array.isArray(list) && list.length) {
-                  return list.map(item => ({ slug: item.slug, channel: item.slug, platform: item.platform || '', target_url: item.target_url || '' }));
+                  return list.map(item => ({ slug: item.slug, channel: item.channel || item.slug, platform: item.platform || '', target_url: item.target_url || '' }));
                 }
               } catch {}
             }
@@ -187,45 +179,19 @@ jobs:
             return [{ slug, channel: rawCh, platform: process.env.INPUT_PLATFORM || '', target_url: process.env.INPUT_URL || '' }];
           }
 
-          function buildImperioFullPayload(slug, chIkm) {
-            const cssText = [
-              ':host{display:block;width:100%;height:100%;margin:0;padding:0}',
-              '#flow-player{max-width:1000px;margin:auto;position:relative;background:#000;border-radius:10px;overflow:hidden;font-family:Arial,sans-serif;height:100%;-webkit-user-select:none;user-select:none}',
-              '#flow-player video,#flow-player canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block}',
-              '#flow-player canvas{z-index:1;pointer-events:none}',
-              '#flow-player .controls{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);transition:opacity .25s;z-index:10}',
-              '#flow-player input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:#fff}',
-              '#flow-player input[type=range]::-webkit-slider-thumb{width:0;height:0}',
-              '#flow-player input[type=range]::-moz-range-thumb{width:0;height:0;border:0}',
-              '#flow-player button{background:none;border:0;cursor:pointer;width:34px}',
-              '#fp_fs{position:absolute;top:10px;right:10px;z-index:15;transition:opacity .25s}',
-              '#flow-player #fp_unmute_top{position:absolute;top:12px;left:12px;z-index:20;display:none;align-items:center;gap:8px;width:auto;padding:10px 16px 10px 12px;background:#14abd1;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;font:700 13px/1 Arial,sans-serif;letter-spacing:.2px;box-shadow:0 4px 14px rgba(0,0,0,.45);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:fp_pulse 2s infinite;transition:transform .15s,background .2s,opacity .25s}',
-              '#flow-player #fp_unmute_top:hover{background:#1bbce4;transform:scale(1.04)}',
-              '#flow-player #fp_unmute_top:active{transform:scale(.96)}',
-              '#flow-player #fp_unmute_top svg{flex:none}',
-              '@keyframes fp_pulse{0%{box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 0 0 rgba(20,171,209,.6)}70%{box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 0 12px rgba(20,171,209,0)}100%{box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 0 0 rgba(20,171,209,0)}}',
-              '@media (prefers-reduced-motion:reduce){#flow-player #fp_unmute_top{animation:none}}',
-              '#fp_qmenu{position:absolute;bottom:60px;right:10px;background:#111;color:#fff;border-radius:6px;display:none;font-size:13px;z-index:25}',
-              '#fp_qmenu div{padding:6px 10px;cursor:pointer}',
-              '#fp_qmenu div:hover{background:#222}',
-              '#flow-player:fullscreen,#flow-player:-webkit-full-screen{width:100%!important;height:100%!important;max-width:none!important;border-radius:0!important}',
-              '#flow-player.hide-ui .controls,#flow-player.hide-ui #fp_fs{opacity:0;pointer-events:none}'
-            ].join('');
+          function buildProtectedPayload(slug, chIkm) {
+            const rawStyle = (rawUi.match(/<style[^>]*>([\s\S]*?)<\/style>/i) || ['', ''])[1];
+            const scopedCss = rawStyle.replace(/html\s*,\s*body/gi, ':host') +
+              '\n:host{display:block;width:100%;height:100%;position:relative;-webkit-user-select:none;user-select:none}' +
+              '\n#flow-player video,#flow-player canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block}' +
+              '\n#flow-player canvas{z-index:1;pointer-events:none}';
 
-            const domText = '<style>' + cssText + '</style>' +
-              '<div id="flow-player">' +
-                '<button id="fp_unmute_top"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a9 9 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>Activar sonido</button>' +
-                '<video id="fp_video" playsinline autoplay preload="auto" disablePictureInPicture disableRemotePlayback controlsList="nodownload noplaybackrate noremoteplayback"></video>' +
-                '<canvas id="glc"></canvas>' +
-                '<button id="fp_fs"><svg viewBox="0 0 24 24" width="26" height="26" stroke="#14abd1" stroke-width="3" fill="none"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>' +
-                '<div class="controls">' +
-                  '<button id="fp_play"><svg id="fp_icoPlay" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg><svg id="fp_icoPause" viewBox="0 0 24 24" fill="#fff" style="display:none"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg></button>' +
-                  '<input id="fp_bar" type="range" value="0" min="0" step="0.1">' +
-                  '<button id="fp_mute"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 10v4h4l5 5V5L7 10z"/></svg></button>' +
-                  '<button id="fp_gear"><svg viewBox="0 0 24 24" width="24" height="24" fill="#14abd1"><path d="M19.4 13.5c.04-.5.06-1 .06-1.5s-.02-1-.06-1.5l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.03 7.03 0 0 0-2.6-1.5l-.38-2.65A.5.5 0 0 0 13.1 1h-4a.5.5 0 0 0-.5.42l-.38 2.65a7.03 7.03 0 0 0-2.6 1.5l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64L2.6 10.5c-.04.5-.06 1-.06 1.5s.02 1 .06 1.5L.49 15.15a.5.5 0 0 0-.12.64l2 3.46c.14.24.43.34.69.22l2.49-1a7.03 7.03 0 0 0 2.6 1.5l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.38-2.65a7.03 7.03 0 0 0 2.6-1.5l2.49 1c.26.12.55.02.69-.22l2-3.46a.5.5 0 0 0-.12-.64L19.4 13.5zM11 15.5A3.5 3.5 0 1 1 11 8a3.5 3.5 0 0 1 0 7.5z"/></svg></button>' +
-                '</div>' +
-                '<div id="fp_qmenu"></div>' +
-              '</div>';
+            const rawBody = (rawUi.match(/<body[^>]*>([\s\S]*?)<script/i) || ['', rawUi])[1].trim();
+            const scopedHtml = rawBody
+              .replace(/<video([^>]*)>/i, '<video$1 disablePictureInPicture disableRemotePlayback controlsList="nodownload noplaybackrate noremoteplayback">')
+              .replace(/(<\/video>)/i, '$1<canvas id="glc"></canvas>');
+
+            const domText = '<style>' + scopedCss + '</style>' + scopedHtml;
 
             return `(async function () {
               const SLUG = ${JSON.stringify(slug)};
@@ -234,14 +200,9 @@ jobs:
               let ikmBytes = Uint8Array.from(atob(${JSON.stringify(chIkm.toString('base64'))}), c => c.charCodeAt(0));
               const wipe = (a) => { try { if (a && a.fill) a.fill(0); } catch {} };
 
-              if (navigator.webdriver || window._phantom || window.callPhantom || window.__nightmare || !navigator.languages || !navigator.languages.length) {
-                wipe(ikmBytes); return;
-              }
-              try {
-                if (!Function.prototype.toString.call(crypto.subtle.decrypt).includes('native code')) { wipe(ikmBytes); return; }
-              } catch { wipe(ikmBytes); return; }
+              if (navigator.webdriver || window._phantom || window.callPhantom || window.__nightmare || !navigator.languages || !navigator.languages.length) { wipe(ikmBytes); return; }
+              try { if (!Function.prototype.toString.call(crypto.subtle.decrypt).includes('native code')) { wipe(ikmBytes); return; } } catch { wipe(ikmBytes); return; }
 
-              // Montar todo dentro de Closed Shadow DOM en memoria RAM
               const host = document.createElement('div');
               host.style.cssText = 'width:100%;height:100%;margin:0;padding:0;display:block;';
               document.body.appendChild(host);
@@ -249,34 +210,18 @@ jobs:
               sr.innerHTML = ${JSON.stringify(domText)};
 
               const $s = (id) => sr.getElementById(id);
-              const video = $s('fp_video');
-              const canvas = $s('glc');
-              const bar = $s('fp_bar');
-              const playBtn = $s('fp_play');
-              const icoPlay = $s('fp_icoPlay');
-              const icoPause = $s('fp_icoPause');
-              const muteBtn = $s('fp_mute');
-              const btnUnmuteTop = $s('fp_unmute_top');
-              const fsBtn = $s('fp_fs');
-              const gearBtn = $s('fp_gear');
-              const qmenu = $s('fp_qmenu');
-              const box = $s('flow-player');
+              const video = $s('fp_video'), canvas = $s('glc'), bar = $s('fp_bar'), playBtn = $s('fp_play');
+              const icoPlay = $s('fp_icoPlay'), icoPause = $s('fp_icoPause'), muteBtn = $s('fp_mute');
+              const btnUnmuteTop = $s('fp_unmute_top'), fsBtn = $s('fp_fs'), gearBtn = $s('fp_gear'), qmenu = $s('fp_qmenu'), box = $s('flow-player');
 
               let hls = null, shakaPlayer = null, currentUrl = '', useWebGL = true, userPaused = false, userChoseMute = false, lockedOut = false, syncInt = null, guardInt = null;
 
-              function clearPerf() {
-                try {
-                  if (performance.setResourceTimingBufferSize) performance.setResourceTimingBufferSize(0);
-                  if (performance.clearResourceTimings) performance.clearResourceTimings();
-                } catch {}
-              }
+              function clearPerf() { try { if (performance.setResourceTimingBufferSize) performance.setResourceTimingBufferSize(0); if (performance.clearResourceTimings) performance.clearResourceTimings(); } catch {} }
               clearPerf();
 
               function lockOut() {
-                if (lockedOut) return;
-                lockedOut = true;
-                clearInterval(syncInt); clearInterval(guardInt);
-                wipe(ikmBytes); currentUrl = '';
+                if (lockedOut) return; lockedOut = true;
+                clearInterval(syncInt); clearInterval(guardInt); wipe(ikmBytes); currentUrl = '';
                 try { if (hls) { hls.destroy(); hls = null; } } catch {}
                 try { if (shakaPlayer) { shakaPlayer.destroy(); shakaPlayer = null; } } catch {}
                 try { video.pause(); video.removeAttribute('src'); video.load(); } catch {}
@@ -284,17 +229,9 @@ jobs:
                 clearPerf();
               }
 
-              // Bloqueo completo de consola, atajos, menú, selección, impresión y DevTools
-              try {
-                const noop = () => {};
-                ['log','info','warn','error','debug','table','dir','trace','group','groupCollapsed','assert'].forEach(k => { try { console[k] = noop; } catch {} });
-                try { Object.freeze(console); } catch {}
-              } catch {}
+              try { const noop = () => {}; ['log','info','warn','error','debug','table','dir','trace','group','groupCollapsed','assert'].forEach(k => { try { console[k] = noop; } catch {} }); try { Object.freeze(console); } catch {} } catch {}
               const killEv = (e) => { e.preventDefault(); e.stopPropagation(); return false; };
-              ['contextmenu','selectstart','dragstart','copy','cut'].forEach(ev => {
-                document.addEventListener(ev, killEv, true);
-                sr.addEventListener(ev, killEv, true);
-              });
+              ['contextmenu','selectstart','dragstart','copy','cut'].forEach(ev => { document.addEventListener(ev, killEv, true); sr.addEventListener(ev, killEv, true); });
               document.addEventListener('keydown', (e) => {
                 const k = (e.key || '').toUpperCase();
                 if (e.keyCode === 123 || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['I','J','C','K'].includes(k)) || ((e.ctrlKey || e.metaKey) && ['U','S','P'].includes(k))) {
@@ -305,25 +242,19 @@ jobs:
               const dbgFn = (function(){}).constructor('debugger');
               let dbgHits = 0;
               guardInt = setInterval(() => {
-                if (lockedOut) return;
-                clearPerf();
-                if (document.hidden) return;
-                const t0 = performance.now();
-                dbgFn();
-                if (performance.now() - t0 > 250) { if (++dbgHits >= 2) lockOut(); }
-                else dbgHits = 0;
+                if (lockedOut) return; clearPerf(); if (document.hidden) return;
+                const t0 = performance.now(); dbgFn();
+                if (performance.now() - t0 > 250) { if (++dbgHits >= 2) lockOut(); } else dbgHits = 0;
               }, 1500);
 
               function loadScript(src) {
                 return new Promise((resolve) => {
-                  const s = document.createElement('script');
-                  s.src = src;
+                  const s = document.createElement('script'); s.src = src;
                   s.onload = () => { s.remove(); resolve(true); };
                   s.onerror = () => { s.remove(); resolve(false); };
                   document.head.appendChild(s);
                 });
               }
-
               await Promise.allSettled([
                 loadScript('https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js'),
                 loadScript('https://cdn.jsdelivr.net/npm/shaka-player@4/dist/shaka-player.compiled.js')
@@ -331,26 +262,21 @@ jobs:
               clearPerf();
 
               const b64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-
               async function xorSha256(bytes, seed) {
-                const out = new Uint8Array(bytes.length);
-                const ctr = new Uint8Array(36);
-                ctr.set(seed, 0);
-                const dv = new DataView(ctr.buffer);
-                let idx = 0, mask = null;
+                const out = new Uint8Array(bytes.length), ctr = new Uint8Array(36); ctr.set(seed, 0);
+                const dv = new DataView(ctr.buffer); let idx = 0, mask = null;
                 for (let i = 0; i < bytes.length; i++) {
                   const off = i & 31;
                   if (off === 0) { dv.setUint32(32, idx++, false); mask = new Uint8Array(await crypto.subtle.digest('SHA-256', ctr)); }
                   out[i] = bytes[i] ^ mask[off];
                 }
-                wipe(ctr); wipe(mask);
-                return out;
+                wipe(ctr); wipe(mask); return out;
               }
 
               async function openEnvelope(env, ikm, infoStr) {
                 const salt = b64(env.s), iv = b64(env.v), masked = b64(env.d), mac = b64(env.m);
                 const hkdfKey = await crypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
-                const bits = await crypto.subtle.deriveBits({ name: 'HKDF', hash: 'SHA-512', salt: salt, info: new TextEncoder().encode(infoStr) }, hkdfKey, 768);
+                const bits = await crypto.subtle.deriveBits({ name: 'HKDF', hash: 'SHA-512', salt, info: new TextEncoder().encode(infoStr) }, hkdfKey, 768);
                 const der = new Uint8Array(bits);
                 const aesKey = await crypto.subtle.importKey('raw', der.slice(0, 32), 'AES-GCM', false, ['decrypt']);
                 const hmacKey = await crypto.subtle.importKey('raw', der.slice(32, 64), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
@@ -360,7 +286,7 @@ jobs:
                 const ok = await crypto.subtle.verify('HMAC', hmacKey, mac, authIn);
                 if (!ok) { wipe(der); wipe(xorSeed); throw new Error('HMAC'); }
                 const aesCipher = await xorSha256(masked, xorSeed);
-                const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, aesKey, aesCipher);
+                const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, aesCipher);
                 const obj = JSON.parse(new TextDecoder().decode(plainBuf));
                 wipe(der); wipe(xorSeed); wipe(aesCipher); wipe(new Uint8Array(plainBuf));
                 return obj;
@@ -373,9 +299,7 @@ jobs:
                 if (!gl) return false;
                 const vs = 'attribute vec2 a_pos; varying vec2 v_uv; void main(){ v_uv = a_pos * 0.5 + 0.5; gl_Position = vec4(a_pos, 0.0, 1.0); }';
                 const fs = 'precision mediump float; varying vec2 v_uv; uniform sampler2D u_tex; uniform int u_pass; uniform vec2 u_size; void main(){ vec4 c = texture2D(u_tex, v_uv); if (u_pass == 0 || u_pass == 2 || u_pass == 4) { c.rgb = 1.0 - c.rgb; } else { c.rgb = 1.0 - c.rgb; } gl_FragColor = vec4(c.rgb, 1.0); }';
-                prog = gl.createProgram();
-                gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
-                gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+                prog = gl.createProgram(); gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
                 gl.linkProgram(prog); gl.useProgram(prog);
                 const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
                 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
@@ -402,12 +326,9 @@ jobs:
                 gl.bindFramebuffer(gl.FRAMEBUFFER, null);
               }
               function fallbackToNative() { useWebGL = false; canvas.style.display = 'none'; }
-              const glReady = initGL();
-              if (!glReady) fallbackToNative();
-
+              const glReady = initGL(); if (!glReady) fallbackToNative();
               function renderLoop() {
-                if (lockedOut) return;
-                requestAnimationFrame(renderLoop);
+                if (lockedOut) return; requestAnimationFrame(renderLoop);
                 if (!useWebGL || !glReady || video.readyState < 2 || !video.videoWidth) return;
                 try {
                   ensureFBOs(video.videoWidth, video.videoHeight);
@@ -429,102 +350,48 @@ jobs:
               function safePlay() {
                 if (userPaused || lockedOut) return;
                 const p = video.play();
-                if (p !== undefined) p.catch((err) => {
-                  if (err.name === 'NotAllowedError' && !video.muted) { video.muted = true; updateMuteButtonState(); video.play().catch(() => {}); }
-                });
+                if (p !== undefined) p.catch((err) => { if (err.name === 'NotAllowedError' && !video.muted) { video.muted = true; updateMuteButtonState(); video.play().catch(() => {}); } });
               }
-              function handleGlobalInteraction(e) {
-                const t = e.target;
-                if (t && t.closest && (t.closest('#fp_mute') || t.closest('#fp_unmute_top'))) return;
+              ['click','touchend','pointerup','keydown'].forEach(ev => box.addEventListener(ev, (e) => {
+                const t = e.target; if (t && t.closest && (t.closest('#fp_mute') || t.closest('#fp_unmute_top'))) return;
                 if (!userChoseMute && video.muted) { video.muted = false; updateMuteButtonState(); }
                 safePlay();
-              }
-              ['click', 'touchend', 'pointerup', 'keydown'].forEach(ev => box.addEventListener(ev, handleGlobalInteraction, { capture: true, passive: true }));
+              }, { capture: true, passive: true }));
 
-              const STD_HEIGHTS = [144, 240, 360, 480, 540, 720, 1080, 1440, 2160];
-              function nearestStd(h) { return STD_HEIGHTS.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a); }
-              const URL_HEIGHTS = [144, 240, 360, 480, 540, 576, 720, 1080, 1440, 2160, 4320];
-              function urlHeight(l) {
-                const u = l.uri || (Array.isArray(l.url) ? l.url[0] : l.url) || '';
-                const m = String(u).match(/(?:^|[^0-9a-z])(\\d{3,4})p(?:\\d{2})?(?![a-z0-9])/i);
-                const n = m ? parseInt(m[1], 10) : 0;
-                return URL_HEIGHTS.indexOf(n) >= 0 ? n : 0;
-              }
-              function levelHeight(l) {
-                if (l.height) return l.height;
-                const r = l.attrs && l.attrs.RESOLUTION;
-                if (r && /x/i.test(r)) {
-                  const parts = String(r).split(/x/i).map(n => parseInt(n, 10));
-                  if (parts[1]) return parts[1];
-                  if (parts[0]) return nearestStd(Math.round(parts[0] * 9 / 16));
-                }
-                return urlHeight(l);
-              }
-              function bitrateToHeight(b) { if (b < 500e3) return 240; if (b < 1000e3) return 360; if (b < 1800e3) return 480; if (b < 3500e3) return 720; if (b < 7000e3) return 1080; if (b < 14000e3) return 1440; return 2160; }
-              const EST_HEIGHTS = [144, 240, 360, 480, 720, 1080, 1440, 2160];
-              function nearestEst(h) { return EST_HEIGHTS.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a); }
-              function snapHeight(h) { const n = nearestEst(h); return Math.abs(n - h) / n <= 0.08 ? n : h; }
+              const STD_H = [144,240,360,480,540,720,1080,1440,2160], URL_H = [144,240,360,480,540,576,720,1080,1440,2160,4320], EST_H = [144,240,360,480,720,1080,1440,2160];
+              const near = (arr, h) => arr.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a);
+              const snapH = (h) => { const n = near(EST_H, h); return Math.abs(n - h) / n <= 0.08 ? n : h; };
+              function urlH(l) { const m = String(l.uri || (Array.isArray(l.url) ? l.url[0] : l.url) || '').match(/(?:^|[^0-9a-z])(\\d{3,4})p(?:\\d{2})?(?![a-z0-9])/i); const n = m ? parseInt(m[1], 10) : 0; return URL_H.indexOf(n) >= 0 ? n : 0; }
+              function lvlH(l) { if (l.height) return l.height; const r = l.attrs && l.attrs.RESOLUTION; if (r && /x/i.test(r)) { const p = String(r).split(/x/i).map(n => parseInt(n, 10)); if (p[1]) return p[1]; if (p[0]) return near(STD_H, Math.round(p[0] * 9 / 16)); } return urlH(l); }
+              function brH(b) { return b < 500e3 ? 240 : b < 1000e3 ? 360 : b < 1800e3 ? 480 : b < 3500e3 ? 720 : b < 7000e3 ? 1080 : b < 14000e3 ? 1440 : 2160; }
               let calib = null, realByLevel = {}, lockedReal = 0, started = false;
-              function knownHeight(l, i) { return realByLevel[i] || levelHeight(l); }
-              function calibrate() {
-                if (calib || !hls || !hls.levels || !video.videoHeight) return;
-                const idx = hls.currentLevel >= 0 ? hls.currentLevel : hls.loadLevel;
-                const l = hls.levels[idx];
-                if (l && l.bitrate) { calib = { index: idx, bitrate: l.bitrate, height: snapHeight(video.videoHeight) }; realByLevel[idx] = calib.height; }
-              }
-              function estimateHeight(l, i) { if (!l.bitrate) return 0; if (calib) return i === calib.index ? calib.height : nearestEst(calib.height * Math.sqrt(l.bitrate / calib.bitrate)); return bitrateToHeight(l.bitrate); }
-              function sortHeight(l, i) { return knownHeight(l, i) || estimateHeight(l, i); }
-              function awaitingPlay(levels) { return !started && levels.some(l => !levelHeight(l) && !(l.audioCodec && !l.videoCodec)); }
-              function awaitingReal(levels) { const l = levels[0]; return levels.length === 1 && !levelHeight(l) && !(l.audioCodec && !l.videoCodec) && !lockedReal; }
-              function rankHeight(i, n) { const ladder = [144, 240, 360, 480, 720, 1080]; return ladder[Math.max(0, Math.min(ladder.length - 1, i + ladder.length - n))]; }
-              function levelLabel(l, i, levels) {
-                const h = knownHeight(l, i); if (h) return h + 'p';
-                if (l.audioCodec && !l.videoCodec) return 'Audio';
-                if (levels.length === 1 && lockedReal) return lockedReal + 'p';
-                const e = estimateHeight(l, i); if (e) return e + 'p';
-                return rankHeight(i, levels.length) + 'p';
-              }
-              function buildQualityMenu(levels) {
-                qmenu.innerHTML = '';
-                const auto = document.createElement('div'); auto.textContent = 'Auto';
-                auto.onclick = () => { if (hls) hls.currentLevel = -1; qmenu.style.display = 'none'; };
-                qmenu.appendChild(auto);
-                const seen = new Set();
-                if (awaitingReal(levels) || awaitingPlay(levels)) levels = [];
-                levels.map((l, i) => ({ label: levelLabel(l, i, levels), height: sortHeight(l, i), bitrate: l.bitrate || 0, index: i }))
-                  .sort((a, b) => b.height - a.height || b.bitrate - a.bitrate)
-                  .filter(l => !seen.has(l.label) && seen.add(l.label))
-                  .forEach(l => { const d = document.createElement('div'); d.textContent = l.label; d.onclick = () => { if (hls) hls.currentLevel = l.index; qmenu.style.display = 'none'; }; qmenu.appendChild(d); });
-              }
-              function buildShakaMenu() {
-                if (!shakaPlayer) return;
-                qmenu.innerHTML = '';
-                const auto = document.createElement('div'); auto.textContent = 'Auto';
-                auto.onclick = () => { shakaPlayer.configure({ abr: { enabled: true } }); qmenu.style.display = 'none'; };
-                qmenu.appendChild(auto);
-                const seen = new Set();
-                shakaPlayer.getVariantTracks().sort((a, b) => (b.height || 0) - (a.height || 0)).forEach(t => {
-                  const lbl = t.height ? (t.height + 'p') : (Math.round((t.bandwidth || 0) / 1000) + 'k');
-                  if (seen.has(lbl)) return; seen.add(lbl);
-                  const d = document.createElement('div'); d.textContent = lbl;
-                  d.onclick = () => { shakaPlayer.configure({ abr: { enabled: false } }); shakaPlayer.selectVariantTrack(t, true); qmenu.style.display = 'none'; };
-                  qmenu.appendChild(d);
+              function calibrate() { if (calib || !hls || !hls.levels || !video.videoHeight) return; const idx = hls.currentLevel >= 0 ? hls.currentLevel : hls.loadLevel; const l = hls.levels[idx]; if (l && l.bitrate) { calib = { index: idx, bitrate: l.bitrate, height: snapH(video.videoHeight) }; realByLevel[idx] = calib.height; } }
+              function estH(l, i) { return !l.bitrate ? 0 : calib ? (i === calib.index ? calib.height : near(EST_H, calib.height * Math.sqrt(l.bitrate / calib.bitrate))) : brH(l.bitrate); }
+              function buildMenu(levels) {
+                qmenu.innerHTML = ''; const auto = document.createElement('div'); auto.textContent = 'Auto'; auto.onclick = () => { if (hls) hls.currentLevel = -1; qmenu.style.display = 'none'; }; qmenu.appendChild(auto);
+                if ((levels.length === 1 && !lvlH(levels[0]) && !(levels[0].audioCodec && !levels[0].videoCodec) && !lockedReal) || (!started && levels.some(l => !lvlH(l) && !(l.audioCodec && !l.videoCodec)))) levels = [];
+                const seen = new Set(), ladder = [144,240,360,480,720,1080];
+                levels.map((l, i) => {
+                  const kh = realByLevel[i] || lvlH(l);
+                  const lbl = kh ? kh + 'p' : (l.audioCodec && !l.videoCodec) ? 'Audio' : (levels.length === 1 && lockedReal) ? lockedReal + 'p' : (estH(l, i) || ladder[Math.max(0, Math.min(5, i + 6 - levels.length))]) + 'p';
+                  return { label: lbl, height: kh || estH(l, i), bitrate: l.bitrate || 0, index: i };
+                }).sort((a, b) => b.height - a.height || b.bitrate - a.bitrate).filter(l => !seen.has(l.label) && seen.add(l.label)).forEach(l => {
+                  const d = document.createElement('div'); d.textContent = l.label; d.onclick = () => { if (hls) hls.currentLevel = l.index; qmenu.style.display = 'none'; }; qmenu.appendChild(d);
                 });
               }
-              function buildNativeMenu() {
-                qmenu.innerHTML = '';
-                const auto = document.createElement('div'); auto.textContent = 'Auto'; auto.onclick = () => { qmenu.style.display = 'none'; }; qmenu.appendChild(auto);
-                if (lockedReal) { const d = document.createElement('div'); d.textContent = lockedReal + 'p'; d.onclick = () => { qmenu.style.display = 'none'; }; qmenu.appendChild(d); }
+              function buildShakaMenu() {
+                if (!shakaPlayer) return; qmenu.innerHTML = '';
+                const auto = document.createElement('div'); auto.textContent = 'Auto'; auto.onclick = () => { shakaPlayer.configure({ abr: { enabled: true } }); qmenu.style.display = 'none'; }; qmenu.appendChild(auto);
+                const seen = new Set();
+                shakaPlayer.getVariantTracks().sort((a, b) => (b.height || 0) - (a.height || 0)).forEach(t => {
+                  const lbl = t.height ? (t.height + 'p') : (Math.round((t.bandwidth || 0) / 1000) + 'k'); if (seen.has(lbl)) return; seen.add(lbl);
+                  const d = document.createElement('div'); d.textContent = lbl; d.onclick = () => { shakaPlayer.configure({ abr: { enabled: false } }); shakaPlayer.selectVariantTrack(t, true); qmenu.style.display = 'none'; }; qmenu.appendChild(d);
+                });
               }
-              function safeBuild() { try { buildQualityMenu((hls && hls.levels) || []); } catch {} }
-              function lockRealHeight() {
-                if (lockedReal || !video.videoHeight) return;
-                lockedReal = snapHeight(video.videoHeight);
-                try { if (hls && hls.levels && hls.levels.length === 1) safeBuild(); else if (!hls && !shakaPlayer) buildNativeMenu(); } catch {}
-              }
-              video.addEventListener('loadedmetadata', lockRealHeight);
-              video.addEventListener('resize', lockRealHeight);
-              video.addEventListener('playing', function () { lockRealHeight(); if (started) return; started = true; try { calibrate(); } catch {} if (hls && hls.levels && hls.levels.length) safeBuild(); });
+              function safeBuild() { try { buildMenu((hls && hls.levels) || []); } catch {} }
+              function lockRealHeight() { if (lockedReal || !video.videoHeight) return; lockedReal = snapH(video.videoHeight); if (hls && hls.levels && hls.levels.length === 1) safeBuild(); }
+              video.addEventListener('loadedmetadata', lockRealHeight); video.addEventListener('resize', lockRealHeight);
+              video.addEventListener('playing', () => { lockRealHeight(); if (started) return; started = true; try { calibrate(); } catch {} if (hls && hls.levels && hls.levels.length) safeBuild(); });
 
               async function play(url, lic) {
                 if (!url || url === currentUrl || lockedOut) return;
@@ -532,24 +399,13 @@ jobs:
                 if (lic) fallbackToNative();
                 if (/\\.(mp4|webm)(\\?|#|$)/i.test(url)) { if (hls) { hls.destroy(); hls = null; } if (shakaPlayer) await shakaPlayer.unload().catch(() => {}); video.src = url; safePlay(); clearPerf(); return; }
                 if (!lic && !/\\.mpd(\\?|#|$)/i.test(url) && window.Hls && Hls.isSupported()) {
-                  if (shakaPlayer) await shakaPlayer.unload().catch(() => {});
-                  if (hls) { hls.destroy(); hls = null; }
+                  if (shakaPlayer) await shakaPlayer.unload().catch(() => {}); if (hls) { hls.destroy(); hls = null; }
                   hls = new Hls({ enableWorker: true, lowLatencyMode: false, maxBufferLength: 30, maxMaxBufferLength: 60, liveSyncDurationCount: 3, fragLoadingTimeOut: 20000, manifestLoadingTimeOut: 20000 });
                   hls.loadSource(url); hls.attachMedia(video);
                   hls.on(Hls.Events.MANIFEST_PARSED, () => { safePlay(); safeBuild(); clearPerf(); });
-                  hls.on(Hls.Events.FRAG_CHANGED, function (e, data) {
-                    clearPerf();
-                    const lvl = data && data.frag ? data.frag.level : -1;
-                    if (lvl < 0 || realByLevel[lvl]) return;
-                    setTimeout(function () { try { if (!hls || realByLevel[lvl] || !video.videoHeight || hls.currentLevel !== lvl) return; realByLevel[lvl] = snapHeight(video.videoHeight); if (started) safeBuild(); } catch {} }, 1000);
-                  });
+                  hls.on(Hls.Events.FRAG_CHANGED, (e, data) => { clearPerf(); const lvl = data && data.frag ? data.frag.level : -1; if (lvl < 0 || realByLevel[lvl]) return; setTimeout(() => { try { if (hls && !realByLevel[lvl] && video.videoHeight && hls.currentLevel === lvl) { realByLevel[lvl] = snapH(video.videoHeight); if (started) safeBuild(); } } catch {} }, 1000); });
                   hls.on(Hls.Events.LEVELS_UPDATED, safeBuild);
-                  hls.on(Hls.Events.ERROR, (ev, data) => {
-                    if (!data.fatal) return;
-                    if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
-                    else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
-                    else { currentUrl = ''; setTimeout(sync, 1500); }
-                  });
+                  hls.on(Hls.Events.ERROR, (ev, data) => { if (data.fatal) { if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad(); else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError(); else { currentUrl = ''; setTimeout(sync, 1500); } } });
                   return;
                 }
                 if (hls) { hls.destroy(); hls = null; }
@@ -557,9 +413,7 @@ jobs:
                   shaka.polyfill.installAll();
                   if (!shakaPlayer) { shakaPlayer = new shaka.Player(); await shakaPlayer.attach(video); shakaPlayer.addEventListener('error', () => { currentUrl = ''; setTimeout(sync, 2000); }); shakaPlayer.addEventListener('trackschanged', buildShakaMenu); }
                   const servers = {}; if (lic) servers[/playready/i.test(lic) ? 'com.microsoft.playready' : 'com.widevine.alpha'] = lic;
-                  shakaPlayer.configure({ drm: { servers: servers } });
-                  await shakaPlayer.load(url).catch(() => { currentUrl = ''; });
-                  buildShakaMenu(); safePlay(); clearPerf(); return;
+                  shakaPlayer.configure({ drm: { servers } }); await shakaPlayer.load(url).catch(() => { currentUrl = ''; }); buildShakaMenu(); safePlay(); clearPerf(); return;
                 }
                 if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = url; safePlay(); clearPerf(); }
               }
@@ -577,25 +431,21 @@ jobs:
                 const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || sr.fullscreenElement;
                 if (!isFs) {
                   const req = box.requestFullscreen || box.webkitRequestFullscreen || box.mozRequestFullScreen || box.msRequestFullscreen;
-                  if (req) {
-                    try { const r = req.call(box); if (r && r.then) await r; } catch { if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return; } }
-                    if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
-                  } else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+                  if (req) { try { const r = req.call(box); if (r && r.then) await r; } catch { if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return; } } if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); }
+                  else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
                 } else {
                   if (screen.orientation && screen.orientation.unlock) try { screen.orientation.unlock(); } catch {}
                   const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
                   if (exit) exit.call(document).catch(() => {});
                 }
               }
-              function onFsChange() {
+              ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(ev => document.addEventListener(ev, () => {
                 const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || sr.fullscreenElement;
                 if (isFs) { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); }
                 else { if (screen.orientation && screen.orientation.unlock) try { screen.orientation.unlock(); } catch {} }
-              }
-              ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(ev => document.addEventListener(ev, onFsChange));
+              }));
               fsBtn.onclick = toggleFS; video.ondblclick = toggleFS;
               gearBtn.onclick = (e) => { e.stopPropagation(); qmenu.style.display = qmenu.style.display === 'block' ? 'none' : 'block'; };
-
               let uiTimer;
               function showUI() { box.classList.remove('hide-ui'); clearTimeout(uiTimer); if (!video.paused) uiTimer = setTimeout(() => { box.classList.add('hide-ui'); }, 2500); }
               box.addEventListener('mousemove', showUI); box.addEventListener('touchstart', showUI);
@@ -605,12 +455,9 @@ jobs:
                 if (lockedOut) return;
                 try {
                   const res = await fetch(base + '/channels/' + SLUG + '.json?_ts=' + Date.now(), { cache: 'no-store' });
-                  clearPerf();
-                  if (!res.ok) return;
-                  const env = await res.json();
-                  const info = await openEnvelope(env, ikmBytes, INFO);
-                  const s = info.s, l = info.l || '';
-                  info.s = ''; info.l = '';
+                  clearPerf(); if (!res.ok) return;
+                  const info = await openEnvelope(await res.json(), ikmBytes, INFO);
+                  const s = info.s, l = info.l || ''; info.s = ''; info.l = '';
                   await play(s, l);
                 } catch {}
               }
@@ -620,11 +467,13 @@ jobs:
           }
 
           (async () => {
-            const targets = buildTargets();
             const prevStreams = {};
             let cycle = 0;
 
             while (Date.now() - startedAt < MAX_LOOP_MS) {
+              try { execSync(`git pull --rebase origin "${refName}"`, { stdio: 'ignore' }); } catch {}
+              const targets = readTargets();
+
               for (const target of targets) {
                 if (Date.now() - startedAt >= MAX_LOOP_MS) break;
                 cycle++;
@@ -638,8 +487,7 @@ jobs:
                 else if (target.platform && target.channel) args.push('--platform', target.platform, '--channel', target.channel);
                 else if (target.platform) args.push('--platform', target.platform);
 
-                let exitCode = 0;
-                let runOut = '';
+                let exitCode = 0, runOut = '';
                 try { runOut = execFileSync('node', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }); }
                 catch (e) { exitCode = e.status || 1; runOut = (e.stdout || '') + '\n' + (e.stderr || ''); }
                 fs.writeFileSync('output/run.log', runOut);
@@ -684,75 +532,29 @@ jobs:
                     fs.mkdirSync('channels', { recursive: true });
                     fs.writeFileSync(path.join('channels', `${slug}.json`), JSON.stringify(chEnvelope));
 
-                    let chList = [];
-                    if (fs.existsSync('channels/list.json')) { try { chList = JSON.parse(fs.readFileSync('channels/list.json', 'utf8')); } catch {} }
-                    if (!Array.isArray(chList)) chList = [];
-                    chList = [{ slug, path: 'ch_' + slug, platform: target.platform, target_url: target.target_url, updated: payload.timestamp }, ...chList.filter(x => x && x.slug !== slug)];
-                    fs.writeFileSync('channels/list.json', JSON.stringify(chList, null, 2));
-
-                    const bootIkm = crypto.randomBytes(32);
-                    const bootMask = crypto.randomBytes(32);
-                    const bootPart = Buffer.allocUnsafe(32);
+                    const bootIkm = crypto.randomBytes(32), bootMask = crypto.randomBytes(32), bootPart = Buffer.allocUnsafe(32);
                     for (let i = 0; i < 32; i++) bootPart[i] = bootIkm[i] ^ bootMask[i];
                     const bootInfo = 'boot-' + slug;
-                    const bootEnv = sealEnvelope(buildImperioFullPayload(slug, chIkm), bootIkm, bootInfo);
+                    const bootEnv = sealEnvelope(buildProtectedPayload(slug, chIkm), bootIkm, bootInfo);
                     fs.mkdirSync(`ch_${slug}`, { recursive: true });
 
-                    const playerHtml = `<!DOCTYPE html>
-            <html>
-            <head>
-              <meta charset="utf-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <title>Stream</title>
-              <style>html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;position:fixed;left:0;top:0;background:#000;-webkit-user-select:none;user-select:none}@media print{body{display:none!important}}</style>
-            </head>
-            <body>
-              <script>
-                (async function(){
-                  if(navigator.webdriver||window._phantom||window.callPhantom||!navigator.languages||!navigator.languages.length){try{document.currentScript.remove();}catch{}return;}
-                  const E=${JSON.stringify(bootEnv)},I=${JSON.stringify(bootInfo)};
-                  const b=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0)),w=a=>{try{if(a&&a.fill)a.fill(0);}catch{}};
-                  const p1=b(${JSON.stringify(bootPart.toString('base64'))}),p2=b(${JSON.stringify(bootMask.toString('base64'))});
-                  const K=new Uint8Array(32);for(let i=0;i<32;i++)K[i]=p1[i]^p2[i];w(p1);w(p2);
-                  const s=b(E.s),v=b(E.v),d=b(E.d),m=b(E.m);
-                  const hk=await crypto.subtle.importKey('raw',K,'HKDF',false,['deriveBits']);w(K);
-                  const dr=new Uint8Array(await crypto.subtle.deriveBits({name:'HKDF',hash:'SHA-512',salt:s,info:new TextEncoder().encode(I)},hk,768));
-                  const ak=await crypto.subtle.importKey('raw',dr.slice(0,32),'AES-GCM',false,['decrypt']);
-                  const mk=await crypto.subtle.importKey('raw',dr.slice(32,64),{name:'HMAC',hash:'SHA-256'},false,['verify']);
-                  const xs=dr.slice(64,96);w(dr);
-                  const ai=new Uint8Array(s.length+v.length+d.length);ai.set(s,0);ai.set(v,s.length);ai.set(d,s.length+v.length);
-                  if(!(await crypto.subtle.verify('HMAC',mk,m,ai))){w(xs);return;}
-                  const u=new Uint8Array(d.length),ct=new Uint8Array(36);ct.set(xs,0);w(xs);
-                  const dv=new DataView(ct.buffer);let bi=0,ms=null;
-                  for(let i=0;i<d.length;i++){const o=i&31;if(o===0){dv.setUint32(32,bi++,false);ms=new Uint8Array(await crypto.subtle.digest('SHA-256',ct));}u[i]=d[i]^ms[o];}
-                  w(ct);w(ms);
-                  const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:v},ak,u);w(u);
-                  const bl=URL.createObjectURL(new Blob([new TextDecoder().decode(p)],{type:'text/javascript'}));
-                  w(new Uint8Array(p));
-                  const sc=document.createElement('script');sc.src=bl;sc.onload=()=>{URL.revokeObjectURL(bl);sc.remove();};
-                  try{document.currentScript.remove();}catch{}
-                  document.body.appendChild(sc);
-                })();
-              </script>
-            </body>
-            </html>`;
+                    const playerHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Stream</title><style>html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;position:fixed;left:0;top:0;background:#000;-webkit-user-select:none;user-select:none}@media print{body{display:none!important}}</style></head><body><script>(async function(){if(navigator.webdriver||window._phantom||window.callPhantom||!navigator.languages||!navigator.languages.length){try{document.currentScript.remove();}catch{}return;}const E=${JSON.stringify(bootEnv)},I=${JSON.stringify(bootInfo)};const b=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0)),w=a=>{try{if(a&&a.fill)a.fill(0);}catch{}};const p1=b(${JSON.stringify(bootPart.toString('base64'))}),p2=b(${JSON.stringify(bootMask.toString('base64'))});const K=new Uint8Array(32);for(let i=0;i<32;i++)K[i]=p1[i]^p2[i];w(p1);w(p2);const s=b(E.s),v=b(E.v),d=b(E.d),m=b(E.m);const hk=await crypto.subtle.importKey('raw',K,'HKDF',false,['deriveBits']);w(K);const dr=new Uint8Array(await crypto.subtle.deriveBits({name:'HKDF',hash:'SHA-512',salt:s,info:new TextEncoder().encode(I)},hk,768));const ak=await crypto.subtle.importKey('raw',dr.slice(0,32),'AES-GCM',false,['decrypt']);const mk=await crypto.subtle.importKey('raw',dr.slice(32,64),{name:'HMAC',hash:'SHA-256'},false,['verify']);const xs=dr.slice(64,96);w(dr);const ai=new Uint8Array(s.length+v.length+d.length);ai.set(s,0);ai.set(v,s.length);ai.set(d,s.length+v.length);if(!(await crypto.subtle.verify('HMAC',mk,m,ai))){w(xs);return;}const u=new Uint8Array(d.length),ct=new Uint8Array(36);ct.set(xs,0);w(xs);const dv=new DataView(ct.buffer);let bi=0,ms=null;for(let i=0;i<d.length;i++){const o=i&31;if(o===0){dv.setUint32(32,bi++,false);ms=new Uint8Array(await crypto.subtle.digest('SHA-256',ct));}u[i]=d[i]^ms[o];}w(ct);w(ms);const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:v},ak,u);w(u);const bl=URL.createObjectURL(new Blob([new TextDecoder().decode(p)],{type:'text/javascript'}));w(new Uint8Array(p));const sc=document.createElement('script');sc.src=bl;sc.onload=()=>{URL.revokeObjectURL(bl);sc.remove();};try{document.currentScript.remove();}catch{}document.body.appendChild(sc);})();<\/script></body></html>`;
                     fs.writeFileSync(`ch_${slug}/index.html`, playerHtml);
                   }
-                }
 
-                try {
-                  const toAdd = ['latest.json'];
-                  if (fs.existsSync('latest.png')) toAdd.push('latest.png');
-                  if (fs.existsSync('channels')) toAdd.push('channels');
-                  if (fs.existsSync(`ch_${slug}`)) toAdd.push(`ch_${slug}`);
-                  execSync(`git add -f ${toAdd.map(p => `"${p}"`).join(' ')}`, { stdio: 'ignore' });
-                  execSync(`git diff --staged --quiet || (git commit -m "Live #${process.env.GITHUB_RUN_NUMBER}.${cycle} (${slug}) [skip ci]" && git pull --rebase origin "${refName}" && git push origin "${refName}")`, { stdio: 'inherit' });
-                } catch (gitErr) {
-                  console.log('Push retry:', gitErr.message);
+                  try {
+                    const toAdd = ['latest.json'];
+                    if (fs.existsSync('latest.png')) toAdd.push('latest.png');
+                    if (fs.existsSync('channels')) toAdd.push('channels');
+                    if (fs.existsSync(`ch_${slug}`)) toAdd.push(`ch_${slug}`);
+                    execSync(`git add -f ${toAdd.map(p => `"${p}"`).join(' ')}`, { stdio: 'ignore' });
+                    execSync(`git diff --staged --quiet || (git commit -m "Live #${process.env.GITHUB_RUN_NUMBER}.${cycle} (${slug}) [skip ci]" && git pull --rebase origin "${refName}" && git push origin "${refName}")`, { stdio: 'inherit' });
+                  } catch (gitErr) {
+                    console.log('Push retry:', gitErr.message);
+                  }
                 }
+                await new Promise(r => setTimeout(r, 1000));
               }
-
-              await new Promise(r => setTimeout(r, 1000));
             }
           })().catch(err => console.log('Fin limpio:', err.message));
           EOF
