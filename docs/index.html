@@ -17,8 +17,8 @@
     label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
     input, textarea { width: 100%; padding: 9px 10px; border-radius: 6px; border: 1px solid var(--border); background: #0b1220; color: var(--text); font-size: 13px; }
     textarea { font-family: ui-monospace, monospace; font-size: 12px; resize: vertical; }
-    .row { display: flex; gap: 10px; }
-    .row > * { flex: 1; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row > * { flex: 1; min-width: 150px; }
     .check { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--text); cursor: pointer; }
     .check input { width: auto; }
     .pass-wrap { position: relative; }
@@ -38,22 +38,16 @@
     .note { font-size: 12px; color: var(--muted); background: #0b1220; border-left: 3px solid var(--accent); padding: 10px 12px; border-radius: 4px; margin-top: 12px; }
     video { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 8px; border: 1px solid var(--border); display: block; margin-top: 8px; }
     .player-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-    /* Modo ?embed=1 */
-    body.embed-mode { margin: 0; padding: 0; max-width: none; background: #000; overflow: hidden; }
-    body.embed-mode .admin-only { display: none !important; }
-    body.embed-mode #playerCard { margin: 0; padding: 0; border: 0; border-radius: 0; background: #000; }
-    body.embed-mode #videoPlayer { width: 100vw; height: 100vh; margin: 0; border: 0; border-radius: 0; aspect-ratio: auto; }
   </style>
 </head>
 <body>
-  <h1 class="admin-only">Panel GitHub Pages → GitHub Actions (Headless F12)</h1>
-  <p class="sub admin-only">Dispara Chrome Headless en bucle automático directo sobre tu rama, reproduce el stream y genera el embed.</p>
+  <h1>Panel GitHub Pages → GitHub Actions (Headless F12)</h1>
+  <p class="sub">Dispara Chrome Headless en bucle automático directo sobre tu rama, reproduce el stream y genera el embed cifrado.</p>
 
-  <div class="card admin-only">
+  <div class="card">
     <div class="row">
       <div><label for="owner">Usuario GitHub</label><input id="owner" placeholder="el20chinitdt" /></div>
-      <div><label for="repo">Repositorio (privado)</label><input id="repo" placeholder="navegador-headless" /></div>
+      <div><label for="repo">Repositorio</label><input id="repo" placeholder="Navegador-Headless-para-raspar-tokens" /></div>
       <div><label for="branch">Rama</label><input id="branch" value="main" /></div>
     </div>
 
@@ -62,7 +56,7 @@
 
     <div class="row">
       <div><label for="platform">Plataforma (platforms.json)</label><input id="platform" placeholder="ejemplo-web" /></div>
-      <div><label for="channel">Canal</label><input id="channel" placeholder="mi-canal" /></div>
+      <div><label for="channel">Canal (ej: telediariohd)</label><input id="channel" placeholder="telediariohd" /></div>
     </div>
 
     <div class="row">
@@ -102,8 +96,8 @@
   </div>
 
   <!-- REPRODUCTOR -->
-  <div class="card" id="playerCard">
-    <div class="player-bar admin-only">
+  <div class="card">
+    <div class="player-bar">
       <h2 style="margin:0;">Reproductor en vivo (Headless)</h2>
       <div style="display:flex; gap:8px; align-items:center;">
         <span id="playerStatus" style="font-size:12px; color:var(--muted);">Esperando stream...</span>
@@ -114,26 +108,27 @@
   </div>
 
   <!-- EMBED -->
-  <div class="card admin-only">
-    <h2>Embed</h2>
-    <textarea id="embedCode" rows="3" readonly placeholder="Acá aparece el iframe apenas el Headless detecte el stream..."></textarea>
+  <div class="card">
+    <h2>Embed cifrado (/ch_canal)</h2>
+    <textarea id="embedCode" rows="3" readonly placeholder="Acá aparece el iframe limpio apenas el Headless detecte el stream..."></textarea>
     <div class="row">
       <button type="button" id="btnCopyEmbed">Copiar Iframe</button>
-      <button type="button" id="btnCopyHtml" class="btn-sec">Copiar HTML completo</button>
-      <button type="button" id="btnOpenEmbed" class="btn-sec">Abrir Embed</button>
+      <button type="button" id="btnOpenEmbed" class="btn-sec">Abrir Canal</button>
     </div>
   </div>
 
   <!-- RESULTADO -->
-  <div class="card admin-only">
+  <div class="card">
     <h2>Resultado</h2>
     <div id="result">Todavía no se consultó ningún resultado.</div>
   </div>
 
   <script>
     const $ = (id) => document.getElementById(id);
-    const params = new URLSearchParams(location.search);
-    const isEmbed = params.get('embed') === '1';
+    $('owner').value = localStorage.getItem('gh_owner') || '';
+    $('repo').value = localStorage.getItem('gh_repo') || '';
+    $('branch').value = localStorage.getItem('gh_branch') || 'main';
+    $('pat').value = sessionStorage.getItem('gh_pat') || '';
 
     let shakaPlayer = null;
     let currentStream = '';
@@ -151,6 +146,52 @@
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
+    function syncLoginCheckbox() {
+      if ($('platformUser').value.trim() || $('platformPass').value) $('useLogin').checked = true;
+    }
+    $('platformUser').addEventListener('input', syncLoginCheckbox);
+    $('platformPass').addEventListener('input', syncLoginCheckbox);
+
+    $('togglePass').addEventListener('click', () => {
+      const input = $('platformPass');
+      const isPass = input.type === 'password';
+      input.type = isPass ? 'text' : 'password';
+      $('togglePass').textContent = isPass ? 'Ocultar' : 'Ver';
+    });
+
+    function ghHeaders(token, accept = 'application/vnd.github+json') {
+      return { 'Accept': accept, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    }
+
+    function saveFields() {
+      localStorage.setItem('gh_owner', $('owner').value.trim());
+      localStorage.setItem('gh_repo', $('repo').value.trim());
+      localStorage.setItem('gh_branch', $('branch').value.trim() || 'main');
+      sessionStorage.setItem('gh_pat', $('pat').value.trim());
+    }
+
+    function extractUrls(obj, found = new Set()) {
+      if (typeof obj === 'string') {
+        const matches = obj.match(/https?:\/\/[^\s"'<>]+/g);
+        if (matches) matches.forEach(u => found.add(u));
+      } else if (Array.isArray(obj)) obj.forEach(item => extractUrls(item, found));
+      else if (obj && typeof obj === 'object') Object.values(obj).forEach(val => extractUrls(val, found));
+      return Array.from(found);
+    }
+
+    function updateEmbed(channelName = '') {
+      const rawCh = channelName || $('channel').value.trim() || 'live';
+      const slug = rawCh.toLowerCase().replace(/^ch_/, '').replace(/[^a-z0-9_-]+/g, '_') || 'live';
+      const base = (location.origin !== 'null' ? location.origin : '') + location.pathname.replace(/\/(docs\/)?(index\.html)?$/, '');
+      const embedUrl = `${base}/ch_${slug}`;
+      $('embedCode').value = `<iframe src="${esc(embedUrl)}" style="width:100%;aspect-ratio:16/9;border:0;background:#000;" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`;
+      $('embedCode').dataset.url = embedUrl;
+    }
+
+    $('channel').addEventListener('input', () => {
+      if ($('embedCode').value) updateEmbed();
+    });
+
     async function playStream(url, license = '') {
       if (!isHttp(url)) return;
       if (url === currentStream && license === currentLicense) return;
@@ -158,7 +199,7 @@
       currentLicense = license;
 
       const video = $('videoPlayer');
-      const setSt = (t) => { if (!isEmbed) $('playerStatus').textContent = t; };
+      const setSt = (t) => { $('playerStatus').textContent = t; };
       setSt('Cargando stream...');
 
       try {
@@ -176,7 +217,7 @@
           shakaPlayer.addEventListener('error', () => {
             setSt('Stream cortado/expirado, re-sincronizando...');
             currentStream = '';
-            if (!isEmbed) setTimeout(() => loadLatestResult().catch(() => {}), 2000);
+            setTimeout(() => loadLatestResult().catch(() => {}), 2000);
           });
         }
         const servers = {};
@@ -199,312 +240,248 @@
       }
     }
 
-    function updateEmbed(streamUrl, licenseUrl = '') {
-      if (!isHttp(streamUrl)) return;
-      const base = (location.origin !== 'null' ? location.origin + location.pathname : '').split('?')[0];
-      const q = new URLSearchParams({ embed: '1', src: streamUrl });
-      if (isHttp(licenseUrl)) q.set('license', licenseUrl);
-      const embedUrl = `${base}?${q.toString()}`;
-      $('embedCode').value = `<iframe src="${esc(embedUrl)}" style="width:100%;aspect-ratio:16/9;border:0;background:#000;" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`;
-      $('embedCode').dataset.url = embedUrl;
-      $('embedCode').dataset.stream = streamUrl;
-      $('embedCode').dataset.lic = licenseUrl;
+    async function dispatchWorkflow() {
+      const owner = $('owner').value.trim();
+      const repo = $('repo').value.trim();
+      const branch = $('branch').value.trim() || 'main';
+      const pat = $('pat').value.trim();
+
+      const inputs = {
+        platform: $('platform').value.trim(),
+        channel: $('channel').value.trim(),
+        target_url: $('targetUrl').value.trim(),
+        wait_ms: String($('waitMs').value || 7000),
+        use_login: $('useLogin').checked
+      };
+      if ($('useLogin').checked) {
+        if ($('platformUser').value.trim()) inputs.platform_user = $('platformUser').value.trim();
+        if ($('platformPass').value) inputs.platform_pass = $('platformPass').value;
+      }
+
+      const res = await fetch(
+        `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/dispatches`,
+        { method: 'POST', headers: ghHeaders(pat), body: JSON.stringify({ ref: branch, inputs }) }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'Error al disparar workflow');
+      }
     }
 
-    if (isEmbed) {
-      document.body.classList.add('embed-mode');
-      playStream(params.get('src') || '', params.get('license') || '');
-    } else {
-      $('owner').value = localStorage.getItem('gh_owner') || '';
-      $('repo').value = localStorage.getItem('gh_repo') || '';
-      $('branch').value = localStorage.getItem('gh_branch') || 'main';
-      $('pat').value = sessionStorage.getItem('gh_pat') || '';
+    async function loadLatestResult() {
+      const owner = $('owner').value.trim();
+      const repo = $('repo').value.trim();
+      const branch = $('branch').value.trim() || 'main';
+      const pat = $('pat').value.trim();
+      if (!owner || !repo || !pat) return;
 
-      function syncLoginCheckbox() {
-        if ($('platformUser').value.trim() || $('platformPass').value) $('useLogin').checked = true;
+      const box = $('result');
+      const res = await fetch(
+        `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/latest.json?ref=${encodeURIComponent(branch)}&_ts=${Date.now()}`,
+        { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
+      );
+
+      if (res.status === 403) throw new Error('Tu token no tiene permisos suficientes. Usá un Token Classic con el permiso "repo".');
+      if (res.status === 404) {
+        box.textContent = `Todavía no hay resultados en la rama "${branch}". Ejecutá el workflow al menos una vez.`;
+        return;
       }
-      $('platformUser').addEventListener('input', syncLoginCheckbox);
-      $('platformPass').addEventListener('input', syncLoginCheckbox);
-
-      $('togglePass').addEventListener('click', () => {
-        const input = $('platformPass');
-        const isPass = input.type === 'password';
-        input.type = isPass ? 'text' : 'password';
-        $('togglePass').textContent = isPass ? 'Ocultar' : 'Ver';
-      });
-
-      function ghHeaders(token, accept = 'application/vnd.github+json') {
-        return { 'Accept': accept, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'No se pudo leer latest.json');
       }
 
-      function saveFields() {
-        localStorage.setItem('gh_owner', $('owner').value.trim());
-        localStorage.setItem('gh_repo', $('repo').value.trim());
-        localStorage.setItem('gh_branch', $('branch').value.trim() || 'main');
-        sessionStorage.setItem('gh_pat', $('pat').value.trim());
+      const data = await res.json();
+      box.textContent = '';
+
+      const header = document.createElement('div');
+      header.style.cssText = 'display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+      const badge = document.createElement('span');
+      badge.className = 'badge ' + (data.ok ? 'ok' : 'err');
+      badge.textContent = data.ok ? 'OK (exit 0)' : `Falló (exit ${data.exit_code})`;
+      const meta = document.createElement('span');
+      meta.style.cssText = 'font-size:12px;color:var(--muted);';
+      meta.textContent = `Run #${data.run_number} — ${new Date(data.timestamp).toLocaleString()}`;
+      header.append(badge, meta);
+      box.appendChild(header);
+
+      const urls = extractUrls(data.reports);
+      const streamUrls = urls.filter(u => /\.(mpd|m3u8)|manifest|license|widevine|playready/i.test(u));
+      const listUrls = streamUrls.length ? streamUrls : urls;
+
+      const mainStream = listUrls.find(u => /\.(mpd|m3u8)|manifest/i.test(u)) || listUrls[0] || '';
+      const mainLic = listUrls.find(u => /license|widevine|playready/i.test(u) && !/\.(mpd|m3u8)/i.test(u)) || '';
+
+      if (mainStream) {
+        updateEmbed(data.input?.channel || '');
+        playStream(mainStream, mainLic);
       }
 
-      function extractUrls(obj, found = new Set()) {
-        if (typeof obj === 'string') {
-          const matches = obj.match(/https?:\/\/[^\s"'<>]+/g);
-          if (matches) matches.forEach(u => found.add(u));
-        } else if (Array.isArray(obj)) obj.forEach(item => extractUrls(item, found));
-        else if (obj && typeof obj === 'object') Object.values(obj).forEach(val => extractUrls(val, found));
-        return Array.from(found);
-      }
+      if (listUrls.length) {
+        const h3 = document.createElement('h3');
+        h3.textContent = `URLs detectadas (${listUrls.length})`;
+        box.appendChild(h3);
 
-      async function dispatchWorkflow() {
-        const owner = $('owner').value.trim();
-        const repo = $('repo').value.trim();
-        const branch = $('branch').value.trim() || 'main';
-        const pat = $('pat').value.trim();
+        for (const u of listUrls) {
+          const item = document.createElement('div');
+          item.className = 'url-item';
+          const span = document.createElement('span');
+          span.textContent = u;
 
-        const inputs = {
-          platform: $('platform').value.trim(),
-          channel: $('channel').value.trim(),
-          target_url: $('targetUrl').value.trim(),
-          wait_ms: String($('waitMs').value || 7000),
-          use_login: $('useLogin').checked
-        };
-        if ($('useLogin').checked) {
-          if ($('platformUser').value.trim()) inputs.platform_user = $('platformUser').value.trim();
-          if ($('platformPass').value) inputs.platform_pass = $('platformPass').value;
+          const btns = document.createElement('div');
+          btns.style.cssText = 'display:flex;gap:6px;flex-shrink:0;';
+
+          const bPlay = document.createElement('button');
+          bPlay.type = 'button';
+          bPlay.className = 'btn-mini';
+          bPlay.textContent = 'Play';
+          bPlay.onclick = () => playStream(u, mainLic);
+
+          const bCopy = document.createElement('button');
+          bCopy.type = 'button';
+          bCopy.className = 'btn-mini btn-sec';
+          bCopy.textContent = 'Copiar';
+          bCopy.onclick = () => {
+            navigator.clipboard.writeText(u);
+            bCopy.textContent = 'Copiado';
+            setTimeout(() => (bCopy.textContent = 'Copiar'), 1500);
+          };
+
+          btns.append(bPlay, bCopy);
+          item.append(span, btns);
+          box.appendChild(item);
         }
-
-        const res = await fetch(
-          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/dispatches`,
-          { method: 'POST', headers: ghHeaders(pat), body: JSON.stringify({ ref: branch, inputs }) }
-        );
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Error al disparar workflow');
-        }
       }
 
-      async function loadLatestResult() {
-        const owner = $('owner').value.trim();
-        const repo = $('repo').value.trim();
-        const branch = $('branch').value.trim() || 'main';
-        const pat = $('pat').value.trim();
-        if (!owner || !repo || !pat) return;
+      if (data.reports?.length) {
+        const h3 = document.createElement('h3');
+        h3.textContent = 'Reporte JSON';
+        const pre = document.createElement('pre');
+        pre.textContent = JSON.stringify(data.reports, null, 2);
+        box.append(h3, pre);
+      }
 
-        const box = $('result');
-        const res = await fetch(
-          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/latest.json?ref=${encodeURIComponent(branch)}&_ts=${Date.now()}`,
+      if (data.screenshot) {
+        const imgRes = await fetch(
+          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${encodeURIComponent(data.screenshot)}?ref=${encodeURIComponent(branch)}&_ts=${Date.now()}`,
           { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
         );
-
-        if (res.status === 403) throw new Error('Tu token no tiene permisos suficientes. Usá un Token Classic con el permiso "repo".');
-        if (res.status === 404) {
-          box.textContent = `Todavía no hay resultados en la rama "${branch}". Ejecutá el workflow al menos una vez.`;
-          return;
-        }
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'No se pudo leer latest.json');
-        }
-
-        const data = await res.json();
-        box.textContent = '';
-
-        const header = document.createElement('div');
-        header.style.cssText = 'display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
-        const badge = document.createElement('span');
-        badge.className = 'badge ' + (data.ok ? 'ok' : 'err');
-        badge.textContent = data.ok ? 'OK (exit 0)' : `Falló (exit ${data.exit_code})`;
-        const meta = document.createElement('span');
-        meta.style.cssText = 'font-size:12px;color:var(--muted);';
-        meta.textContent = `Run #${data.run_number} — ${new Date(data.timestamp).toLocaleString()}`;
-        header.append(badge, meta);
-        box.appendChild(header);
-
-        const urls = extractUrls(data.reports);
-        const streamUrls = urls.filter(u => /\.(mpd|m3u8)|manifest|license|widevine|playready/i.test(u));
-        const listUrls = streamUrls.length ? streamUrls : urls;
-
-        const mainStream = listUrls.find(u => /\.(mpd|m3u8)|manifest/i.test(u)) || listUrls[0] || '';
-        const mainLic = listUrls.find(u => /license|widevine|playready/i.test(u) && !/\.(mpd|m3u8)/i.test(u)) || '';
-        if (mainStream) {
-          updateEmbed(mainStream, mainLic);
-          playStream(mainStream, mainLic);
-        }
-
-        if (listUrls.length) {
+        if (imgRes.ok) {
+          const blob = await imgRes.blob();
           const h3 = document.createElement('h3');
-          h3.textContent = `URLs detectadas (${listUrls.length})`;
-          box.appendChild(h3);
-
-          for (const u of listUrls) {
-            const item = document.createElement('div');
-            item.className = 'url-item';
-            const span = document.createElement('span');
-            span.textContent = u;
-
-            const btns = document.createElement('div');
-            btns.style.cssText = 'display:flex;gap:6px;flex-shrink:0;';
-
-            const bPlay = document.createElement('button');
-            bPlay.type = 'button';
-            bPlay.className = 'btn-mini';
-            bPlay.textContent = 'Play';
-            bPlay.onclick = () => { updateEmbed(u, mainLic); playStream(u, mainLic); };
-
-            const bCopy = document.createElement('button');
-            bCopy.type = 'button';
-            bCopy.className = 'btn-mini btn-sec';
-            bCopy.textContent = 'Copiar';
-            bCopy.onclick = () => {
-              navigator.clipboard.writeText(u);
-              bCopy.textContent = 'Copiado';
-              setTimeout(() => (bCopy.textContent = 'Copiar'), 1500);
-            };
-
-            btns.append(bPlay, bCopy);
-            item.append(span, btns);
-            box.appendChild(item);
-          }
-        }
-
-        if (data.reports?.length) {
-          const h3 = document.createElement('h3');
-          h3.textContent = 'Reporte JSON';
-          const pre = document.createElement('pre');
-          pre.textContent = JSON.stringify(data.reports, null, 2);
-          box.append(h3, pre);
-        }
-
-        if (data.screenshot) {
-          const imgRes = await fetch(
-            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${encodeURIComponent(data.screenshot)}?ref=${encodeURIComponent(branch)}&_ts=${Date.now()}`,
-            { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
-          );
-          if (imgRes.ok) {
-            const blob = await imgRes.blob();
-            const h3 = document.createElement('h3');
-            h3.textContent = 'Captura de pantalla';
-            const img = document.createElement('img');
-            img.className = 'shot';
-            img.src = URL.createObjectURL(blob);
-            box.append(h3, img);
-          }
-        }
-
-        if (data.log) {
-          const h3 = document.createElement('h3');
-          h3.textContent = 'Log de ejecución';
-          const pre = document.createElement('pre');
-          pre.textContent = data.log;
-          box.append(h3, pre);
+          h3.textContent = 'Captura de pantalla';
+          const img = document.createElement('img');
+          img.className = 'shot';
+          img.src = URL.createObjectURL(blob);
+          box.append(h3, img);
         }
       }
 
-      function stopLoop() {
-        loopActive = false;
-        if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
-        if (restartTimer) { clearTimeout(restartTimer); restartTimer = null; }
-        $('btnStopLoop').style.display = 'none';
-        $('msg').textContent = 'Loop continuo detenido.';
+      if (data.log) {
+        const h3 = document.createElement('h3');
+        h3.textContent = 'Log de ejecución';
+        const pre = document.createElement('pre');
+        pre.textContent = data.log;
+        box.append(h3, pre);
       }
-
-      function startLoop(startedAt) {
-        stopLoop();
-        loopActive = true;
-        $('btnStopLoop').style.display = '';
-        let lastCompletedId = null;
-
-        pollTimer = setInterval(async () => {
-          if (!loopActive) return;
-          const owner = $('owner').value.trim();
-          const repo = $('repo').value.trim();
-          const pat = $('pat').value.trim();
-          try {
-            const res = await fetch(
-              `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/runs?event=workflow_dispatch&per_page=3`,
-              { headers: ghHeaders(pat), cache: 'no-store' }
-            );
-            const data = await res.json();
-            const active = data.workflow_runs?.find(r => r.status === 'in_progress' || r.status === 'queued');
-            const latest = data.workflow_runs?.[0];
-
-            if (active) {
-              $('msg').textContent = `Headless activo (Run #${active.run_number}: ${active.status})...`;
-            } else if (latest && latest.status === 'completed' && latest.id !== lastCompletedId && new Date(latest.created_at) >= new Date(startedAt - 15000)) {
-              lastCompletedId = latest.id;
-              await loadLatestResult().catch(() => {});
-              if (loopActive) {
-                $('msg').textContent = `Run #${latest.run_number} terminó (${latest.conclusion}). Re-lanzando en 10s para mantener el F12 activo...`;
-                restartTimer = setTimeout(async () => {
-                  if (!loopActive) return;
-                  try {
-                    startedAt = Date.now();
-                    await dispatchWorkflow();
-                  } catch (e) {
-                    $('msg').textContent = 'Error re-lanzando: ' + e.message;
-                  }
-                }, 10000);
-              }
-            }
-          } catch (err) {
-            $('msg').textContent = 'Consultando estado: ' + err.message;
-          }
-        }, 5000);
-      }
-
-      $('btnStopLoop').addEventListener('click', stopLoop);
-
-      $('btnRun').addEventListener('click', async () => {
-        saveFields();
-        if (!$('owner').value.trim() || !$('repo').value.trim() || !$('pat').value.trim()) {
-          $('msg').textContent = 'Completá usuario, repositorio y token.';
-          return;
-        }
-        $('btnRun').disabled = true;
-        const startedAt = Date.now();
-        try {
-          $('msg').textContent = 'Enviando orden a GitHub Actions...';
-          await dispatchWorkflow();
-          $('msg').textContent = 'Workflow iniciado en bucle continuo...';
-          startLoop(startedAt);
-        } catch (err) {
-          $('msg').textContent = 'Error: ' + err.message;
-        } finally {
-          $('btnRun').disabled = false;
-        }
-      });
-
-      $('btnCheck').addEventListener('click', async () => {
-        saveFields();
-        $('msg').textContent = 'Cargando último resultado...';
-        try {
-          await loadLatestResult();
-          $('msg').textContent = 'Resultado actualizado.';
-        } catch (err) {
-          $('msg').textContent = 'Error: ' + err.message;
-        }
-      });
-
-      $('btnCopyEmbed').addEventListener('click', () => {
-        if (!$('embedCode').value) return;
-        navigator.clipboard.writeText($('embedCode').value);
-        $('btnCopyEmbed').textContent = 'Copiado';
-        setTimeout(() => ($('btnCopyEmbed').textContent = 'Copiar Iframe'), 1500);
-      });
-
-      $('btnOpenEmbed').addEventListener('click', () => {
-        const u = $('embedCode').dataset.url;
-        if (u) window.open(u, '_blank', 'noopener');
-      });
-
-      $('btnCopyHtml').addEventListener('click', () => {
-        const s = $('embedCode').dataset.stream;
-        const l = $('embedCode').dataset.lic || '';
-        if (!s) return;
-        const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><script src="https://cdn.jsdelivr.net/npm/shaka-player@4/dist/shaka-player.compiled.js"><\/script><style>html,body,video{margin:0;width:100%;height:100%;background:#000;overflow:hidden}</style></head><body><video id="v" controls autoplay muted playsinline></video><script>(async()=>{const v=document.getElementById('v'),u=${JSON.stringify(s)},l=${JSON.stringify(l)};shaka.polyfill.installAll();const p=new shaka.Player();await p.attach(v);if(l)p.configure({drm:{servers:{[/playready/i.test(l)?'com.microsoft.playready':'com.widevine.alpha']:l}}});await p.load(u)})();<\/script></body></html>`;
-        navigator.clipboard.writeText(html);
-        $('btnCopyHtml').textContent = 'Copiado';
-        setTimeout(() => ($('btnCopyHtml').textContent = 'Copiar HTML completo'), 1500);
-      });
     }
+
+    function stopLoop() {
+      loopActive = false;
+      if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+      if (restartTimer) { clearTimeout(restartTimer); restartTimer = null; }
+      $('btnStopLoop').style.display = 'none';
+      $('msg').textContent = 'Loop continuo detenido.';
+    }
+
+    function startLoop(startedAt) {
+      stopLoop();
+      loopActive = true;
+      $('btnStopLoop').style.display = '';
+      let lastCompletedId = null;
+
+      pollTimer = setInterval(async () => {
+        if (!loopActive) return;
+        const owner = $('owner').value.trim();
+        const repo = $('repo').value.trim();
+        const pat = $('pat').value.trim();
+        try {
+          const res = await fetch(
+            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/runs?event=workflow_dispatch&per_page=3`,
+            { headers: ghHeaders(pat), cache: 'no-store' }
+          );
+          const data = await res.json();
+          const active = data.workflow_runs?.find(r => r.status === 'in_progress' || r.status === 'queued');
+          const latest = data.workflow_runs?.[0];
+
+          if (active) {
+            $('msg').textContent = `Headless activo (Run #${active.run_number}: ${active.status})...`;
+          } else if (latest && latest.status === 'completed' && latest.id !== lastCompletedId && new Date(latest.created_at) >= new Date(startedAt - 15000)) {
+            lastCompletedId = latest.id;
+            await loadLatestResult().catch(() => {});
+            if (loopActive) {
+              $('msg').textContent = `Run #${latest.run_number} terminó (${latest.conclusion}). Re-lanzando en 10s para mantener el F12 activo...`;
+              restartTimer = setTimeout(async () => {
+                if (!loopActive) return;
+                try {
+                  startedAt = Date.now();
+                  await dispatchWorkflow();
+                } catch (e) {
+                  $('msg').textContent = 'Error re-lanzando: ' + e.message;
+                }
+              }, 10000);
+            }
+          }
+        } catch (err) {
+          $('msg').textContent = 'Consultando estado: ' + err.message;
+        }
+      }, 5000);
+    }
+
+    $('btnStopLoop').addEventListener('click', stopLoop);
+
+    $('btnRun').addEventListener('click', async () => {
+      saveFields();
+      if (!$('owner').value.trim() || !$('repo').value.trim() || !$('pat').value.trim()) {
+        $('msg').textContent = 'Completá usuario, repositorio y token.';
+        return;
+      }
+      $('btnRun').disabled = true;
+      const startedAt = Date.now();
+      try {
+        $('msg').textContent = 'Enviando orden a GitHub Actions...';
+        await dispatchWorkflow();
+        $('msg').textContent = 'Workflow iniciado en bucle continuo...';
+        startLoop(startedAt);
+      } catch (err) {
+        $('msg').textContent = 'Error: ' + err.message;
+      } finally {
+        $('btnRun').disabled = false;
+      }
+    });
+
+    $('btnCheck').addEventListener('click', async () => {
+      saveFields();
+      $('msg').textContent = 'Cargando último resultado...';
+      try {
+        await loadLatestResult();
+        $('msg').textContent = 'Resultado actualizado.';
+      } catch (err) {
+        $('msg').textContent = 'Error: ' + err.message;
+      }
+    });
+
+    $('btnCopyEmbed').addEventListener('click', () => {
+      if (!$('embedCode').value) return;
+      navigator.clipboard.writeText($('embedCode').value);
+      $('btnCopyEmbed').textContent = 'Copiado';
+      setTimeout(() => ($('btnCopyEmbed').textContent = 'Copiar Iframe'), 1500);
+    });
+
+    $('btnOpenEmbed').addEventListener('click', () => {
+      const u = $('embedCode').dataset.url;
+      if (u) window.open(u, '_blank', 'noopener');
+    });
   </script>
 </body>
 </html>
