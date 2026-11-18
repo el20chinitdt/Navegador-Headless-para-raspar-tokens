@@ -111,7 +111,7 @@ jobs:
           echo "EXIT_CODE=$EXIT_CODE" >> "$GITHUB_ENV"
           exit "$EXIT_CODE"
 
-      - name: Encriptar y publicar resultado en main
+      - name: Encriptar Imperio Player y publicar resultado en main
         if: always()
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
@@ -256,17 +256,26 @@ jobs:
               const IKM_B64 = ${JSON.stringify(chIkm.toString('base64'))};
               const INFO = ${JSON.stringify('ch-stream-' + slug)};
               const base = location.pathname.split('/ch_')[0];
-              const stage = document.getElementById('stage');
-              const video = document.getElementById('v');
-              const canvas = document.getElementById('glc');
-              const modeTag = document.getElementById('modeTag');
-              const bPlay = document.getElementById('bPlay');
-              const bMute = document.getElementById('bMute');
-              const bFs = document.getElementById('bFs');
 
-              let player = null;
+              const video = document.getElementById('fp_video');
+              const canvas = document.getElementById('glc');
+              const bar = document.getElementById('fp_bar');
+              const playBtn = document.getElementById('fp_play');
+              const icoPlay = document.getElementById('fp_icoPlay');
+              const icoPause = document.getElementById('fp_icoPause');
+              const muteBtn = document.getElementById('fp_mute');
+              const btnUnmuteTop = document.getElementById('fp_unmute_top');
+              const fsBtn = document.getElementById('fp_fs');
+              const gearBtn = document.getElementById('fp_gear');
+              const qmenu = document.getElementById('fp_qmenu');
+              const box = document.getElementById('flow-player');
+
+              let hls = null;
+              let shakaPlayer = null;
               let currentUrl = '';
               let useWebGL = true;
+              let userPaused = false;
+              let userChoseMute = false;
 
               const b64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 
@@ -301,20 +310,16 @@ jobs:
 
                 const authIn = new Uint8Array(salt.length + iv.length + masked.length);
                 authIn.set(salt, 0); authIn.set(iv, salt.length); authIn.set(masked, salt.length + iv.length);
-                const valid = await crypto.subtle.verify('HMAC', hmacKey, mac, authIn);
-                if (!valid) throw new Error('Integridad HMAC inválida');
+                if (!(await crypto.subtle.verify('HMAC', hmacKey, mac, authIn))) {
+                  throw new Error('Integridad HMAC inválida');
+                }
 
                 const aesCipher = await xorSha256(masked, xorSeed);
                 const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, aesKey, aesCipher);
                 return JSON.parse(new TextDecoder().decode(plainBuf));
               }
 
-              bPlay.onclick = () => { if (video.paused) video.play(); else video.pause(); };
-              bMute.onclick = () => { video.muted = !video.muted; bMute.textContent = video.muted ? 'Activar sonido' : 'Silenciar'; };
-              bFs.onclick = () => { if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {}); else document.exitFullscreen(); };
-              video.onplay = () => { bPlay.textContent = 'Pausa'; };
-              video.onpause = () => { bPlay.textContent = 'Play'; };
-
+              // --- WebGL 6-pass Ping-Pong FBO Pipeline ---
               const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false });
               let prog = null, srcTex = null, fbos = [], texs = [], fboW = 0, fboH = 0, uTex, uPass, uSize;
 
@@ -391,16 +396,13 @@ jobs:
                 gl.bindFramebuffer(gl.FRAMEBUFFER, null);
               }
 
-              function fallbackToNative(label) {
+              function fallbackToNative() {
                 useWebGL = false;
                 canvas.style.display = 'none';
-                video.controls = true;
-                document.getElementById('hud').style.display = 'none';
-                modeTag.textContent = label;
               }
 
               const glReady = initGL();
-              if (!glReady) fallbackToNative('HTML5 Video');
+              if (!glReady) fallbackToNative();
 
               function renderLoop() {
                 requestAnimationFrame(renderLoop);
@@ -427,27 +429,338 @@ jobs:
                     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
                   }
                 } catch {
-                  fallbackToNative('Hardware Video');
+                  fallbackToNative();
                 }
               }
               requestAnimationFrame(renderLoop);
 
+              // --- UI Imperio Player ---
+              function updateMuteButtonState() {
+                btnUnmuteTop.style.display = video.muted ? 'flex' : 'none';
+              }
+              video.addEventListener('volumechange', updateMuteButtonState);
+
+              btnUnmuteTop.onclick = (e) => {
+                e.stopPropagation();
+                userChoseMute = true;
+                video.muted = false;
+                safePlay();
+                updateMuteButtonState();
+              };
+
+              function safePlay() {
+                if (userPaused) return;
+                const p = video.play();
+                if (p !== undefined) {
+                  p.catch((err) => {
+                    if (err.name === 'NotAllowedError' && !video.muted) {
+                      video.muted = true;
+                      updateMuteButtonState();
+                      video.play().catch(() => {});
+                    }
+                  });
+                }
+              }
+
+              function handleGlobalInteraction(e) {
+                if (e.target.closest && (e.target.closest('#fp_mute') || e.target.closest('#fp_unmute_top'))) return;
+                if (!userChoseMute && video.muted) {
+                  video.muted = false;
+                  updateMuteButtonState();
+                }
+                safePlay();
+              }
+              ['click', 'touchend', 'pointerup', 'keydown'].forEach(ev =>
+                document.addEventListener(ev, handleGlobalInteraction, { capture: true, passive: true })
+              );
+
+              // --- Selector de calidades Imperio ---
+              const STD_HEIGHTS = [144, 240, 360, 480, 540, 720, 1080, 1440, 2160];
+              function nearestStd(h) { return STD_HEIGHTS.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a); }
+              const URL_HEIGHTS = [144, 240, 360, 480, 540, 576, 720, 1080, 1440, 2160, 4320];
+              function urlHeight(l) {
+                const u = l.uri || (Array.isArray(l.url) ? l.url[0] : l.url) || '';
+                const m = String(u).match(/(?:^|[^0-9a-z])(\\d{3,4})p(?:\\d{2})?(?![a-z0-9])/i);
+                const n = m ? parseInt(m[1], 10) : 0;
+                return URL_HEIGHTS.indexOf(n) >= 0 ? n : 0;
+              }
+              function levelHeight(l) {
+                if (l.height) return l.height;
+                const r = l.attrs && l.attrs.RESOLUTION;
+                if (r && /x/i.test(r)) {
+                  const parts = String(r).split(/x/i).map(n => parseInt(n, 10));
+                  if (parts[1]) return parts[1];
+                  if (parts[0]) return nearestStd(Math.round(parts[0] * 9 / 16));
+                }
+                return urlHeight(l);
+              }
+              function bitrateToHeight(b) {
+                if (b < 500e3) return 240;
+                if (b < 1000e3) return 360;
+                if (b < 1800e3) return 480;
+                if (b < 3500e3) return 720;
+                if (b < 7000e3) return 1080;
+                if (b < 14000e3) return 1440;
+                return 2160;
+              }
+              const EST_HEIGHTS = [144, 240, 360, 480, 720, 1080, 1440, 2160];
+              function nearestEst(h) { return EST_HEIGHTS.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a); }
+              function snapHeight(h) { const n = nearestEst(h); return Math.abs(n - h) / n <= 0.08 ? n : h; }
+
+              let calib = null;
+              let realByLevel = {};
+              let lockedReal = 0;
+              let started = false;
+
+              function knownHeight(l, i) { return realByLevel[i] || levelHeight(l); }
+              function calibrate() {
+                if (calib || !hls || !hls.levels || !video.videoHeight) return;
+                const idx = hls.currentLevel >= 0 ? hls.currentLevel : hls.loadLevel;
+                const l = hls.levels[idx];
+                if (l && l.bitrate) {
+                  calib = { index: idx, bitrate: l.bitrate, height: snapHeight(video.videoHeight) };
+                  realByLevel[idx] = calib.height;
+                }
+              }
+              function estimateHeight(l, i) {
+                if (!l.bitrate) return 0;
+                if (calib) {
+                  if (i === calib.index) return calib.height;
+                  return nearestEst(calib.height * Math.sqrt(l.bitrate / calib.bitrate));
+                }
+                return bitrateToHeight(l.bitrate);
+              }
+              function sortHeight(l, i) { return knownHeight(l, i) || estimateHeight(l, i); }
+              function awaitingPlay(levels) { return !started && levels.some(l => !levelHeight(l) && !(l.audioCodec && !l.videoCodec)); }
+              function awaitingReal(levels) { const l = levels[0]; return levels.length === 1 && !levelHeight(l) && !(l.audioCodec && !l.videoCodec) && !lockedReal; }
+              function rankHeight(i, n) { const ladder = [144, 240, 360, 480, 720, 1080]; return ladder[Math.max(0, Math.min(ladder.length - 1, i + ladder.length - n))]; }
+              function levelLabel(l, i, levels) {
+                const h = knownHeight(l, i);
+                if (h) return h + 'p';
+                if (l.audioCodec && !l.videoCodec) return 'Audio';
+                if (levels.length === 1 && lockedReal) return lockedReal + 'p';
+                const e = estimateHeight(l, i);
+                if (e) return e + 'p';
+                return rankHeight(i, levels.length) + 'p';
+              }
+
+              function buildQualityMenu(levels) {
+                qmenu.innerHTML = '';
+                const auto = document.createElement('div');
+                auto.textContent = 'Auto';
+                auto.onclick = () => { if (hls) hls.currentLevel = -1; qmenu.style.display = 'none'; };
+                qmenu.appendChild(auto);
+
+                const seen = new Set();
+                if (awaitingReal(levels) || awaitingPlay(levels)) levels = [];
+                levels
+                  .map((l, i) => ({ label: levelLabel(l, i, levels), height: sortHeight(l, i), bitrate: l.bitrate || 0, index: i }))
+                  .sort((a, b) => b.height - a.height || b.bitrate - a.bitrate)
+                  .filter(l => !seen.has(l.label) && seen.add(l.label))
+                  .forEach(l => {
+                    const d = document.createElement('div');
+                    d.textContent = l.label;
+                    d.onclick = () => { if (hls) hls.currentLevel = l.index; qmenu.style.display = 'none'; };
+                    qmenu.appendChild(d);
+                  });
+              }
+
+              function buildShakaMenu() {
+                if (!shakaPlayer) return;
+                qmenu.innerHTML = '';
+                const auto = document.createElement('div');
+                auto.textContent = 'Auto';
+                auto.onclick = () => { shakaPlayer.configure({ abr: { enabled: true } }); qmenu.style.display = 'none'; };
+                qmenu.appendChild(auto);
+                const seen = new Set();
+                shakaPlayer.getVariantTracks()
+                  .sort((a, b) => (b.height || 0) - (a.height || 0))
+                  .forEach(t => {
+                    const lbl = t.height ? (t.height + 'p') : (Math.round((t.bandwidth || 0) / 1000) + 'k');
+                    if (seen.has(lbl)) return;
+                    seen.add(lbl);
+                    const d = document.createElement('div');
+                    d.textContent = lbl;
+                    d.onclick = () => {
+                      shakaPlayer.configure({ abr: { enabled: false } });
+                      shakaPlayer.selectVariantTrack(t, true);
+                      qmenu.style.display = 'none';
+                    };
+                    qmenu.appendChild(d);
+                  });
+              }
+
+              function buildNativeMenu() {
+                qmenu.innerHTML = '';
+                const auto = document.createElement('div');
+                auto.textContent = 'Auto';
+                auto.onclick = () => { qmenu.style.display = 'none'; };
+                qmenu.appendChild(auto);
+                if (lockedReal) {
+                  const d = document.createElement('div');
+                  d.textContent = lockedReal + 'p';
+                  d.onclick = () => { qmenu.style.display = 'none'; };
+                  qmenu.appendChild(d);
+                }
+              }
+
+              function safeBuild() {
+                try { buildQualityMenu((hls && hls.levels) || []); } catch {}
+              }
+
+              function lockRealHeight() {
+                if (lockedReal || !video.videoHeight) return;
+                lockedReal = snapHeight(video.videoHeight);
+                try {
+                  if (hls && hls.levels && hls.levels.length === 1) safeBuild();
+                  else if (!hls && !shakaPlayer) buildNativeMenu();
+                } catch {}
+              }
+              video.addEventListener('loadedmetadata', lockRealHeight);
+              video.addEventListener('resize', lockRealHeight);
+              video.addEventListener('playing', function () {
+                lockRealHeight();
+                if (started) return;
+                started = true;
+                try { calibrate(); } catch {}
+                if (hls && hls.levels && hls.levels.length) safeBuild();
+              });
+
               async function play(url, lic) {
                 if (!url || url === currentUrl) return;
                 currentUrl = url;
-                if (lic) fallbackToNative('TEE / EME Hardware');
-                if (/\\.(mp4|webm)(\\?|#|$)/i.test(url)) { video.src = url; return; }
-                shaka.polyfill.installAll();
-                if (!player) {
-                  player = new shaka.Player();
-                  await player.attach(video);
-                  player.addEventListener('error', () => { currentUrl = ''; setTimeout(sync, 2500); });
+                calib = null; realByLevel = {}; lockedReal = 0; started = false;
+
+                try {
+                  const parsed = new URL(url);
+                  document.getElementById('fp_preconnect').href = parsed.origin;
+                  document.getElementById('fp_dns').href = parsed.origin;
+                } catch {}
+
+                if (lic) fallbackToNative();
+
+                // Si es MP4/WebM directo
+                if (/\\.(mp4|webm)(\\?|#|$)/i.test(url)) {
+                  if (hls) { hls.destroy(); hls = null; }
+                  if (shakaPlayer) await shakaPlayer.unload().catch(() => {});
+                  video.src = url;
+                  safePlay();
+                  return;
                 }
-                const servers = {};
-                if (lic) servers[/playready/i.test(lic) ? 'com.microsoft.playready' : 'com.widevine.alpha'] = lic;
-                player.configure({ drm: { servers: servers } });
-                await player.load(url).catch(() => { currentUrl = ''; });
+
+                // Si es HLS (.m3u8) sin licencia EME -> motor nativo Imperio (hls.js)
+                if (!lic && !/\\.mpd(\\?|#|$)/i.test(url) && window.Hls && Hls.isSupported()) {
+                  if (shakaPlayer) await shakaPlayer.unload().catch(() => {});
+                  if (hls) { hls.destroy(); hls = null; }
+                  hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: false,
+                    maxBufferLength: 30,
+                    maxMaxBufferLength: 60,
+                    liveSyncDurationCount: 3,
+                    fragLoadingTimeOut: 20000,
+                    manifestLoadingTimeOut: 20000
+                  });
+                  hls.loadSource(url);
+                  hls.attachMedia(video);
+                  hls.on(Hls.Events.MANIFEST_PARSED, () => { safePlay(); safeBuild(); });
+                  hls.on(Hls.Events.FRAG_CHANGED, function (e, data) {
+                    const lvl = data && data.frag ? data.frag.level : -1;
+                    if (lvl < 0 || realByLevel[lvl]) return;
+                    setTimeout(function () {
+                      try {
+                        if (!hls || realByLevel[lvl] || !video.videoHeight) return;
+                        if (hls.currentLevel !== lvl) return;
+                        realByLevel[lvl] = snapHeight(video.videoHeight);
+                        if (started) safeBuild();
+                      } catch {}
+                    }, 1000);
+                  });
+                  hls.on(Hls.Events.LEVELS_UPDATED, safeBuild);
+                  hls.on(Hls.Events.ERROR, (ev, data) => {
+                    if (!data.fatal) return;
+                    if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
+                    else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
+                    else { currentUrl = ''; setTimeout(sync, 2000); }
+                  });
+                  return;
+                }
+
+                // DASH (.mpd) o con licencia TEE/EME -> Shaka Player
+                if (hls) { hls.destroy(); hls = null; }
+                if (window.shaka) {
+                  shaka.polyfill.installAll();
+                  if (!shakaPlayer) {
+                    shakaPlayer = new shaka.Player();
+                    await shakaPlayer.attach(video);
+                    shakaPlayer.addEventListener('error', () => { currentUrl = ''; setTimeout(sync, 2500); });
+                    shakaPlayer.addEventListener('trackschanged', buildShakaMenu);
+                  }
+                  const servers = {};
+                  if (lic) servers[/playready/i.test(lic) ? 'com.microsoft.playready' : 'com.widevine.alpha'] = lic;
+                  shakaPlayer.configure({ drm: { servers: servers } });
+                  await shakaPlayer.load(url).catch(() => { currentUrl = ''; });
+                  buildShakaMenu();
+                  safePlay();
+                  return;
+                }
+
+                if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                  video.src = url;
+                  safePlay();
+                }
               }
+
+              // --- Controles Play, Barra, Mute, Fullscreen Imperio ---
+              playBtn.onclick = (e) => {
+                e.stopPropagation();
+                if (video.paused) { userPaused = false; safePlay(); }
+                else { userPaused = true; video.pause(); }
+              };
+              video.onplay = () => { icoPlay.style.display = 'none'; icoPause.style.display = 'block'; showUI(); };
+              video.onpause = () => { icoPlay.style.display = 'block'; icoPause.style.display = 'none'; box.classList.remove('hide-ui'); };
+              video.ontimeupdate = () => { bar.max = video.duration || 0; bar.value = video.currentTime; };
+              bar.oninput = () => { video.currentTime = bar.value; };
+              muteBtn.onclick = (e) => { e.stopPropagation(); userChoseMute = true; video.muted = !video.muted; updateMuteButtonState(); };
+
+              async function toggleFS(e) {
+                if (e) e.stopPropagation();
+                const isIPhone = /iPhone|iPod/i.test(navigator.userAgent);
+                if (isIPhone && video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return; }
+                const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+                if (!isFs) {
+                  const req = box.requestFullscreen || box.webkitRequestFullscreen || box.mozRequestFullScreen || box.msRequestFullscreen;
+                  if (req) {
+                    try { const res = req.call(box); if (res && res.then) await res; }
+                    catch { if (video.webkitEnterFullscreen) { video.webkitEnterFullscreen(); return; } }
+                    if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
+                  } else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+                } else {
+                  if (screen.orientation && screen.orientation.unlock) try { screen.orientation.unlock(); } catch {}
+                  const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+                  if (exit) exit.call(document).catch(() => {});
+                }
+              }
+              function onFsChange() {
+                const isFs = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+                if (isFs) { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); }
+                else { if (screen.orientation && screen.orientation.unlock) try { screen.orientation.unlock(); } catch {} }
+              }
+              ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(ev => document.addEventListener(ev, onFsChange));
+              fsBtn.onclick = toggleFS;
+              video.ondblclick = toggleFS;
+
+              gearBtn.onclick = (e) => { e.stopPropagation(); qmenu.style.display = qmenu.style.display === 'block' ? 'none' : 'block'; };
+
+              let uiTimer;
+              function showUI() {
+                box.classList.remove('hide-ui');
+                clearTimeout(uiTimer);
+                if (!video.paused) uiTimer = setTimeout(() => { box.classList.add('hide-ui'); }, 2500);
+              }
+              box.addEventListener('mousemove', showUI);
+              box.addEventListener('touchstart', showUI);
+              updateMuteButtonState();
 
               const ikmBytes = b64(IKM_B64);
               async function sync() {
@@ -474,32 +787,61 @@ jobs:
             const playerHtml = `<!DOCTYPE html>
             <html lang="es">
             <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
               <title>ch_${slug}</title>
-              <script src="https://cdn.jsdelivr.net/npm/shaka-player@4/dist/shaka-player.compiled.js"></script>
+              <link id="fp_preconnect" rel="preconnect" crossorigin>
+              <link id="fp_dns" rel="dns-prefetch">
               <style>
-                html,body{margin:0;padding:0;width:100%;height:100%;background:#000;overflow:hidden;font-family:system-ui,sans-serif}
-                #stage{position:relative;width:100%;height:100%;background:#000}
-                video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
-                canvas{z-index:2;pointer-events:none}
-                #hud{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;gap:8px;align-items:center;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.78));opacity:0;transition:opacity .2s}
-                #stage:hover #hud,#hud.show{opacity:1}
-                .btn{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
-                .tag{margin-left:auto;color:#94a3b8;font-size:11px}
+                html, body{margin:0;padding:0;height:100%;overflow:hidden;position:fixed;width:100%;left:0;top:0;background:#000;}
+                #flow-player{max-width:1000px;margin:auto;position:relative;background:#000;border-radius:10px;overflow:hidden;font-family:Arial,sans-serif;height:100%;}
+                #flow-player video,#flow-player canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block;}
+                #flow-player canvas{z-index:1;pointer-events:none;}
+                #flow-player .controls{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);transition:opacity .25s;z-index:10;}
+                #flow-player input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:#fff;}
+                #flow-player input[type=range]::-webkit-slider-thumb{width:0;height:0;}
+                #flow-player input[type=range]::-moz-range-thumb{width:0;height:0;border:0;}
+                #flow-player button{background:none;border:0;cursor:pointer;width:34px;}
+                #fp_fs{position:absolute;top:10px;right:10px;z-index:15;transition:opacity .25s;}
+                #flow-player #fp_unmute_top{position:absolute;top:12px;left:12px;z-index:20;display:none;align-items:center;gap:8px;width:auto;padding:10px 16px 10px 12px;background:#14abd1;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;font:700 13px/1 Arial,sans-serif;letter-spacing:.2px;box-shadow:0 4px 14px rgba(0,0,0,.45);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:fp_pulse 2s infinite;transition:transform .15s,background .2s,opacity .25s;}
+                #flow-player #fp_unmute_top:hover{background:#1bbce4;transform:scale(1.04);}
+                #flow-player #fp_unmute_top:active{transform:scale(.96);}
+                #flow-player #fp_unmute_top svg{flex:none;}
+                @keyframes fp_pulse{0%{box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 0 0 rgba(20,171,209,.6);}70%{box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 0 12px rgba(20,171,209,0);}100%{box-shadow:0 4px 14px rgba(0,0,0,.45),0 0 0 0 rgba(20,171,209,0);}}
+                @media (prefers-reduced-motion:reduce){#flow-player #fp_unmute_top{animation:none;}}
+                #fp_qmenu{position:absolute;bottom:60px;right:10px;background:#111;color:#fff;border-radius:6px;display:none;font-size:13px;z-index:25;}
+                #fp_qmenu div{padding:6px 10px;cursor:pointer;}
+                #fp_qmenu div:hover{background:#222;}
+                #flow-player:fullscreen,#flow-player:-webkit-full-screen{width:100% !important;height:100% !important;max-width:none !important;border-radius:0 !important;}
+                #flow-player.hide-ui .controls,#flow-player.hide-ui #fp_fs{opacity:0;pointer-events:none;}
               </style>
             </head>
             <body>
-              <div id="stage">
-                <video id="v" autoplay muted playsinline></video>
+              <div id="flow-player">
+                <button id="fp_unmute_top">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a9 9 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                  Activar sonido
+                </button>
+                <video id="fp_video" playsinline autoplay preload="auto"></video>
                 <canvas id="glc"></canvas>
-                <div id="hud" class="show">
-                  <button class="btn" id="bPlay">Pausa</button>
-                  <button class="btn" id="bMute">Activar sonido</button>
-                  <button class="btn" id="bFs">Pantalla completa</button>
-                  <span class="tag" id="modeTag">AES-GCM + HKDF-SHA512 + HMAC + XOR + GPU FBO 6x</span>
+                <button id="fp_fs">
+                  <svg viewBox="0 0 24 24" width="26" height="26" stroke="#14abd1" stroke-width="3" fill="none"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+                </button>
+                <div class="controls">
+                  <button id="fp_play">
+                    <svg id="fp_icoPlay" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="fp_icoPause" viewBox="0 0 24 24" fill="#fff" style="display:none"><path d="M6 19h4V5H6zm8-14v14h4V5z"/></svg>
+                  </button>
+                  <input id="fp_bar" type="range" value="0" min="0" step="0.1">
+                  <button id="fp_mute"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 10v4h4l5 5V5L7 10z"/></svg></button>
+                  <button id="fp_gear">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#14abd1"><path d="M19.4 13.5c.04-.5.06-1 .06-1.5s-.02-1-.06-1.5l2.11-1.65a.5.5 0 0 0 .12-.64l-2-3.46a.5.5 0 0 0-.6-.22l-2.49 1a7.03 7.03 0 0 0-2.6-1.5l-.38-2.65A.5.5 0 0 0 13.1 1h-4a.5.5 0 0 0-.5.42l-.38 2.65a7.03 7.03 0 0 0-2.6 1.5l-2.49-1a.5.5 0 0 0-.6.22l-2 3.46a.5.5 0 0 0 .12.64L2.6 10.5c-.04.5-.06 1-.06 1.5s.02 1 .06 1.5L.49 15.15a.5.5 0 0 0-.12.64l2 3.46c.14.24.43.34.69.22l2.49-1a7.03 7.03 0 0 0 2.6 1.5l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.38-2.65a7.03 7.03 0 0 0 2.6-1.5l2.49 1c.26.12.55.02.69-.22l2-3.46a.5.5 0 0 0-.12-.64L19.4 13.5zM11 15.5A3.5 3.5 0 1 1 11 8a3.5 3.5 0 0 1 0 7.5z"/></svg>
+                  </button>
                 </div>
+                <div id="fp_qmenu"></div>
               </div>
+              <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+              <script src="https://cdn.jsdelivr.net/npm/shaka-player@4/dist/shaka-player.compiled.js"></script>
               <script>
                 (async function(){
                   const E=${JSON.stringify(bootEnv)},K=${JSON.stringify(bootIkm.toString('base64'))},I=${JSON.stringify(bootInfo)};
