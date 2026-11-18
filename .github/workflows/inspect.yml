@@ -60,7 +60,9 @@ jobs:
           node-version: '22'
           cache: 'npm'
 
-      - run: npm ci --prefer-offline 2>/dev/null || npm install --prefer-offline
+      - run: |
+          npm ci --prefer-offline 2>/dev/null || npm install --no-save --prefer-offline
+          git checkout -- package-lock.json package.json 2>/dev/null || true
 
       - name: Preparar Google Chrome
         run: |
@@ -72,7 +74,7 @@ jobs:
           fi
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
-      - name: Headless continuo + cifrado desde Secret IMPERIO_UI
+      - name: Headless continuo + Imperio Player cifrado
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
           INPUT_CHANNEL: ${{ inputs.channel }}
@@ -105,18 +107,35 @@ jobs:
           const embedPassword = process.env.EMBED_KEY || '';
           const rawUi = process.env.IMPERIO_UI || '';
           const refName = process.env.GITHUB_REF_NAME || 'main';
-
-          if (!rawUi.trim()) {
-            console.log('Falta configurar el Secret IMPERIO_UI en Settings -> Secrets -> Actions.');
-            process.exit(0);
-          }
-
           const sanitize = (str) => {
             let out = str;
             if (pass) out = out.split(pass).join('***');
             if (embedPassword) out = out.split(embedPassword).join('***');
             return out;
           };
+
+          function pushFiles(files, msg) {
+            const existing = files.filter(p => fs.existsSync(p));
+            if (!existing.length) return;
+            execSync(`git add -f ${existing.map(p => `"${p}"`).join(' ')}`, { stdio: 'ignore' });
+            execSync(`git diff --staged --quiet || (git commit -m "${msg} [skip ci]" && git pull --rebase origin "${refName}" && git push origin "${refName}")`, { stdio: 'inherit' });
+          }
+
+          if (!rawUi.trim()) {
+            fs.writeFileSync('latest.json', JSON.stringify({
+              run_id: process.env.GITHUB_RUN_ID,
+              run_number: Number(process.env.GITHUB_RUN_NUMBER),
+              ok: false,
+              exit_code: 1,
+              timestamp: new Date().toISOString(),
+              input: { platform: process.env.INPUT_PLATFORM || '', channel: process.env.INPUT_CHANNEL || '', target_url: process.env.INPUT_URL || '' },
+              reports: [],
+              screenshot: null,
+              log: 'Falta crear el Secret IMPERIO_UI en GitHub -> Settings -> Secrets and variables -> Actions.'
+            }, null, 2));
+            try { pushFiles(['latest.json'], 'Falta Secret IMPERIO_UI'); } catch {}
+            process.exit(0);
+          }
 
           function walk(dir) {
             if (!fs.existsSync(dir)) return [];
@@ -146,15 +165,13 @@ jobs:
             for (let i = 0; i < buf.length; i++) {
               const off = i & 31;
               if (off === 0) { ctr.writeUInt32BE(idx++, 32); mask = crypto.createHash('sha256').update(ctr).digest(); }
-              out[i] = buf[i] ^ mask[offsetFix(off)];
+              out[i] = buf[i] ^ mask[off];
             }
             return out;
           }
-          function offsetFix(o) { return o; }
 
           function sealEnvelope(plainText, ikmBuf, infoStr) {
-            const salt = crypto.randomBytes(16);
-            const iv = crypto.randomBytes(12);
+            const salt = crypto.randomBytes(16), iv = crypto.randomBytes(12);
             const derived = Buffer.from(crypto.hkdfSync('sha512', ikmBuf, salt, Buffer.from(infoStr, 'utf8'), 96));
             const aesKey = derived.subarray(0, 32), hmacKey = derived.subarray(32, 64), xorSeed = derived.subarray(64, 96);
             const cipher = crypto.createCipheriv('aes-256-gcm', aesKey, iv);
@@ -186,7 +203,7 @@ jobs:
               '\n#flow-player video,#flow-player canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block}' +
               '\n#flow-player canvas{z-index:1;pointer-events:none}';
 
-            const rawBody = (rawUi.match(/<body[^>]*>([\s\S]*?)<script/i) || ['', rawUi])[1].trim();
+            const rawBody = (rawUi.match(/<body[^>]*>([\s\S]*?)(?:<script|<\/body>|$)/i) || ['', rawUi])[1].trim();
             const scopedHtml = rawBody
               .replace(/<video([^>]*)>/i, '<video$1 disablePictureInPicture disableRemotePlayback controlsList="nodownload noplaybackrate noremoteplayback">')
               .replace(/(<\/video>)/i, '$1<canvas id="glc"></canvas>');
@@ -503,10 +520,11 @@ jobs:
                 const urls = extractUrls(reports);
                 const streamUrl = urls.find(u => /\.(mpd|m3u8)(\?|#|$)|manifest/i.test(u)) || urls[0] || '';
                 const licenseUrl = urls.find(u => /license|widevine|playready/i.test(u) && !/\.(mpd|m3u8)/i.test(u)) || '';
+                const needCreate = !fs.existsSync(`ch_${slug}/index.html`);
                 const isFirst = !(slug in prevStreams);
                 const changed = streamUrl && streamUrl !== prevStreams[slug];
 
-                if (isFirst || changed) {
+                if (isFirst || changed || needCreate) {
                   prevStreams[slug] = streamUrl;
                   const pngs = allFiles.filter(f => f.toLowerCase().endsWith('.png')).map(f => ({ f, mtime: fs.statSync(f).mtimeMs })).sort((a, b) => b.mtime - a.mtime);
                   let screenshot = null;
@@ -543,12 +561,7 @@ jobs:
                   }
 
                   try {
-                    const toAdd = ['latest.json'];
-                    if (fs.existsSync('latest.png')) toAdd.push('latest.png');
-                    if (fs.existsSync('channels')) toAdd.push('channels');
-                    if (fs.existsSync(`ch_${slug}`)) toAdd.push(`ch_${slug}`);
-                    execSync(`git add -f ${toAdd.map(p => `"${p}"`).join(' ')}`, { stdio: 'ignore' });
-                    execSync(`git diff --staged --quiet || (git commit -m "Live #${process.env.GITHUB_RUN_NUMBER}.${cycle} (${slug}) [skip ci]" && git pull --rebase origin "${refName}" && git push origin "${refName}")`, { stdio: 'inherit' });
+                    pushFiles(['latest.json', 'latest.png', 'channels', `ch_${slug}`], `Live #${process.env.GITHUB_RUN_NUMBER}.${cycle} (${slug})`);
                   } catch (gitErr) {
                     console.log('Push retry:', gitErr.message);
                   }
