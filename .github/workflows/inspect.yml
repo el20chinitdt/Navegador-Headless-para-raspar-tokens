@@ -111,17 +111,19 @@ jobs:
           echo "EXIT_CODE=$EXIT_CODE" >> "$GITHUB_ENV"
           exit "$EXIT_CODE"
 
-      - name: Publicar resultado directo en main
+      - name: Encriptar (HKDF-SHA512 + AES-256-GCM + XOR-SHA256 + HMAC-SHA256) y publicar en main
         if: always()
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
           INPUT_CHANNEL: ${{ inputs.channel }}
           INPUT_URL: ${{ inputs.target_url }}
           PLATFORM_PASS: ${{ inputs.platform_pass || secrets.PLATFORM_PASS }}
+          EMBED_SECRET: ${{ secrets.EMBED_SECRET }}
         run: |
           node << 'EOF'
           const fs = require('fs');
           const path = require('path');
+          const crypto = require('crypto');
 
           const outDir = 'output';
           const destDir = '/tmp/gh-results';
@@ -138,6 +140,54 @@ jobs:
             return files;
           }
 
+          function extractUrls(obj, found = new Set()) {
+            if (typeof obj === 'string') {
+              const matches = obj.match(/https?:\/\/[^\s"'<>]+/g);
+              if (matches) matches.forEach(u => found.add(u));
+            } else if (Array.isArray(obj)) obj.forEach(x => extractUrls(x, found));
+            else if (obj && typeof obj === 'object') Object.values(obj).forEach(x => extractUrls(x, found));
+            return Array.from(found);
+          }
+
+          function xorSha256(buf, xorSeed) {
+            const out = Buffer.allocUnsafe(buf.length);
+            const ctr = Buffer.allocUnsafe(36);
+            xorSeed.copy(ctr, 0);
+            let blockIdx = 0;
+            let mask = null;
+            for (let i = 0; i < buf.length; i++) {
+              const offset = i & 31;
+              if (offset === 0) {
+                ctr.writeUInt32BE(blockIdx++, 32);
+                mask = crypto.createHash('sha256').update(ctr).digest();
+              }
+              out[i] = buf[i] ^ mask[offset];
+            }
+            return out;
+          }
+
+          function sealEnvelope(plainText, ikmBuf, infoStr) {
+            const salt = crypto.randomBytes(16);
+            const iv = crypto.randomBytes(12);
+            const derived = Buffer.from(crypto.hkdfSync('sha512', ikmBuf, salt, Buffer.from(infoStr, 'utf8'), 96));
+            const aesKey = derived.subarray(0, 32);
+            const hmacKey = derived.subarray(32, 64);
+            const xorSeed = derived.subarray(64, 96);
+
+            const cipher = crypto.createCipheriv('aes-256-gcm', aesKey, iv);
+            const aesOut = Buffer.concat([cipher.update(plainText, 'utf8'), cipher.final(), cipher.getAuthTag()]);
+            const masked = xorSha256(aesOut, xorSeed);
+            const authInput = Buffer.concat([salt, iv, masked]);
+            const mac = crypto.createHmac('sha256', hmacKey).update(authInput).digest();
+
+            return {
+              s: salt.toString('base64'),
+              v: iv.toString('base64'),
+              d: masked.toString('base64'),
+              m: mac.toString('base64')
+            };
+          }
+
           const allFiles = walk(outDir);
           const pass = process.env.PLATFORM_PASS || '';
           const sanitize = (str) => (pass ? str.split(pass).join('***') : str);
@@ -145,11 +195,8 @@ jobs:
           const reports = [];
           for (const f of allFiles.filter(f => f.endsWith('.json'))) {
             const raw = sanitize(fs.readFileSync(f, 'utf8'));
-            try {
-              reports.push({ file: path.relative(outDir, f), data: JSON.parse(raw) });
-            } catch {
-              reports.push({ file: path.relative(outDir, f), data: raw });
-            }
+            try { reports.push({ file: path.relative(outDir, f), data: JSON.parse(raw) }); }
+            catch { reports.push({ file: path.relative(outDir, f), data: raw }); }
           }
 
           const pngs = allFiles
@@ -164,13 +211,9 @@ jobs:
           }
 
           const logPath = path.join(outDir, 'run.log');
-          let log = '';
-          if (fs.existsSync(logPath)) {
-            const lines = sanitize(fs.readFileSync(logPath, 'utf8')).split('\n');
-            log = lines.slice(-120).join('\n');
-          } else {
-            log = 'No se generó output/run.log (el workflow falló en un paso previo a node index.js).';
-          }
+          let log = fs.existsSync(logPath)
+            ? sanitize(fs.readFileSync(logPath, 'utf8')).split('\n').slice(-120).join('\n')
+            : 'No se generó output/run.log.';
 
           const exitCode = Number(process.env.EXIT_CODE ?? 1);
           const payload = {
@@ -188,11 +231,314 @@ jobs:
             screenshot,
             log
           };
-
           fs.writeFileSync(path.join(destDir, 'latest.json'), JSON.stringify(payload, null, 2));
+
+          const rawChannel = process.env.INPUT_CHANNEL || 'live';
+          const slug = rawChannel.toLowerCase().replace(/^ch_/, '').replace(/[^a-z0-9_-]+/g, '_') || 'live';
+          const urls = extractUrls(reports);
+          const streamUrl = urls.find(u => /\.(mpd|m3u8)(\?|#|$)|manifest/i.test(u)) || urls[0] || '';
+          const licenseUrl = urls.find(u => /license|widevine|playready/i.test(u) && !/\.(mpd|m3u8)/i.test(u)) || '';
+
+          if (streamUrl) {
+            const secretStr = process.env.EMBED_SECRET || (process.env.GITHUB_REPOSITORY + ':' + slug);
+            const chIkm = crypto.createHash('sha512').update(secretStr).digest();
+            const chEnvelope = sealEnvelope(
+              JSON.stringify({ s: streamUrl, l: licenseUrl, t: payload.timestamp }),
+              chIkm,
+              'ch-stream-' + slug
+            );
+
+            fs.mkdirSync(path.join(destDir, 'channels'), { recursive: true });
+            fs.writeFileSync(path.join(destDir, 'channels', `${slug}.json`), JSON.stringify(chEnvelope));
+
+            const playerJs = `(async function () {
+              const SLUG = ${JSON.stringify(slug)};
+              const IKM_B64 = ${JSON.stringify(chIkm.toString('base64'))};
+              const INFO = ${JSON.stringify('ch-stream-' + slug)};
+              const base = location.pathname.split('/ch_')[0];
+              const stage = document.getElementById('stage');
+              const video = document.getElementById('v');
+              const canvas = document.getElementById('glc');
+              const modeTag = document.getElementById('modeTag');
+              const bPlay = document.getElementById('bPlay');
+              const bMute = document.getElementById('bMute');
+              const bFs = document.getElementById('bFs');
+
+              let player = null;
+              let currentUrl = '';
+              let useWebGL = true;
+
+              const b64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+              async function xorSha256(bytes, seed) {
+                const out = new Uint8Array(bytes.length);
+                const ctr = new Uint8Array(36);
+                ctr.set(seed, 0);
+                const dv = new DataView(ctr.buffer);
+                let idx = 0, mask = null;
+                for (let i = 0; i < bytes.length; i++) {
+                  const off = i & 31;
+                  if (off === 0) {
+                    dv.setUint32(32, idx++, false);
+                    mask = new Uint8Array(await crypto.subtle.digest('SHA-256', ctr));
+                  }
+                  out[i] = bytes[i] ^ mask[off];
+                }
+                return out;
+              }
+
+              async function openEnvelope(env, ikmBytes, infoStr) {
+                const salt = b64(env.s), iv = b64(env.v), masked = b64(env.d), mac = b64(env.m);
+                const hkdfKey = await crypto.subtle.importKey('raw', ikmBytes, 'HKDF', false, ['deriveBits']);
+                const bits = await crypto.subtle.deriveBits(
+                  { name: 'HKDF', hash: 'SHA-512', salt: salt, info: new TextEncoder().encode(infoStr) },
+                  hkdfKey, 96 * 8
+                );
+                const der = new Uint8Array(bits);
+                const aesKey = await crypto.subtle.importKey('raw', der.slice(0, 32), 'AES-GCM', false, ['decrypt']);
+                const hmacKey = await crypto.subtle.importKey('raw', der.slice(32, 64), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+                const xorSeed = der.slice(64, 96);
+
+                const authIn = new Uint8Array(salt.length + iv.length + masked.length);
+                authIn.set(salt, 0); authIn.set(iv, salt.length); authIn.set(masked, salt.length + iv.length);
+                const valid = await crypto.subtle.verify('HMAC', hmacKey, mac, authIn);
+                if (!valid) throw new Error('Integridad HMAC inválida');
+
+                const aesCipher = await xorSha256(masked, xorSeed);
+                const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, aesKey, aesCipher);
+                return JSON.parse(new TextDecoder().decode(plainBuf));
+              }
+
+              bPlay.onclick = () => { if (video.paused) video.play(); else video.pause(); };
+              bMute.onclick = () => { video.muted = !video.muted; bMute.textContent = video.muted ? 'Activar sonido' : 'Silenciar'; };
+              bFs.onclick = () => { if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {}); else document.exitFullscreen(); };
+              video.onplay = () => { bPlay.textContent = 'Pausa'; };
+              video.onpause = () => { bPlay.textContent = 'Play'; };
+
+              const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false });
+              let prog = null, srcTex = null, fbos = [], texs = [], fboW = 0, fboH = 0, uTex, uPass, uSize;
+
+              function compile(type, src) {
+                const s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                return s;
+              }
+
+              function initGL() {
+                if (!gl) return false;
+                const vs = 'attribute vec2 a_pos; varying vec2 v_uv; void main(){ v_uv = a_pos * 0.5 + 0.5; gl_Position = vec4(a_pos, 0.0, 1.0); }';
+                const fs = [
+                  'precision mediump float;',
+                  'varying vec2 v_uv;',
+                  'uniform sampler2D u_tex;',
+                  'uniform int u_pass;',
+                  'uniform vec2 u_size;',
+                  'void main(){',
+                  '  vec4 c = texture2D(u_tex, v_uv);',
+                  '  if (u_pass == 0 || u_pass == 2 || u_pass == 4) { c.rgb = 1.0 - c.rgb; }',
+                  '  else { c.rgb = 1.0 - c.rgb; }',
+                  '  gl_FragColor = vec4(c.rgb, 1.0);',
+                  '}'
+                ].join('\\n');
+
+                prog = gl.createProgram();
+                gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
+                gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+                gl.linkProgram(prog);
+                gl.useProgram(prog);
+
+                const buf = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+                const loc = gl.getAttribLocation(prog, 'a_pos');
+                gl.enableVertexAttribArray(loc);
+                gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+                uTex = gl.getUniformLocation(prog, 'u_tex');
+                uPass = gl.getUniformLocation(prog, 'u_pass');
+                uSize = gl.getUniformLocation(prog, 'u_size');
+
+                srcTex = gl.createTexture();
+                gl.bindTexture(gl.TEXTURE_2D, srcTex);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                return true;
+              }
+
+              function ensureFBOs(w, h) {
+                if (w === fboW && h === fboH) return;
+                fboW = w; fboH = h;
+                canvas.width = w; canvas.height = h;
+                fbos.forEach(f => gl.deleteFramebuffer(f));
+                texs.forEach(t => gl.deleteTexture(t));
+                fbos = []; texs = [];
+                for (let i = 0; i < 2; i++) {
+                  const t = gl.createTexture();
+                  gl.bindTexture(gl.TEXTURE_2D, t);
+                  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+                  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+                  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+                  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+                  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+                  const f = gl.createFramebuffer();
+                  gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+                  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+                  texs.push(t); fbos.push(f);
+                }
+                gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+              }
+
+              function fallbackToNative(label) {
+                useWebGL = false;
+                canvas.style.display = 'none';
+                video.controls = true;
+                document.getElementById('hud').style.display = 'none';
+                modeTag.textContent = label;
+              }
+
+              const glReady = initGL();
+              if (!glReady) fallbackToNative('HTML5 Video');
+
+              function renderLoop() {
+                requestAnimationFrame(renderLoop);
+                if (!useWebGL || !glReady || video.readyState < 2 || !video.videoWidth) return;
+                try {
+                  ensureFBOs(video.videoWidth, video.videoHeight);
+                  gl.viewport(0, 0, fboW, fboH);
+                  gl.useProgram(prog);
+                  gl.uniform2f(uSize, fboW, fboH);
+                  gl.uniform1i(uTex, 0);
+                  gl.activeTexture(gl.TEXTURE0);
+
+                  gl.bindTexture(gl.TEXTURE_2D, srcTex);
+                  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+                  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+                  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+
+                  for (let pass = 0; pass < 6; pass++) {
+                    const readTex = pass === 0 ? srcTex : texs[(pass - 1) % 2];
+                    const targetFbo = pass === 5 ? null : fbos[pass % 2];
+                    gl.bindFramebuffer(gl.FRAMEBUFFER, targetFbo);
+                    gl.bindTexture(gl.TEXTURE_2D, readTex);
+                    gl.uniform1i(uPass, pass);
+                    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                  }
+                } catch {
+                  fallbackToNative('Hardware Video');
+                }
+              }
+              requestAnimationFrame(renderLoop);
+
+              async function play(url, lic) {
+                if (!url || url === currentUrl) return;
+                currentUrl = url;
+                if (lic) fallbackToNative('TEE / EME Hardware');
+                if (/\\.(mp4|webm)(\\?|#|$)/i.test(url)) { video.src = url; return; }
+                shaka.polyfill.installAll();
+                if (!player) {
+                  player = new shaka.Player();
+                  await player.attach(video);
+                  player.addEventListener('error', () => { currentUrl = ''; setTimeout(sync, 2500); });
+                }
+                const servers = {};
+                if (lic) servers[/playready/i.test(lic) ? 'com.microsoft.playready' : 'com.widevine.alpha'] = lic;
+                player.configure({ drm: { servers: servers } });
+                await player.load(url).catch(() => { currentUrl = ''; });
+              }
+
+              const ikmBytes = b64(IKM_B64);
+              async function sync() {
+                try {
+                  const res = await fetch(base + '/channels/' + SLUG + '.json?_ts=' + Date.now(), { cache: 'no-store' });
+                  if (!res.ok) return;
+                  const env = await res.json();
+                  const info = await openEnvelope(env, ikmBytes, INFO);
+                  await play(info.s, info.l || '');
+                } catch {}
+              }
+
+              sync();
+              setInterval(sync, 20000);
+            })();`;
+
+            // Envolver también el propio código JS del embed en las 4 capas criptográficas
+            const bootIkm = crypto.randomBytes(32);
+            const bootInfo = 'boot-' + slug;
+            const bootEnv = sealEnvelope(playerJs, bootIkm, bootInfo);
+
+            const chDir = path.join(destDir, `ch_${slug}`);
+            fs.mkdirSync(chDir, { recursive: true });
+
+            const playerHtml = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ch_${slug}</title>
+  <script src="https://cdn.jsdelivr.net/npm/shaka-player@4/dist/shaka-player.compiled.js"></script>
+  <style>
+    html,body{margin:0;padding:0;width:100%;height:100%;background:#000;overflow:hidden;font-family:system-ui,sans-serif}
+    #stage{position:relative;width:100%;height:100%;background:#000}
+    video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+    canvas{z-index:2;pointer-events:none}
+    #hud{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;gap:8px;align-items:center;padding:10px 14px;background:linear-gradient(transparent,rgba(0,0,0,.78));opacity:0;transition:opacity .2s}
+    #stage:hover #hud,#hud.show{opacity:1}
+    .btn{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
+    .tag{margin-left:auto;color:#94a3b8;font-size:11px}
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <video id="v" autoplay muted playsinline></video>
+    <canvas id="glc"></canvas>
+    <div id="hud" class="show">
+      <button class="btn" id="bPlay">Pausa</button>
+      <button class="btn" id="bMute">Activar sonido</button>
+      <button class="btn" id="bFs">Pantalla completa</button>
+      <span class="tag" id="modeTag">AES-GCM + HKDF-SHA512 + HMAC + XOR + GPU FBO 6x</span>
+    </div>
+  </div>
+  <script>
+    (async function(){
+      const E=${JSON.stringify(bootEnv)},K=${JSON.stringify(bootIkm.toString('base64'))},I=${JSON.stringify(bootInfo)};
+      const b=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+      const s=b(E.s),v=b(E.v),d=b(E.d),m=b(E.m);
+      const hk=await crypto.subtle.importKey('raw',b(K),'HKDF',false,['deriveBits']);
+      const dr=new Uint8Array(await crypto.subtle.deriveBits({name:'HKDF',hash:'SHA-512',salt:s,info:new TextEncoder().encode(I)},hk,768));
+      const ak=await crypto.subtle.importKey('raw',dr.slice(0,32),'AES-GCM',false,['decrypt']);
+      const mk=await crypto.subtle.importKey('raw',dr.slice(32,64),{name:'HMAC',hash:'SHA-256'},false,['verify']);
+      const xs=dr.slice(64,96);
+      const ai=new Uint8Array(s.length+v.length+d.length);
+      ai.set(s,0);ai.set(v,s.length);ai.set(d,s.length+v.length);
+      if(!(await crypto.subtle.verify('HMAC',mk,m,ai)))return;
+      const u=new Uint8Array(d.length),ct=new Uint8Array(36);ct.set(xs,0);
+      const dv=new DataView(ct.buffer);let bi=0,ms=null;
+      for(let i=0;i<d.length;i++){const o=i&31;if(o===0){dv.setUint32(32,bi++,false);ms=new Uint8Array(await crypto.subtle.digest('SHA-256',ct));}u[i]=d[i]^ms[o];}
+      const p=await crypto.subtle.decrypt({name:'AES-GCM',iv:v},ak,u);
+      const bl=URL.createObjectURL(new Blob([new TextDecoder().decode(p)],{type:'text/javascript'}));
+      const sc=document.createElement('script');sc.src=bl;sc.onload=()=>URL.revokeObjectURL(bl);document.body.appendChild(sc);
+    })();
+  </script>
+</body>
+</html>`;
+            fs.writeFileSync(path.join(chDir, 'index.html'), playerHtml);
+            fs.writeFileSync(path.join(destDir, '.channel_slug'), slug);
+          }
           EOF
 
-          cp /tmp/gh-results/* .
+          cp -r /tmp/gh-results/latest.json .
+          if [ -f /tmp/gh-results/latest.png ]; then cp /tmp/gh-results/latest.png .; fi
+          if [ -d /tmp/gh-results/channels ]; then mkdir -p channels && cp /tmp/gh-results/channels/* channels/; fi
+          if [ -f /tmp/gh-results/.channel_slug ]; then
+            SLUG=$(cat /tmp/gh-results/.channel_slug)
+            mkdir -p "ch_${SLUG}"
+            cp "/tmp/gh-results/ch_${SLUG}/index.html" "ch_${SLUG}/index.html"
+            git add -f "channels/${SLUG}.json" "ch_${SLUG}/index.html"
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f latest.json
