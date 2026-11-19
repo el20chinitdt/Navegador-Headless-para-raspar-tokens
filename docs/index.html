@@ -162,7 +162,6 @@
 
     .msg-bar { margin: 12px 0 0; font-size: 12.5px; color: var(--muted); min-height: 18px; }
 
-    /* Filas editables de canales */
     .list-stack { display: flex; flex-direction: column; gap: 12px; }
     .ch-card {
       border: 1px solid var(--border);
@@ -190,11 +189,13 @@
       position: relative; width: 100%; aspect-ratio: 16/9;
       border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: #000;
     }
-    .preview-stage iframe { position: relative; z-index: 2; width: 100%; height: 100%; border: 0; display: block; background: transparent; }
+    .preview-stage iframe {
+      position: relative; z-index: 2; width: 100%; height: 100%; border: 0; display: none; background: #000;
+    }
     .preview-empty {
       position: absolute; inset: 0; z-index: 1;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 6px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px;
+      gap: 8px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px;
     }
 
     .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
@@ -260,7 +261,7 @@
       </div>
 
       <div class="grid" style="margin-top:12px;">
-        <div class="field"><label for="waitMs">Espera inicial (ms)</label><input id="waitMs" type="number" value="1500" /></div>
+        <div class="field"><label for="waitMs">Espera inicial (ms)</label><input id="waitMs" type="number" value="7000" /></div>
         <div class="field" style="justify-content:flex-end;">
           <label class="check" style="margin-top:0; padding-bottom:8px;">
             <input id="useLogin" type="checkbox" />
@@ -294,7 +295,7 @@
       <div id="channelsList" class="list-stack"></div>
 
       <div class="actions">
-        <button type="button" id="btnSaveAll" class="btn btn-ok">Guardar todos en GitHub</button>
+        <button type="button" id="btnSaveAll" class="btn btn-ok">Guardar y crear canales</button>
         <button type="button" id="btnRun" class="btn">Ejecutar todos en la nube</button>
         <button type="button" id="btnCheck" class="btn btn-sec">Actualizar</button>
       </div>
@@ -314,7 +315,7 @@
             <polygon points="10 8 15 11 10 14 10 8" fill="currentColor"></polygon>
             <line x1="8" y1="21" x2="16" y2="21"></line>
           </svg>
-          <span>Tocá "Ver" en cualquier canal o ejecutá el Headless para reproducir acá</span>
+          <span id="previewEmptyText">Tocá "Ver" en cualquier canal o ejecutá el Headless para reproducir acá</span>
         </div>
         <iframe id="previewFrame" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
       </div>
@@ -361,9 +362,10 @@
 
     let lastTimestamp = '';
     let workerTimer = null;
+    let previewRetryTimer = null;
 
     const toSlug = (name) => String(name || 'live').toLowerCase().replace(/^ch_/, '').replace(/[^a-z0-9_-]+/g, '_') || 'live';
-    const getPagesBase = () => (location.origin !== 'null' ? location.origin : '') + location.pathname.replace(/\/(docs\/)?(index\.html)?$/, '');
+    const getPagesBase = () => (location.origin !== 'null' ? location.origin : '') + location.pathname.replace(/\/(?:docs(?:\/index\.html)?|index\.html)?\/?$/, '');
     const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
     function buildIframeHtml(slug) {
@@ -405,13 +407,38 @@
     $('platformUser').addEventListener('input', syncLoginCheckbox);
     $('platformPass').addEventListener('input', syncLoginCheckbox);
 
-    function showChannelPreview(slug) {
+    async function showChannelPreview(slug) {
+      clearTimeout(previewRetryTimer);
       const { url, html } = buildIframeHtml(slug);
       $('embedCode').value = html;
       $('embedCode').dataset.url = url;
-      $('previewTitle').textContent = 'ch_' + slug;
-      $('previewFrame').src = url + '?_t=' + Date.now();
       localStorage.setItem('panel_last_embed_slug', slug);
+
+      const frame = $('previewFrame');
+      const titleBadge = $('previewTitle');
+      const emptyTxt = $('previewEmptyText');
+
+      try {
+        const res = await fetch(url + '?_t=' + Date.now(), { method: 'HEAD', cache: 'no-store' });
+        if (res.ok) {
+          titleBadge.textContent = 'ch_' + slug + ' · En línea';
+          titleBadge.className = 'badge ok';
+          frame.style.display = 'block';
+          if (frame.dataset.loadedSlug !== slug) {
+            frame.dataset.loadedSlug = slug;
+            frame.src = url + '?_t=' + Date.now();
+          }
+          return;
+        }
+      } catch {}
+
+      frame.style.display = 'none';
+      frame.removeAttribute('src');
+      delete frame.dataset.loadedSlug;
+      titleBadge.textContent = 'ch_' + slug + ' · Generándose';
+      titleBadge.className = 'badge tag';
+      emptyTxt.textContent = `Esperando que se cree y publique /ch_${slug} en GitHub Pages...`;
+      previewRetryTimer = setTimeout(() => showChannelPreview(slug), 5000);
     }
 
     function persistLocalChannels() {
@@ -443,7 +470,10 @@
         bVer.type = 'button';
         bVer.className = 'btn-mini';
         bVer.textContent = 'Ver';
-        bVer.onclick = () => showChannelPreview(toSlug(ch.channel || ch.slug));
+        bVer.onclick = () => {
+          $('previewFrame').dataset.loadedSlug = '';
+          showChannelPreview(toSlug(ch.channel || ch.slug));
+        };
 
         const bEmb = document.createElement('button');
         bEmb.type = 'button';
@@ -596,11 +626,62 @@
       renderChannels();
     }
 
+    async function dispatchCloudRun() {
+      const owner = $('owner').value.trim();
+      const repo = $('repo').value.trim();
+      const branch = $('branch').value.trim() || 'main';
+      const pat = $('pat').value.trim();
+
+      const inputs = {
+        channel: 'ALL',
+        wait_ms: String($('waitMs').value || 7000),
+        use_login: $('useLogin').checked,
+        embed_key: $('embedKey').value
+      };
+      if (inputs.use_login) {
+        if ($('platformUser').value.trim()) inputs.platform_user = $('platformUser').value.trim();
+        if ($('platformPass').value) inputs.platform_pass = $('platformPass').value;
+      }
+
+      const res = await fetch(
+        `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/dispatches`,
+        { method: 'POST', headers: ghHeaders(pat), body: JSON.stringify({ ref: branch, inputs }) }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'Error al disparar workflow');
+      }
+    }
+
     $('btnSaveAll').addEventListener('click', async () => {
       try {
-        $('msg').textContent = 'Guardando todos los canales en el repositorio...';
+        $('msg').textContent = 'Guardando canales y creando archivos ch_ en GitHub...';
         const list = await pushListToRepo();
-        $('msg').textContent = `${list.length} ${list.length === 1 ? 'canal guardado' : 'canales guardados'} en main.`;
+        if (!list.length) {
+          $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.';
+          return;
+        }
+        await dispatchCloudRun();
+        startWorkerMonitor();
+        showChannelPreview(list[0].slug);
+        $('msg').textContent = `${list.length} ${list.length === 1 ? 'canal guardado' : 'canales guardados'} y creándose en main.`;
+      } catch (e) {
+        $('msg').textContent = 'Error: ' + e.message;
+      }
+    });
+
+    $('btnRun').addEventListener('click', async () => {
+      try {
+        $('msg').textContent = 'Guardando lista y lanzando Headless en la nube...';
+        const list = await pushListToRepo();
+        if (!list.length) {
+          $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.';
+          return;
+        }
+        await dispatchCloudRun();
+        startWorkerMonitor();
+        showChannelPreview(list[0].slug);
+        $('msg').textContent = `Corriendo ${list.length} canales en la nube. Podés cambiar de pestaña tranquilo.`;
       } catch (e) {
         $('msg').textContent = 'Error: ' + e.message;
       }
@@ -648,7 +729,7 @@
       header.append(badge, meta);
       resBox.appendChild(header);
 
-      if (data.input?.channel) showChannelPreview(data.input.channel);
+      if (data.ok && data.input?.channel) showChannelPreview(data.input.channel);
 
       const urls = extractUrls(data.reports);
       const streamUrls = urls.filter(u => /\.(mpd|m3u8)|manifest|license|widevine|playready/i.test(u));
@@ -753,47 +834,6 @@
     }
 
     document.addEventListener('visibilitychange', () => { if (!document.hidden) checkCloudStatus(); });
-
-    $('btnRun').addEventListener('click', async () => {
-      const owner = $('owner').value.trim();
-      const repo = $('repo').value.trim();
-      const branch = $('branch').value.trim() || 'main';
-      const pat = $('pat').value.trim();
-      if (!owner || !repo || !pat) { $('msg').textContent = 'Completá usuario, repositorio y token.'; return; }
-
-      try {
-        $('msg').textContent = 'Guardando lista de canales y lanzando...';
-        const cleanList = await pushListToRepo();
-        if (!cleanList.length) {
-          $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.';
-          return;
-        }
-
-        const inputs = {
-          channel: 'ALL',
-          wait_ms: String($('waitMs').value || 1500),
-          use_login: $('useLogin').checked,
-          embed_key: $('embedKey').value
-        };
-        if (inputs.use_login) {
-          if ($('platformUser').value.trim()) inputs.platform_user = $('platformUser').value.trim();
-          if ($('platformPass').value) inputs.platform_pass = $('platformPass').value;
-        }
-
-        const res = await fetch(
-          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/dispatches`,
-          { method: 'POST', headers: ghHeaders(pat), body: JSON.stringify({ ref: branch, inputs }) }
-        );
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          throw new Error(err.message || 'Error al disparar workflow');
-        }
-        $('msg').textContent = `Corriendo ${cleanList.length} canales en la nube. Podés cambiar de pestaña tranquilo.`;
-        startWorkerMonitor();
-      } catch (e) {
-        $('msg').textContent = 'Error: ' + e.message;
-      }
-    });
 
     $('btnCheck').addEventListener('click', async () => {
       $('msg').textContent = 'Actualizando...';
