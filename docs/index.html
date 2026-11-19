@@ -21,126 +21,70 @@
       --radius: 14px;
       --shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.55);
     }
-
     * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      min-height: 100vh;
+      margin: 0; min-height: 100vh;
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      background-image: var(--bg-glow);
-      color: var(--text);
-      padding: 24px 16px 48px;
-      line-height: 1.45;
+      background-color: var(--bg); background-image: var(--bg-glow);
+      color: var(--text); padding: 24px 16px 48px; line-height: 1.45;
       -webkit-font-smoothing: antialiased;
     }
-
     .container { max-width: 920px; margin: 0 auto; }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-      padding: 0 4px;
-    }
-
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 22px; padding: 0 4px; }
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand-icon {
       width: 40px; height: 40px; border-radius: 11px;
       background: linear-gradient(135deg, #14abd1, #0284c7);
-      display: grid; place-items: center;
-      box-shadow: 0 6px 18px rgba(20, 171, 209, 0.35);
-      flex-shrink: 0;
+      display: grid; place-items: center; box-shadow: 0 6px 18px rgba(20, 171, 209, 0.35); flex-shrink: 0;
     }
-
     h1 { font-size: 19px; font-weight: 700; margin: 0; letter-spacing: -0.02em; }
     .sub { color: var(--muted); font-size: 12.5px; margin: 2px 0 0; }
-
     .status-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 12px; border-radius: 999px;
-      background: var(--panel); border: 1px solid var(--border);
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px;
+      border-radius: 999px; background: var(--panel); border: 1px solid var(--border);
       font-size: 12px; font-weight: 600; color: var(--muted);
     }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
-    .status-pill.live .status-dot {
-      background: var(--ok);
-      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
-      animation: pulse 1.8s infinite;
-    }
+    .status-pill.live .status-dot { background: var(--ok); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); animation: pulse 1.8s infinite; }
     .status-pill.live { color: #dcfce7; border-color: rgba(34, 197, 94, 0.35); }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
-      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-    }
-
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); } 70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
     .card {
-      background: var(--panel);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
+      background: var(--panel); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; margin-bottom: 18px; box-shadow: var(--shadow);
     }
-
     .card-head {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 10px; flex-wrap: wrap;
-      margin-bottom: 14px; padding-bottom: 12px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(148, 163, 184, 0.1);
     }
-
     h2 { font-size: 14.5px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 8px; }
     h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 8px; color: var(--muted); }
-
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
     .field { display: flex; flex-direction: column; }
-
     label { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
-
     input, textarea {
-      width: 100%; padding: 10px 12px; border-radius: 9px;
-      border: 1px solid var(--border); background: var(--panel-inner);
-      color: var(--text); font-size: 13px; font-family: inherit; outline: none;
+      width: 100%; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--border);
+      background: var(--panel-inner); color: var(--text); font-size: 13px; font-family: inherit; outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-    input:focus, textarea:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(20, 171, 209, 0.16);
-    }
+    input:focus, textarea:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(20, 171, 209, 0.16); }
     textarea { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; resize: vertical; }
-
     .pass-wrap { position: relative; }
     .pass-wrap input { padding-right: 64px; }
     .toggle-pass {
-      position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
-      margin: 0; padding: 5px 10px; font-size: 11px; font-weight: 600;
-      background: #1e293b; color: var(--muted);
+      position: absolute; right: 6px; top: 50%; transform: translateY(-50%); margin: 0; padding: 5px 10px;
+      font-size: 11px; font-weight: 600; background: #1e293b; color: var(--muted);
       border: 1px solid var(--border); border-radius: 6px; cursor: pointer;
     }
     .toggle-pass:hover { color: var(--text); border-color: var(--accent); }
-
-    .check {
-      display: inline-flex; align-items: center; gap: 9px;
-      margin-top: 14px; font-size: 13px; color: var(--text); cursor: pointer; user-select: none;
-    }
+    .check { display: inline-flex; align-items: center; gap: 9px; margin-top: 14px; font-size: 13px; color: var(--text); cursor: pointer; user-select: none; }
     .check input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
-
     .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
-
     .btn {
       flex: 1; min-width: 150px; padding: 11px 16px; border: 0; border-radius: 9px;
-      background: linear-gradient(135deg, #14abd1, #0ea5e9);
-      color: #fff; font-weight: 700; font-size: 13px; cursor: pointer;
-      transition: transform 0.12s, filter 0.2s, opacity 0.2s;
+      background: linear-gradient(135deg, #14abd1, #0ea5e9); color: #fff; font-weight: 700; font-size: 13px;
+      cursor: pointer; transition: transform 0.12s, filter 0.2s, opacity 0.2s;
       display: inline-flex; align-items: center; justify-content: center; gap: 7px;
     }
     .btn:hover { filter: brightness(1.08); }
@@ -149,68 +93,29 @@
     .btn-ok { background: linear-gradient(135deg, #22c55e, #16a34a); }
     .btn-sec { background: #1e293b; color: var(--text); border: 1px solid var(--border); }
     .btn-sec:hover { background: #263349; }
-
-    .btn-mini {
-      padding: 6px 11px; font-size: 11.5px; font-weight: 600;
-      border-radius: 7px; border: 0; cursor: pointer;
-      background: var(--accent); color: #fff; transition: filter 0.15s;
-    }
-    .btn-mini:hover { filter: brightness(1.1); }
+    .btn-mini { padding: 6px 11px; font-size: 11.5px; font-weight: 600; border-radius: 7px; border: 0; cursor: pointer; background: var(--accent); color: #fff; }
     .btn-mini.sec { background: #1e293b; color: var(--text); border: 1px solid var(--border); }
     .btn-mini.ok { background: linear-gradient(135deg, #22c55e, #16a34a); }
     .btn-mini.err { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
-
     .msg-bar { margin: 12px 0 0; font-size: 12.5px; color: var(--muted); min-height: 18px; }
-
     .list-stack { display: flex; flex-direction: column; gap: 12px; }
-    .ch-card {
-      border: 1px solid var(--border);
-      background: var(--panel-inner);
-      border-radius: 11px;
-      padding: 14px;
-      transition: border-color 0.2s;
-    }
+    .ch-card { border: 1px solid var(--border); background: var(--panel-inner); border-radius: 11px; padding: 14px; }
     .ch-card:hover { border-color: rgba(20, 171, 209, 0.45); }
-    .ch-top {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
-    }
+    .ch-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
     .ch-slug { font-weight: 700; color: var(--accent); font-size: 13.5px; }
     .btns-wrap { display: flex; gap: 6px; flex-wrap: wrap; }
-
-    .url-item {
-      border: 1px solid var(--border); background: var(--panel-inner);
-      border-radius: 10px; padding: 11px 13px;
-      display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
-    }
+    .url-item { border: 1px solid var(--border); background: var(--panel-inner); border-radius: 10px; padding: 11px 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
     .url-text { font-size: 12px; word-break: break-all; flex: 1; color: #cbd5e1; font-family: ui-monospace, monospace; }
-
-    .preview-stage {
-      position: relative; width: 100%; aspect-ratio: 16/9;
-      border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: #000;
-    }
-    .preview-stage iframe {
-      position: relative; z-index: 2; width: 100%; height: 100%; border: 0; display: none; background: #000;
-    }
-    .preview-empty {
-      position: absolute; inset: 0; z-index: 1;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px;
-    }
-
+    .preview-stage { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: #000; }
+    .preview-stage iframe { position: relative; z-index: 2; width: 100%; height: 100%; border: 0; display: none; background: #000; }
+    .preview-empty { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px; }
     .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
     .badge.ok { background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
     .badge.err { background: rgba(239, 68, 68, 0.16); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
     .badge.tag { background: rgba(20, 171, 209, 0.14); color: #38bdf8; border: 1px solid rgba(20, 171, 209, 0.3); }
-
-    pre {
-      background: var(--panel-inner); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px; font-size: 11.5px; overflow: auto;
-      max-height: 320px; white-space: pre-wrap; word-break: break-word; margin: 0; color: #cbd5e1;
-    }
+    pre { background: var(--panel-inner); border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-size: 11.5px; overflow: auto; max-height: 320px; white-space: pre-wrap; word-break: break-word; margin: 0; color: #cbd5e1; }
     img.shot { width: 100%; border-radius: 10px; border: 1px solid var(--border); background: #000; display: block; }
     details summary { cursor: pointer; font-size: 12px; font-weight: 600; color: var(--muted); margin: 14px 0 8px; user-select: none; }
-    details summary:hover { color: var(--text); }
   </style>
 </head>
 <body>
@@ -218,71 +123,48 @@
     <div class="topbar">
       <div class="brand">
         <div class="brand-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         </div>
         <div>
           <h1>Imperio Headless F12</h1>
-          <p class="sub">Agregá y editá todos tus canales en un solo lugar</p>
+          <p class="sub">24/7 automático · Todo cifrado de principio a fin</p>
         </div>
       </div>
-      <div id="cloudPill" class="status-pill">
-        <span class="status-dot"></span>
-        <span id="cloudPillText">En espera</span>
-      </div>
+      <div id="cloudPill" class="status-pill"><span class="status-dot"></span><span id="cloudPillText">En espera</span></div>
     </div>
 
-    <!-- CONEXIÓN GITHUB Y SEGURIDAD -->
     <div class="card">
       <div class="card-head">
         <h2>Conexión y Cifrado</h2>
-        <span class="badge tag">Auto-guardado local</span>
+        <span class="badge tag">Persistente en GitHub + Local</span>
       </div>
-
       <div class="grid-3">
         <div class="field"><label for="owner">Usuario GitHub</label><input id="owner" placeholder="el20chinitdt" /></div>
         <div class="field"><label for="repo">Repositorio</label><input id="repo" placeholder="Navegador-Headless-para-raspar-tokens" /></div>
         <div class="field"><label for="branch">Rama</label><input id="branch" value="main" /></div>
       </div>
-
       <div class="grid" style="margin-top:12px;">
-        <div class="field">
-          <label for="pat">GitHub Token Classic (permiso: repo)</label>
-          <input id="pat" type="password" placeholder="ghp_..." autocomplete="off" />
-        </div>
+        <div class="field"><label for="pat">GitHub Token Classic (permiso: repo)</label><input id="pat" type="password" placeholder="ghp_..." autocomplete="off" /></div>
         <div class="field">
           <label for="embedKey">Contraseña general de cifrado</label>
-          <div class="pass-wrap">
-            <input id="embedKey" type="password" placeholder="tu-clave-maestra" autocomplete="off" />
-            <button type="button" id="toggleEmbedKey" class="toggle-pass">Ver</button>
-          </div>
+          <div class="pass-wrap"><input id="embedKey" type="password" placeholder="tu-clave-maestra" autocomplete="off" /><button type="button" id="toggleEmbedKey" class="toggle-pass">Ver</button></div>
         </div>
       </div>
-
       <div class="grid" style="margin-top:12px;">
         <div class="field"><label for="waitMs">Espera inicial (ms)</label><input id="waitMs" type="number" value="7000" /></div>
         <div class="field" style="justify-content:flex-end;">
-          <label class="check" style="margin-top:0; padding-bottom:8px;">
-            <input id="useLogin" type="checkbox" />
-            Iniciar sesión en la plataforma
-          </label>
+          <label class="check" style="margin-top:0; padding-bottom:8px;"><input id="useLogin" type="checkbox" />Iniciar sesión en la plataforma</label>
         </div>
       </div>
-
       <div class="grid" style="margin-top:10px;">
         <div class="field"><label for="platformUser">Usuario / Email (opcional)</label><input id="platformUser" placeholder="usuario@ejemplo.com" autocomplete="off" /></div>
         <div class="field">
           <label for="platformPass">Contraseña (opcional)</label>
-          <div class="pass-wrap">
-            <input id="platformPass" type="password" placeholder="••••••••" autocomplete="off" />
-            <button type="button" id="togglePass" class="toggle-pass">Ver</button>
-          </div>
+          <div class="pass-wrap"><input id="platformPass" type="password" placeholder="••••••••" autocomplete="off" /><button type="button" id="togglePass" class="toggle-pass">Ver</button></div>
         </div>
       </div>
     </div>
 
-    <!-- LISTA EDITABLE DE TODOS LOS CANALES -->
     <div class="card">
       <div class="card-head">
         <h2>Canales</h2>
@@ -291,9 +173,7 @@
           <button type="button" id="btnAddRow" class="btn-mini ok">+ Agregar canal</button>
         </div>
       </div>
-
       <div id="channelsList" class="list-stack"></div>
-
       <div class="actions">
         <button type="button" id="btnSaveAll" class="btn btn-ok">Guardar y crear canales</button>
         <button type="button" id="btnRun" class="btn">Ejecutar todos en la nube</button>
@@ -302,7 +182,6 @@
       <p id="msg" class="msg-bar"></p>
     </div>
 
-    <!-- VISTA PREVIA -->
     <div class="card">
       <div class="card-head">
         <h2>Vista previa — Imperio Player</h2>
@@ -310,22 +189,15 @@
       </div>
       <div class="preview-stage">
         <div class="preview-empty">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
-            <rect x="2" y="4" width="20" height="14" rx="2"></rect>
-            <polygon points="10 8 15 11 10 14 10 8" fill="currentColor"></polygon>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-          </svg>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="14" rx="2"></rect><polygon points="10 8 15 11 10 14 10 8" fill="currentColor"></polygon><line x1="8" y1="21" x2="16" y2="21"></line></svg>
           <span id="previewEmptyText">Tocá "Ver" en cualquier canal o ejecutá el Headless para reproducir acá</span>
         </div>
         <iframe id="previewFrame" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
       </div>
     </div>
 
-    <!-- EMBED -->
     <div class="card">
-      <div class="card-head">
-        <h2>Código Embed (/ch_canal)</h2>
-      </div>
+      <div class="card-head"><h2>Código Embed (/ch_canal)</h2></div>
       <textarea id="embedCode" rows="3" readonly placeholder="Acá aparece el iframe limpio para pegar en tu web..."></textarea>
       <div class="actions">
         <button type="button" id="btnCopyEmbed" class="btn">Copiar Iframe</button>
@@ -333,11 +205,8 @@
       </div>
     </div>
 
-    <!-- RESULTADO -->
     <div class="card">
-      <div class="card-head">
-        <h2>Último reporte del Headless</h2>
-      </div>
+      <div class="card-head"><h2>Último reporte del Headless</h2></div>
       <div id="result" style="font-size:13px; color:var(--muted);">Todavía no se consultó ningún resultado.</div>
     </div>
   </div>
@@ -351,11 +220,20 @@
       if (saved !== null) $(id).value = saved;
       $(id).addEventListener('input', () => localStorage.setItem('panel_' + id, $(id).value));
     });
+    if (location.hostname.endsWith('.github.io')) {
+      if (!$('owner').value.trim()) $('owner').value = location.hostname.split('.')[0];
+      const seg = location.pathname.split('/').filter(Boolean)[0];
+      if (!$('repo').value.trim() && seg && seg !== 'docs') $('repo').value = seg;
+    }
     if (localStorage.getItem('panel_useLogin') === '1') $('useLogin').checked = true;
     $('useLogin').addEventListener('change', () => localStorage.setItem('panel_useLogin', $('useLogin').checked ? '1' : '0'));
 
     let savedChannels = [];
-    try { savedChannels = JSON.parse(localStorage.getItem('panel_channels') || '[]'); } catch { savedChannels = []; }
+    let hasLocalChannels = false;
+    try {
+      const raw = localStorage.getItem('panel_channels');
+      if (raw) { savedChannels = JSON.parse(raw); hasLocalChannels = Array.isArray(savedChannels) && savedChannels.length > 0; }
+    } catch {}
     if (!Array.isArray(savedChannels) || !savedChannels.length) {
       savedChannels = [{ slug: 'live', channel: '', platform: '', target_url: '' }];
     }
@@ -363,24 +241,21 @@
     let lastTimestamp = '';
     let workerTimer = null;
     let previewRetryTimer = null;
+    let sodiumReadyPromise = null;
 
     const toSlug = (name) => String(name || 'live').toLowerCase().replace(/^ch_/, '').replace(/[^a-z0-9_-]+/g, '_') || 'live';
     const getPagesBase = () => (location.origin !== 'null' ? location.origin : '') + location.pathname.replace(/\/(?:docs(?:\/index\.html)?|index\.html)?\/?$/, '');
     const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const b64ToBytes = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 
     function buildIframeHtml(slug) {
       const url = `${getPagesBase()}/ch_${slug}`;
-      return {
-        url,
-        html: `<iframe src="${esc(url)}" style="width:100%;aspect-ratio:16/9;border:0;background:#000;" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`
-      };
+      return { url, html: `<iframe src="${esc(url)}" style="width:100%;aspect-ratio:16/9;border:0;background:#000;" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>` };
     }
 
     function toB64(str) {
       const bytes = new TextEncoder().encode(str);
-      let bin = '';
-      bytes.forEach(b => (bin += String.fromCharCode(b)));
-      return btoa(bin);
+      let bin = ''; bytes.forEach(b => (bin += String.fromCharCode(b))); return btoa(bin);
     }
 
     function ghHeaders(token, accept = 'application/vnd.github+json') {
@@ -389,10 +264,8 @@
 
     function wirePassToggle(btnId, inputId) {
       $(btnId).addEventListener('click', () => {
-        const inp = $(inputId);
-        const isP = inp.type === 'password';
-        inp.type = isP ? 'text' : 'password';
-        $(btnId).textContent = isP ? 'Ocultar' : 'Ver';
+        const inp = $(inputId); const isP = inp.type === 'password';
+        inp.type = isP ? 'text' : 'password'; $(btnId).textContent = isP ? 'Ocultar' : 'Ver';
       });
     }
     wirePassToggle('togglePass', 'platformPass');
@@ -400,12 +273,84 @@
 
     function syncLoginCheckbox() {
       if ($('platformUser').value.trim() || $('platformPass').value) {
-        $('useLogin').checked = true;
-        localStorage.setItem('panel_useLogin', '1');
+        $('useLogin').checked = true; localStorage.setItem('panel_useLogin', '1');
       }
     }
     $('platformUser').addEventListener('input', syncLoginCheckbox);
     $('platformPass').addEventListener('input', syncLoginCheckbox);
+
+    // Sincronizar Secrets en GitHub para que 24/7 siga funcionando aunque cierres la web
+    function loadSodium() {
+      if (sodiumReadyPromise) return sodiumReadyPromise;
+      sodiumReadyPromise = new Promise((resolve, reject) => {
+        window.sodium = { onload: (s) => resolve(s) };
+        const sc = document.createElement('script');
+        sc.src = 'https://cdn.jsdelivr.net/npm/libsodium-wrappers@0.7.15/dist/browsers/sodium.js';
+        sc.onerror = () => reject(new Error('No cargó libsodium'));
+        document.head.appendChild(sc);
+      });
+      return sodiumReadyPromise;
+    }
+
+    async function syncGitHubSecrets() {
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim(), pat = $('pat').value.trim();
+      if (!owner || !repo || !pat) return;
+      const toSync = {};
+      toSync.GH_PAT = pat;
+      if ($('embedKey').value) toSync.EMBED_SECRET = $('embedKey').value;
+      if ($('platformUser').value.trim()) toSync.PLATFORM_USER = $('platformUser').value.trim();
+      if ($('platformPass').value) toSync.PLATFORM_PASS = $('platformPass').value;
+
+      const sodium = await loadSodium();
+      const pkRes = await fetch(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/secrets/public-key`, { headers: ghHeaders(pat) });
+      if (!pkRes.ok) return;
+      const { key_id, key } = await pkRes.json();
+      const pkBytes = sodium.from_base64(key, sodium.base64_variants.ORIGINAL);
+
+      for (const [name, val] of Object.entries(toSync)) {
+        const enc = sodium.crypto_box_seal(sodium.from_string(val), pkBytes);
+        await fetch(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/secrets/${name}`, {
+          method: 'PUT',
+          headers: ghHeaders(pat),
+          body: JSON.stringify({ encrypted_value: sodium.to_base64(enc, sodium.base64_variants.ORIGINAL), key_id })
+        });
+      }
+    }
+
+    // Descifrado de latest.json en el panel
+    async function xorSha256(bytes, seed) {
+      const out = new Uint8Array(bytes.length), ctr = new Uint8Array(36); ctr.set(seed, 0);
+      const dv = new DataView(ctr.buffer); let idx = 0, mask = null;
+      for (let i = 0; i < bytes.length; i++) {
+        const off = i & 31;
+        if (off === 0) { dv.setUint32(32, idx++, false); mask = new Uint8Array(await crypto.subtle.digest('SHA-256', ctr)); }
+        out[i] = bytes[i] ^ mask[off];
+      }
+      return out;
+    }
+
+    async function decryptLatest(env) {
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim();
+      const adminSeed = $('embedKey').value || ((owner + '/' + repo).toLowerCase() + ':__admin__');
+      const adminSalt = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode('imperio:admin-latest')));
+      const pk = await crypto.subtle.importKey('raw', new TextEncoder().encode(adminSeed), 'PBKDF2', false, ['deriveBits']);
+      const ikm = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-512', salt: adminSalt, iterations: 100000 }, pk, 256));
+
+      const salt = b64ToBytes(env.s), iv = b64ToBytes(env.v), masked = b64ToBytes(env.d), mac = b64ToBytes(env.m);
+      const hk = await crypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
+      const der = new Uint8Array(await crypto.subtle.deriveBits({ name: 'HKDF', hash: 'SHA-512', salt, info: new TextEncoder().encode('admin-latest') }, hk, 768));
+      const ak = await crypto.subtle.importKey('raw', der.slice(0, 32), 'AES-GCM', false, ['decrypt']);
+      const mk = await crypto.subtle.importKey('raw', der.slice(32, 64), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+      const xs = der.slice(64, 96);
+
+      const ai = new Uint8Array(salt.length + iv.length + masked.length);
+      ai.set(salt, 0); ai.set(iv, salt.length); ai.set(masked, salt.length + iv.length);
+      if (!(await crypto.subtle.verify('HMAC', mk, mac, ai))) throw new Error('Contraseña general no coincide para descifrar latest.json.');
+
+      const aesCipher = await xorSha256(masked, xs);
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, ak, aesCipher);
+      return JSON.parse(new TextDecoder().decode(plain));
+    }
 
     async function showChannelPreview(slug) {
       clearTimeout(previewRetryTimer);
@@ -414,27 +359,19 @@
       $('embedCode').dataset.url = url;
       localStorage.setItem('panel_last_embed_slug', slug);
 
-      const frame = $('previewFrame');
-      const titleBadge = $('previewTitle');
-      const emptyTxt = $('previewEmptyText');
-
+      const frame = $('previewFrame'), titleBadge = $('previewTitle'), emptyTxt = $('previewEmptyText');
       try {
         const res = await fetch(url + '?_t=' + Date.now(), { method: 'HEAD', cache: 'no-store' });
         if (res.ok) {
           titleBadge.textContent = 'ch_' + slug + ' · En línea';
           titleBadge.className = 'badge ok';
           frame.style.display = 'block';
-          if (frame.dataset.loadedSlug !== slug) {
-            frame.dataset.loadedSlug = slug;
-            frame.src = url + '?_t=' + Date.now();
-          }
+          if (frame.dataset.loadedSlug !== slug) { frame.dataset.loadedSlug = slug; frame.src = url + '?_t=' + Date.now(); }
           return;
         }
       } catch {}
 
-      frame.style.display = 'none';
-      frame.removeAttribute('src');
-      delete frame.dataset.loadedSlug;
+      frame.style.display = 'none'; frame.removeAttribute('src'); delete frame.dataset.loadedSlug;
       titleBadge.textContent = 'ch_' + slug + ' · Generándose';
       titleBadge.className = 'badge tag';
       emptyTxt.textContent = `Esperando que se cree y publique /ch_${slug} en GitHub Pages...`;
@@ -446,142 +383,75 @@
     }
 
     function renderChannels() {
-      const box = $('channelsList');
-      box.textContent = '';
+      const box = $('channelsList'); box.textContent = '';
       const validCount = savedChannels.filter(c => c.channel?.trim() || c.target_url?.trim() || c.platform?.trim()).length;
       $('chCount').textContent = `${validCount} ${validCount === 1 ? 'canal' : 'canales'}`;
 
       savedChannels.forEach((ch, idx) => {
         ch.slug = toSlug(ch.channel || ch.slug || 'live');
-        const card = document.createElement('div');
-        card.className = 'ch-card';
+        const card = document.createElement('div'); card.className = 'ch-card';
+        const top = document.createElement('div'); top.className = 'ch-top';
+        const slugBadge = document.createElement('span'); slugBadge.className = 'ch-slug'; slugBadge.textContent = 'ch_' + ch.slug;
+        const btns = document.createElement('div'); btns.className = 'btns-wrap';
 
-        const top = document.createElement('div');
-        top.className = 'ch-top';
+        const bVer = document.createElement('button'); bVer.type = 'button'; bVer.className = 'btn-mini'; bVer.textContent = 'Ver';
+        bVer.onclick = () => { $('previewFrame').dataset.loadedSlug = ''; showChannelPreview(toSlug(ch.channel || ch.slug)); };
 
-        const slugBadge = document.createElement('span');
-        slugBadge.className = 'ch-slug';
-        slugBadge.textContent = 'ch_' + ch.slug;
-
-        const btns = document.createElement('div');
-        btns.className = 'btns-wrap';
-
-        const bVer = document.createElement('button');
-        bVer.type = 'button';
-        bVer.className = 'btn-mini';
-        bVer.textContent = 'Ver';
-        bVer.onclick = () => {
-          $('previewFrame').dataset.loadedSlug = '';
-          showChannelPreview(toSlug(ch.channel || ch.slug));
-        };
-
-        const bEmb = document.createElement('button');
-        bEmb.type = 'button';
-        bEmb.className = 'btn-mini sec';
-        bEmb.textContent = 'Copiar Iframe';
+        const bEmb = document.createElement('button'); bEmb.type = 'button'; bEmb.className = 'btn-mini sec'; bEmb.textContent = 'Copiar Iframe';
         bEmb.onclick = () => {
           const { url, html } = buildIframeHtml(toSlug(ch.channel || ch.slug));
-          navigator.clipboard.writeText(html);
-          $('embedCode').value = html;
-          $('embedCode').dataset.url = url;
-          bEmb.textContent = 'Copiado';
-          setTimeout(() => (bEmb.textContent = 'Copiar Iframe'), 1300);
+          navigator.clipboard.writeText(html); $('embedCode').value = html; $('embedCode').dataset.url = url;
+          bEmb.textContent = 'Copiado'; setTimeout(() => (bEmb.textContent = 'Copiar Iframe'), 1300);
         };
 
-        const bDel = document.createElement('button');
-        bDel.type = 'button';
-        bDel.className = 'btn-mini err';
-        bDel.textContent = '✕';
+        const bDel = document.createElement('button'); bDel.type = 'button'; bDel.className = 'btn-mini err'; bDel.textContent = '✕';
         bDel.onclick = async () => {
           savedChannels.splice(idx, 1);
           if (!savedChannels.length) savedChannels.push({ slug: 'live', channel: '', platform: '', target_url: '' });
-          persistLocalChannels();
-          renderChannels();
+          persistLocalChannels(); renderChannels();
           await pushListToRepo().catch(() => {});
         };
 
-        btns.append(bVer, bEmb, bDel);
-        top.append(slugBadge, btns);
+        btns.append(bVer, bEmb, bDel); top.append(slugBadge, btns);
+        const grid = document.createElement('div'); grid.className = 'grid-3';
 
-        const grid = document.createElement('div');
-        grid.className = 'grid-3';
+        const mkField = (lbl, ph, val, onIn) => {
+          const f = document.createElement('div'); f.className = 'field';
+          const l = document.createElement('label'); l.textContent = lbl;
+          const i = document.createElement('input'); i.placeholder = ph; i.value = val || '';
+          i.addEventListener('input', () => onIn(i.value));
+          f.append(l, i); return f;
+        };
 
-        const fCh = document.createElement('div');
-        fCh.className = 'field';
-        const lCh = document.createElement('label');
-        lCh.textContent = 'Nombre del canal';
-        const iCh = document.createElement('input');
-        iCh.placeholder = 'telediariohd';
-        iCh.value = ch.channel || '';
-        iCh.addEventListener('input', () => {
-          ch.channel = iCh.value;
-          ch.slug = toSlug(iCh.value);
-          slugBadge.textContent = 'ch_' + ch.slug;
-          persistLocalChannels();
-        });
-        fCh.append(lCh, iCh);
-
-        const fPlat = document.createElement('div');
-        fPlat.className = 'field';
-        const lPlat = document.createElement('label');
-        lPlat.textContent = 'Plataforma (opcional)';
-        const iPlat = document.createElement('input');
-        iPlat.placeholder = 'ejemplo-web';
-        iPlat.value = ch.platform || '';
-        iPlat.addEventListener('input', () => {
-          ch.platform = iPlat.value;
-          persistLocalChannels();
-        });
-        fPlat.append(lPlat, iPlat);
-
-        const fUrl = document.createElement('div');
-        fUrl.className = 'field';
-        const lUrl = document.createElement('label');
-        lUrl.textContent = 'URL directa';
-        const iUrl = document.createElement('input');
-        iUrl.placeholder = 'https://ejemplo.com/live';
-        iUrl.value = ch.target_url || '';
-        iUrl.addEventListener('input', () => {
-          ch.target_url = iUrl.value;
-          persistLocalChannels();
-        });
-        fUrl.append(lUrl, iUrl);
-
-        grid.append(fCh, fPlat, fUrl);
-        card.append(top, grid);
-        box.appendChild(card);
+        grid.append(
+          mkField('Nombre del canal', 'telediariohd', ch.channel, v => { ch.channel = v; ch.slug = toSlug(v); slugBadge.textContent = 'ch_' + ch.slug; persistLocalChannels(); }),
+          mkField('Plataforma (opcional)', 'ejemplo-web', ch.platform, v => { ch.platform = v; persistLocalChannels(); }),
+          mkField('URL directa', 'https://ejemplo.com/live', ch.target_url, v => { ch.target_url = v; persistLocalChannels(); })
+        );
+        card.append(top, grid); box.appendChild(card);
       });
     }
 
     $('btnAddRow').addEventListener('click', () => {
       savedChannels.push({ slug: 'nuevo_' + (savedChannels.length + 1), channel: '', platform: '', target_url: '' });
-      persistLocalChannels();
-      renderChannels();
+      persistLocalChannels(); renderChannels();
     });
 
     function getCleanChannels() {
-      const seen = new Set();
-      const out = [];
+      const seen = new Set(), out = [];
       for (const c of savedChannels) {
-        const channel = (c.channel || '').trim();
-        const platform = (c.platform || '').trim();
-        const target_url = (c.target_url || '').trim();
+        const channel = (c.channel || '').trim(), platform = (c.platform || '').trim(), target_url = (c.target_url || '').trim();
         if (!target_url && !platform) continue;
         const slug = toSlug(channel || 'live');
-        if (seen.has(slug)) continue;
-        seen.add(slug);
+        if (seen.has(slug)) continue; seen.add(slug);
         out.push({ slug, channel: channel || slug, platform, target_url });
       }
       return out;
     }
 
     async function pushListToRepo() {
-      const owner = $('owner').value.trim();
-      const repo = $('repo').value.trim();
-      const branch = $('branch').value.trim() || 'main';
-      const pat = $('pat').value.trim();
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim(), branch = $('branch').value.trim() || 'main', pat = $('pat').value.trim();
       if (!owner || !repo || !pat) throw new Error('Completá usuario, repositorio y token.');
-
       const cleanList = getCleanChannels();
       const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/channels/list.json`;
       let sha;
@@ -589,30 +459,17 @@
       if (getRes.ok) sha = (await getRes.json()).sha;
 
       const putRes = await fetch(apiUrl, {
-        method: 'PUT',
-        headers: ghHeaders(pat),
-        body: JSON.stringify({
-          message: 'Update channels/list.json [skip ci]',
-          content: toB64(JSON.stringify(cleanList, null, 2)),
-          branch,
-          ...(sha ? { sha } : {})
-        })
+        method: 'PUT', headers: ghHeaders(pat),
+        body: JSON.stringify({ message: 'Update channels/list.json [skip ci]', content: toB64(JSON.stringify(cleanList, null, 2)), branch, ...(sha ? { sha } : {}) })
       });
-      if (!putRes.ok) {
-        const err = await putRes.json().catch(() => ({}));
-        throw new Error(err.message || 'No se pudo guardar channels/list.json');
-      }
+      if (!putRes.ok) { const err = await putRes.json().catch(() => ({})); throw new Error(err.message || 'No se pudo guardar channels/list.json'); }
       $('chCount').textContent = `${cleanList.length} ${cleanList.length === 1 ? 'canal' : 'canales'}`;
       return cleanList;
     }
 
-    async function pullListFromRepo() {
-      const owner = $('owner').value.trim();
-      const repo = $('repo').value.trim();
-      const branch = $('branch').value.trim() || 'main';
-      const pat = $('pat').value.trim();
+    async function pullListFromRepo(forceReplace = false) {
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim(), branch = $('branch').value.trim() || 'main', pat = $('pat').value.trim();
       if (!owner || !repo || !pat) return;
-
       const res = await fetch(
         `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/channels/list.json?ref=${encodeURIComponent(branch)}&_ts=${Date.now()}`,
         { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
@@ -621,86 +478,55 @@
       const list = await res.json();
       if (!Array.isArray(list) || !list.length) return;
 
-      savedChannels = list.filter(x => x && x.slug);
-      persistLocalChannels();
-      renderChannels();
+      const validRemote = list.filter(x => x && x.slug);
+      if (forceReplace || !hasLocalChannels || getCleanChannels().length === 0) {
+        savedChannels = validRemote;
+      } else {
+        const localSlugs = new Set(savedChannels.map(c => toSlug(c.channel || c.slug)));
+        for (const item of validRemote) {
+          if (!localSlugs.has(item.slug)) savedChannels.push(item);
+        }
+      }
+      persistLocalChannels(); renderChannels();
     }
 
     async function dispatchCloudRun() {
-      const owner = $('owner').value.trim();
-      const repo = $('repo').value.trim();
-      const branch = $('branch').value.trim() || 'main';
-      const pat = $('pat').value.trim();
-
-      const inputs = {
-        channel: 'ALL',
-        wait_ms: String($('waitMs').value || 7000),
-        use_login: $('useLogin').checked,
-        embed_key: $('embedKey').value
-      };
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim(), branch = $('branch').value.trim() || 'main', pat = $('pat').value.trim();
+      const inputs = { channel: 'ALL', wait_ms: String($('waitMs').value || 7000), use_login: $('useLogin').checked, embed_key: $('embedKey').value };
       if (inputs.use_login) {
         if ($('platformUser').value.trim()) inputs.platform_user = $('platformUser').value.trim();
         if ($('platformPass').value) inputs.platform_pass = $('platformPass').value;
       }
-
       const res = await fetch(
         `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/dispatches`,
         { method: 'POST', headers: ghHeaders(pat), body: JSON.stringify({ ref: branch, inputs }) }
       );
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || 'Error al disparar workflow');
-      }
+      if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.message || 'Error al disparar workflow'); }
     }
 
-    $('btnSaveAll').addEventListener('click', async () => {
-      try {
-        $('msg').textContent = 'Guardando canales y creando archivos ch_ en GitHub...';
-        const list = await pushListToRepo();
-        if (!list.length) {
-          $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.';
-          return;
-        }
-        await dispatchCloudRun();
-        startWorkerMonitor();
-        showChannelPreview(list[0].slug);
-        $('msg').textContent = `${list.length} ${list.length === 1 ? 'canal guardado' : 'canales guardados'} y creándose en main.`;
-      } catch (e) {
-        $('msg').textContent = 'Error: ' + e.message;
-      }
-    });
+    async function saveAndRun(msgLabel) {
+      $('msg').textContent = 'Sincronizando canales y Secrets en GitHub...';
+      const list = await pushListToRepo();
+      if (!list.length) { $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.'; return; }
+      await syncGitHubSecrets().catch(() => {});
+      await dispatchCloudRun();
+      startWorkerMonitor();
+      showChannelPreview(list[0].slug);
+      $('msg').textContent = `${msgLabel} (${list.length} canales en la nube 24/7).`;
+    }
 
-    $('btnRun').addEventListener('click', async () => {
-      try {
-        $('msg').textContent = 'Guardando lista y lanzando Headless en la nube...';
-        const list = await pushListToRepo();
-        if (!list.length) {
-          $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.';
-          return;
-        }
-        await dispatchCloudRun();
-        startWorkerMonitor();
-        showChannelPreview(list[0].slug);
-        $('msg').textContent = `Corriendo ${list.length} canales en la nube. Podés cambiar de pestaña tranquilo.`;
-      } catch (e) {
-        $('msg').textContent = 'Error: ' + e.message;
-      }
-    });
+    $('btnSaveAll').addEventListener('click', () => saveAndRun('Guardado en main y Secrets sincronizados').catch(e => { $('msg').textContent = 'Error: ' + e.message; }));
+    $('btnRun').addEventListener('click', () => saveAndRun('Ejecutando 24/7').catch(e => { $('msg').textContent = 'Error: ' + e.message; }));
 
     function extractUrls(obj, found = new Set()) {
-      if (typeof obj === 'string') {
-        const m = obj.match(/https?:\/\/[^\s"'<>]+/g);
-        if (m) m.forEach(u => found.add(u));
-      } else if (Array.isArray(obj)) obj.forEach(x => extractUrls(x, found));
+      if (typeof obj === 'string') { const m = obj.match(/https?:\/\/[^\s"'<>]+/g); if (m) m.forEach(u => found.add(u)); }
+      else if (Array.isArray(obj)) obj.forEach(x => extractUrls(x, found));
       else if (obj && typeof obj === 'object') Object.values(obj).forEach(x => extractUrls(x, found));
       return Array.from(found);
     }
 
     async function loadLatestResult() {
-      const owner = $('owner').value.trim();
-      const repo = $('repo').value.trim();
-      const branch = $('branch').value.trim() || 'main';
-      const pat = $('pat').value.trim();
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim(), branch = $('branch').value.trim() || 'main', pat = $('pat').value.trim();
       if (!owner || !repo || !pat) return;
 
       const res = await fetch(
@@ -712,22 +538,18 @@
       if (res.status === 404) { resBox.textContent = `Todavía no hay resultados en "${branch}".`; return; }
       if (!res.ok) return;
 
-      const data = await res.json();
+      const raw = await res.json();
+      const data = (raw && raw.s && raw.v && raw.d && raw.m) ? await decryptLatest(raw) : raw;
       if (data.timestamp && data.timestamp === lastTimestamp && resBox.dataset.loaded === '1') return;
       lastTimestamp = data.timestamp || '';
-      resBox.dataset.loaded = '1';
-      resBox.textContent = '';
+      resBox.dataset.loaded = '1'; resBox.textContent = '';
 
-      const header = document.createElement('div');
-      header.style.cssText = 'display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
-      const badge = document.createElement('span');
-      badge.className = 'badge ' + (data.ok ? 'ok' : 'err');
+      const header = document.createElement('div'); header.style.cssText = 'display:flex;align-items:center;gap:10px;flex-wrap:wrap;';
+      const badge = document.createElement('span'); badge.className = 'badge ' + (data.ok ? 'ok' : 'err');
       badge.textContent = data.ok ? 'OK (exit 0)' : `Falló (exit ${data.exit_code})`;
-      const meta = document.createElement('span');
-      meta.style.cssText = 'font-size:12px;color:var(--muted);';
+      const meta = document.createElement('span'); meta.style.cssText = 'font-size:12px;color:var(--muted);';
       meta.textContent = `Run #${data.run_number} · ch_${data.input?.channel || 'live'} · ${new Date(data.timestamp).toLocaleString()}`;
-      header.append(badge, meta);
-      resBox.appendChild(header);
+      header.append(badge, meta); resBox.appendChild(header);
 
       if (data.ok && data.input?.channel) showChannelPreview(data.input.channel);
 
@@ -736,92 +558,56 @@
       const listUrls = streamUrls.length ? streamUrls : urls;
 
       if (listUrls.length) {
-        const h3 = document.createElement('h3');
-        h3.textContent = `URLs detectadas (${listUrls.length})`;
-        resBox.appendChild(h3);
-        const listDiv = document.createElement('div');
-        listDiv.className = 'list-stack';
+        const h3 = document.createElement('h3'); h3.textContent = `URLs detectadas (${listUrls.length})`; resBox.appendChild(h3);
+        const listDiv = document.createElement('div'); listDiv.className = 'list-stack';
         for (const u of listUrls) {
-          const item = document.createElement('div');
-          item.className = 'url-item';
-          const span = document.createElement('span');
-          span.className = 'url-text';
-          span.textContent = u;
-          const bCopy = document.createElement('button');
-          bCopy.type = 'button';
-          bCopy.className = 'btn-mini sec';
-          bCopy.textContent = 'Copiar';
-          bCopy.onclick = () => {
-            navigator.clipboard.writeText(u);
-            bCopy.textContent = 'Copiado';
-            setTimeout(() => (bCopy.textContent = 'Copiar'), 1200);
-          };
-          item.append(span, bCopy);
-          listDiv.appendChild(item);
+          const item = document.createElement('div'); item.className = 'url-item';
+          const span = document.createElement('span'); span.className = 'url-text'; span.textContent = u;
+          const bCopy = document.createElement('button'); bCopy.type = 'button'; bCopy.className = 'btn-mini sec'; bCopy.textContent = 'Copiar';
+          bCopy.onclick = () => { navigator.clipboard.writeText(u); bCopy.textContent = 'Copiado'; setTimeout(() => (bCopy.textContent = 'Copiar'), 1200); };
+          item.append(span, bCopy); listDiv.appendChild(item);
         }
         resBox.appendChild(listDiv);
       }
 
       if (data.reports?.length) {
-        const det = document.createElement('details');
-        const sum = document.createElement('summary');
-        sum.textContent = 'Ver reporte JSON';
-        const pre = document.createElement('pre');
-        pre.textContent = JSON.stringify(data.reports, null, 2);
-        det.append(sum, pre);
-        resBox.appendChild(det);
+        const det = document.createElement('details'), sum = document.createElement('summary'), pre = document.createElement('pre');
+        sum.textContent = 'Ver reporte JSON'; pre.textContent = JSON.stringify(data.reports, null, 2);
+        det.append(sum, pre); resBox.appendChild(det);
       }
 
-      if (data.screenshot) {
-        const imgRes = await fetch(
-          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${encodeURIComponent(data.screenshot)}?ref=${encodeURIComponent(branch)}&_ts=${Date.now()}`,
-          { headers: ghHeaders(pat, 'application/vnd.github.raw+json'), cache: 'no-store' }
-        );
-        if (imgRes.ok) {
-          const blob = await imgRes.blob();
-          const h3 = document.createElement('h3');
-          h3.textContent = 'Captura de pantalla';
-          const img = document.createElement('img');
-          img.className = 'shot';
-          img.src = URL.createObjectURL(blob);
-          resBox.append(h3, img);
-        }
+      if (data.screenshot_b64) {
+        const h3 = document.createElement('h3'); h3.textContent = 'Captura de pantalla';
+        const img = document.createElement('img'); img.className = 'shot';
+        img.src = 'data:image/png;base64,' + data.screenshot_b64;
+        resBox.append(h3, img);
       }
 
       if (data.log) {
-        const det = document.createElement('details');
-        const sum = document.createElement('summary');
-        sum.textContent = 'Ver log de ejecución';
-        const pre = document.createElement('pre');
-        pre.textContent = data.log;
-        det.append(sum, pre);
-        resBox.appendChild(det);
+        const det = document.createElement('details'), sum = document.createElement('summary'), pre = document.createElement('pre');
+        sum.textContent = 'Ver log de ejecución'; pre.textContent = data.log;
+        det.append(sum, pre); resBox.appendChild(det);
       }
     }
 
     async function checkCloudStatus() {
-      const owner = $('owner').value.trim();
-      const repo = $('repo').value.trim();
-      const pat = $('pat').value.trim();
+      const owner = $('owner').value.trim(), repo = $('repo').value.trim(), pat = $('pat').value.trim();
       if (!owner || !repo || !pat) return;
       try {
         const res = await fetch(
-          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/runs?event=workflow_dispatch&per_page=3&_ts=${Date.now()}`,
+          `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/workflows/inspect.yml/runs?per_page=3&_ts=${Date.now()}`,
           { headers: ghHeaders(pat), cache: 'no-store' }
         );
         const data = await res.json();
         const active = data.workflow_runs?.find(r => r.status === 'in_progress' || r.status === 'queued');
-        const pill = $('cloudPill');
-        const pillTxt = $('cloudPillText');
+        const pill = $('cloudPill'), pillTxt = $('cloudPillText');
         if (active) {
-          pill.classList.add('live');
-          pillTxt.textContent = `Activo · Run #${active.run_number}`;
-          $('msg').textContent = `Headless corriendo en la nube (Run #${active.run_number}: ${active.status}).`;
+          pill.classList.add('live'); pillTxt.textContent = `Activo · Run #${active.run_number}`;
+          $('msg').textContent = `Headless 24/7 corriendo (Run #${active.run_number}: ${active.status}).`;
         } else {
-          pill.classList.remove('live');
-          pillTxt.textContent = 'En espera';
+          pill.classList.remove('live'); pillTxt.textContent = 'En espera';
         }
-        await loadLatestResult().catch(() => {});
+        await loadLatestResult().catch(e => { $('result').textContent = e.message; });
       } catch {}
     }
 
@@ -834,31 +620,24 @@
     }
 
     document.addEventListener('visibilitychange', () => { if (!document.hidden) checkCloudStatus(); });
-
     $('btnCheck').addEventListener('click', async () => {
       $('msg').textContent = 'Actualizando...';
-      await pullListFromRepo().catch(() => {});
+      await pullListFromRepo(true).catch(() => {});
       await checkCloudStatus();
       $('msg').textContent = 'Actualizado.';
     });
-
     $('btnCopyEmbed').addEventListener('click', () => {
       if (!$('embedCode').value) return;
       navigator.clipboard.writeText($('embedCode').value);
-      $('btnCopyEmbed').textContent = 'Copiado';
-      setTimeout(() => ($('btnCopyEmbed').textContent = 'Copiar Iframe'), 1200);
+      $('btnCopyEmbed').textContent = 'Copiado'; setTimeout(() => ($('btnCopyEmbed').textContent = 'Copiar Iframe'), 1200);
     });
-
-    $('btnOpenEmbed').addEventListener('click', () => {
-      const u = $('embedCode').dataset.url;
-      if (u) window.open(u, '_blank', 'noopener');
-    });
+    $('btnOpenEmbed').addEventListener('click', () => { const u = $('embedCode').dataset.url; if (u) window.open(u, '_blank', 'noopener'); });
 
     renderChannels();
     const lastSlug = localStorage.getItem('panel_last_embed_slug');
     if (lastSlug) showChannelPreview(lastSlug);
     if ($('owner').value.trim() && $('repo').value.trim() && $('pat').value.trim()) {
-      pullListFromRepo().catch(() => {});
+      pullListFromRepo(false).catch(() => {});
       startWorkerMonitor();
     }
   </script>
