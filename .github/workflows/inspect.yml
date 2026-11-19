@@ -36,7 +36,7 @@ permissions:
 
 concurrency:
   group: headless-inspect
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'workflow_dispatch' }}
 
 jobs:
   inspect:
@@ -76,7 +76,7 @@ jobs:
           fi
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
-      - name: Headless continuo 24/7 + todo cifrado
+      - name: Headless continuo 24/7 + todos los canales
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
           INPUT_CHANNEL: ${{ inputs.channel }}
@@ -519,12 +519,13 @@ jobs:
 
           (async () => {
             const initTargets = readTargets();
+            console.log('Canales iniciales a crear:', initTargets.map(t => t.slug).join(', '));
             const initDirs = [];
             for (const t of initTargets) {
               writeChannelHtml(t.slug, getChannelIkm(t.slug));
               initDirs.push(`ch_${t.slug}`);
             }
-            try { pushFiles(initDirs, 'Crear canales iniciales'); } catch (e) { console.log('Init push:', e.message); }
+            try { pushFiles(initDirs, 'Crear todos los canales'); } catch (e) { console.log('Init push:', e.message); }
 
             const prevStreams = {};
             let cycle = 0;
@@ -561,6 +562,8 @@ jobs:
                 const urls = extractUrls(reports);
                 const streamUrl = urls.find(u => /\.(mpd|m3u8)(\?|#|$)|manifest/i.test(u)) || urls[0] || '';
                 const licenseUrl = urls.find(u => /license|widevine|playready/i.test(u) && !/\.(mpd|m3u8)/i.test(u)) || '';
+                console.log(`[${slug}] exit=${exitCode} stream=${streamUrl ? 'OK' : 'NO'}`);
+
                 const needCreate = !fs.existsSync(`ch_${slug}/index.html`);
                 const isFirst = !(slug in prevStreams);
                 const changed = streamUrl && streamUrl !== prevStreams[slug];
@@ -586,12 +589,12 @@ jobs:
                   };
                   writeEncryptedLatest(payload);
 
+                  const chIkm = getChannelIkm(slug);
+                  if (needCreate) writeChannelHtml(slug, chIkm);
                   if (streamUrl) {
-                    const chIkm = getChannelIkm(slug);
                     const chEnvelope = sealEnvelope(JSON.stringify({ s: streamUrl, l: licenseUrl, t: payload.timestamp }), chIkm, 'ch-stream-' + slug);
                     fs.mkdirSync('channels', { recursive: true });
                     fs.writeFileSync(path.join('channels', `${slug}.json`), JSON.stringify(chEnvelope));
-                    if (needCreate) writeChannelHtml(slug, chIkm);
                   }
 
                   try {
