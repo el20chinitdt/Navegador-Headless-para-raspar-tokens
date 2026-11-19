@@ -29,7 +29,7 @@
       color: var(--text); padding: 24px 16px 48px; line-height: 1.45;
       -webkit-font-smoothing: antialiased;
     }
-    .container { max-width: 920px; margin: 0 auto; }
+    .container { max-width: 960px; margin: 0 auto; }
     .topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 22px; padding: 0 4px; }
     .brand { display: flex; align-items: center; gap: 12px; }
     .brand-icon {
@@ -45,7 +45,7 @@
       font-size: 12px; font-weight: 600; color: var(--muted);
     }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; }
-    .status-pill.live .status-dot { background: var(--ok); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); animation: pulse 1.8s infinite; }
+    .status-pill.live .status-dot { background: var(--ok); animation: pulse 1.8s infinite; }
     .status-pill.live { color: #dcfce7; border-color: rgba(34, 197, 94, 0.35); }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); } 70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
     .card {
@@ -61,6 +61,7 @@
     h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin: 16px 0 8px; color: var(--muted); }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+    .previews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
     .field { display: flex; flex-direction: column; }
     label { font-size: 11.5px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
     input, textarea {
@@ -89,27 +90,25 @@
     }
     .btn:hover { filter: brightness(1.08); }
     .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-ok { background: linear-gradient(135deg, #22c55e, #16a34a); }
     .btn-sec { background: #1e293b; color: var(--text); border: 1px solid var(--border); }
-    .btn-sec:hover { background: #263349; }
     .btn-mini { padding: 6px 11px; font-size: 11.5px; font-weight: 600; border-radius: 7px; border: 0; cursor: pointer; background: var(--accent); color: #fff; }
     .btn-mini.sec { background: #1e293b; color: var(--text); border: 1px solid var(--border); }
     .btn-mini.ok { background: linear-gradient(135deg, #22c55e, #16a34a); }
     .btn-mini.err { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
     .msg-bar { margin: 12px 0 0; font-size: 12.5px; color: var(--muted); min-height: 18px; }
     .list-stack { display: flex; flex-direction: column; gap: 12px; }
-    .ch-card { border: 1px solid var(--border); background: var(--panel-inner); border-radius: 11px; padding: 14px; }
-    .ch-card:hover { border-color: rgba(20, 171, 209, 0.45); }
-    .ch-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .ch-card, .pv-card { border: 1px solid var(--border); background: var(--panel-inner); border-radius: 11px; padding: 12px; }
+    .ch-card:hover, .pv-card:hover { border-color: rgba(20, 171, 209, 0.45); }
+    .ch-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
     .ch-slug { font-weight: 700; color: var(--accent); font-size: 13.5px; }
-    .btns-wrap { display: flex; gap: 6px; flex-wrap: wrap; }
+    .btns-wrap { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
     .url-item { border: 1px solid var(--border); background: var(--panel-inner); border-radius: 10px; padding: 11px 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
     .url-text { font-size: 12px; word-break: break-all; flex: 1; color: #cbd5e1; font-family: ui-monospace, monospace; }
-    .preview-stage { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: #000; }
+    .preview-stage { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 9px; overflow: hidden; border: 1px solid var(--border); background: #000; }
     .preview-stage iframe { position: relative; z-index: 2; width: 100%; height: 100%; border: 0; display: none; background: #000; }
-    .preview-empty { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 20px; }
-    .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+    .preview-empty { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; text-align: center; padding: 16px; }
+    .badge { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
     .badge.ok { background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
     .badge.err { background: rgba(239, 68, 68, 0.16); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
     .badge.tag { background: rgba(20, 171, 209, 0.14); color: #38bdf8; border: 1px solid rgba(20, 171, 209, 0.3); }
@@ -127,7 +126,7 @@
         </div>
         <div>
           <h1>Imperio Headless F12</h1>
-          <p class="sub">24/7 automático · Todo cifrado de principio a fin</p>
+          <p class="sub">24/7 automático · Multi-canal · Todo cifrado</p>
         </div>
       </div>
       <div id="cloudPill" class="status-pill"><span class="status-dot"></span><span id="cloudPillText">En espera</span></div>
@@ -184,21 +183,17 @@
 
     <div class="card">
       <div class="card-head">
-        <h2>Vista previa — Imperio Player</h2>
-        <span id="previewTitle" class="badge tag">Sin canal activo</span>
+        <h2>Vistas previas — Imperio Player</h2>
+        <span id="pvCount" class="badge tag">0 activas</span>
       </div>
-      <div class="preview-stage">
-        <div class="preview-empty">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="14" rx="2"></rect><polygon points="10 8 15 11 10 14 10 8" fill="currentColor"></polygon><line x1="8" y1="21" x2="16" y2="21"></line></svg>
-          <span id="previewEmptyText">Tocá "Ver" en cualquier canal o ejecutá el Headless para reproducir acá</span>
-        </div>
-        <iframe id="previewFrame" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>
+      <div id="previewsGrid" class="previews-grid">
+        <div style="font-size:12.5px; color:var(--muted);">Agregá o ejecutá canales para que aparezcan sus reproductores acá.</div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-head"><h2>Código Embed (/ch_canal)</h2></div>
-      <textarea id="embedCode" rows="3" readonly placeholder="Acá aparece el iframe limpio para pegar en tu web..."></textarea>
+      <textarea id="embedCode" rows="3" readonly placeholder="Tocá Copiar Iframe en cualquier canal..."></textarea>
       <div class="actions">
         <button type="button" id="btnCopyEmbed" class="btn">Copiar Iframe</button>
         <button type="button" id="btnOpenEmbed" class="btn btn-sec">Abrir Canal en pestaña</button>
@@ -235,13 +230,13 @@
       if (raw) { savedChannels = JSON.parse(raw); hasLocalChannels = Array.isArray(savedChannels) && savedChannels.length > 0; }
     } catch {}
     if (!Array.isArray(savedChannels) || !savedChannels.length) {
-      savedChannels = [{ slug: 'live', channel: '', platform: '', target_url: '' }];
+      savedChannels = [{ slug: 'canal_1', channel: '', platform: '', target_url: '' }];
     }
 
     let lastTimestamp = '';
     let workerTimer = null;
-    let previewRetryTimer = null;
     let sodiumReadyPromise = null;
+    const previewTimers = new Map();
 
     const toSlug = (name) => String(name || 'live').toLowerCase().replace(/^ch_/, '').replace(/[^a-z0-9_-]+/g, '_') || 'live';
     const getPagesBase = () => (location.origin !== 'null' ? location.origin : '') + location.pathname.replace(/\/(?:docs(?:\/index\.html)?|index\.html)?\/?$/, '');
@@ -279,7 +274,6 @@
     $('platformUser').addEventListener('input', syncLoginCheckbox);
     $('platformPass').addEventListener('input', syncLoginCheckbox);
 
-    // Sincronizar Secrets en GitHub para que 24/7 siga funcionando aunque cierres la web
     function loadSodium() {
       if (sodiumReadyPromise) return sodiumReadyPromise;
       sodiumReadyPromise = new Promise((resolve, reject) => {
@@ -295,8 +289,7 @@
     async function syncGitHubSecrets() {
       const owner = $('owner').value.trim(), repo = $('repo').value.trim(), pat = $('pat').value.trim();
       if (!owner || !repo || !pat) return;
-      const toSync = {};
-      toSync.GH_PAT = pat;
+      const toSync = { GH_PAT: pat };
       if ($('embedKey').value) toSync.EMBED_SECRET = $('embedKey').value;
       if ($('platformUser').value.trim()) toSync.PLATFORM_USER = $('platformUser').value.trim();
       if ($('platformPass').value) toSync.PLATFORM_PASS = $('platformPass').value;
@@ -310,14 +303,12 @@
       for (const [name, val] of Object.entries(toSync)) {
         const enc = sodium.crypto_box_seal(sodium.from_string(val), pkBytes);
         await fetch(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/actions/secrets/${name}`, {
-          method: 'PUT',
-          headers: ghHeaders(pat),
+          method: 'PUT', headers: ghHeaders(pat),
           body: JSON.stringify({ encrypted_value: sodium.to_base64(enc, sodium.base64_variants.ORIGINAL), key_id })
         });
       }
     }
 
-    // Descifrado de latest.json en el panel
     async function xorSha256(bytes, seed) {
       const out = new Uint8Array(bytes.length), ctr = new Uint8Array(36); ctr.set(seed, 0);
       const dv = new DataView(ctr.buffer); let idx = 0, mask = null;
@@ -352,63 +343,172 @@
       return JSON.parse(new TextDecoder().decode(plain));
     }
 
-    async function showChannelPreview(slug) {
-      clearTimeout(previewRetryTimer);
+    // ===== VISTAS PREVIAS MÚLTIPLES APILADAS AUTOMÁTICAMENTE =====
+    function setEmbedSelection(slug) {
       const { url, html } = buildIframeHtml(slug);
       $('embedCode').value = html;
       $('embedCode').dataset.url = url;
       localStorage.setItem('panel_last_embed_slug', slug);
+    }
 
-      const frame = $('previewFrame'), titleBadge = $('previewTitle'), emptyTxt = $('previewEmptyText');
+    async function probePreviewCard(slug, card) {
+      if (!document.body.contains(card)) return;
+      clearTimeout(previewTimers.get(slug));
+      const { url } = buildIframeHtml(slug);
+      const frame = card.querySelector('iframe');
+      const badge = card.querySelector('.pv-badge');
+      const empty = card.querySelector('.preview-empty');
+
       try {
         const res = await fetch(url + '?_t=' + Date.now(), { method: 'HEAD', cache: 'no-store' });
         if (res.ok) {
-          titleBadge.textContent = 'ch_' + slug + ' · En línea';
-          titleBadge.className = 'badge ok';
+          badge.textContent = 'En línea';
+          badge.className = 'badge ok pv-badge';
           frame.style.display = 'block';
-          if (frame.dataset.loadedSlug !== slug) { frame.dataset.loadedSlug = slug; frame.src = url + '?_t=' + Date.now(); }
+          empty.style.display = 'none';
+          if (frame.dataset.loaded !== '1') {
+            frame.dataset.loaded = '1';
+            frame.src = url + '?_t=' + Date.now();
+          }
           return;
         }
       } catch {}
 
-      frame.style.display = 'none'; frame.removeAttribute('src'); delete frame.dataset.loadedSlug;
-      titleBadge.textContent = 'ch_' + slug + ' · Generándose';
-      titleBadge.className = 'badge tag';
-      emptyTxt.textContent = `Esperando que se cree y publique /ch_${slug} en GitHub Pages...`;
-      previewRetryTimer = setTimeout(() => showChannelPreview(slug), 5000);
+      badge.textContent = 'Generándose';
+      badge.className = 'badge tag pv-badge';
+      empty.textContent = `Esperando publicación de /ch_${slug}...`;
+      previewTimers.set(slug, setTimeout(() => probePreviewCard(slug, card), 5000));
+    }
+
+    function syncPreviewGrid(extraSlugs = []) {
+      const grid = $('previewsGrid');
+      const clean = getCleanChannels();
+      const slugs = clean.map(c => c.slug);
+      for (const s of extraSlugs) if (s && !slugs.includes(s)) slugs.push(s);
+
+      $('pvCount').textContent = `${slugs.length} ${slugs.length === 1 ? 'activa' : 'activas'}`;
+
+      if (!slugs.length) {
+        for (const t of previewTimers.values()) clearTimeout(t);
+        previewTimers.clear();
+        grid.innerHTML = '<div style="font-size:12.5px; color:var(--muted);">Agregá o ejecutá canales para que aparezcan sus reproductores acá.</div>';
+        return;
+      }
+
+      // Quitar tarjetas de canales eliminados y placeholder
+      Array.from(grid.children).forEach(el => {
+        const s = el.dataset?.pvSlug;
+        if (!s || !slugs.includes(s)) {
+          if (s && previewTimers.has(s)) { clearTimeout(previewTimers.get(s)); previewTimers.delete(s); }
+          el.remove();
+        }
+      });
+
+      // Agregar tarjetas nuevas sin tocar las que ya están reproduciendo
+      for (const slug of slugs) {
+        if (grid.querySelector(`[data-pv-slug="${CSS.escape(slug)}"]`)) continue;
+        const { url, html } = buildIframeHtml(slug);
+        const card = document.createElement('div');
+        card.className = 'pv-card';
+        card.dataset.pvSlug = slug;
+
+        const top = document.createElement('div');
+        top.className = 'ch-top';
+        const left = document.createElement('div');
+        left.className = 'btns-wrap';
+        const nm = document.createElement('span');
+        nm.className = 'ch-slug';
+        nm.textContent = 'ch_' + slug;
+        const badge = document.createElement('span');
+        badge.className = 'badge tag pv-badge';
+        badge.textContent = 'Verificando';
+        left.append(nm, badge);
+
+        const right = document.createElement('div');
+        right.className = 'btns-wrap';
+        const bCopy = document.createElement('button');
+        bCopy.type = 'button'; bCopy.className = 'btn-mini sec'; bCopy.textContent = 'Iframe';
+        bCopy.onclick = () => {
+          navigator.clipboard.writeText(html); setEmbedSelection(slug);
+          bCopy.textContent = 'Copiado'; setTimeout(() => (bCopy.textContent = 'Iframe'), 1200);
+        };
+        const bOpen = document.createElement('button');
+        bOpen.type = 'button'; bOpen.className = 'btn-mini sec'; bOpen.textContent = 'Abrir';
+        bOpen.onclick = () => window.open(url, '_blank', 'noopener');
+        right.append(bCopy, bOpen);
+        top.append(left, right);
+
+        const stage = document.createElement('div');
+        stage.className = 'preview-stage';
+        const empty = document.createElement('div');
+        empty.className = 'preview-empty';
+        empty.textContent = `Verificando /ch_${slug}...`;
+        const ifr = document.createElement('iframe');
+        ifr.allow = 'autoplay; fullscreen; encrypted-media';
+        ifr.allowFullscreen = true;
+        stage.append(empty, ifr);
+
+        card.append(top, stage);
+        grid.appendChild(card);
+        probePreviewCard(slug, card);
+      }
     }
 
     function persistLocalChannels() {
       localStorage.setItem('panel_channels', JSON.stringify(savedChannels));
     }
 
+    function getCleanChannels() {
+      const seen = new Set(), out = [];
+      savedChannels.forEach((c, idx) => {
+        const channel = (c.channel || '').trim(), platform = (c.platform || '').trim(), target_url = (c.target_url || '').trim();
+        if (!target_url && !platform) return;
+        const slug = toSlug(channel || c.slug || ('canal_' + (idx + 1)));
+        if (seen.has(slug)) return;
+        seen.add(slug);
+        out.push({ slug, channel: channel || slug, platform, target_url });
+      });
+      return out;
+    }
+
     function renderChannels() {
       const box = $('channelsList'); box.textContent = '';
-      const validCount = savedChannels.filter(c => c.channel?.trim() || c.target_url?.trim() || c.platform?.trim()).length;
+      const validCount = getCleanChannels().length;
       $('chCount').textContent = `${validCount} ${validCount === 1 ? 'canal' : 'canales'}`;
 
       savedChannels.forEach((ch, idx) => {
-        ch.slug = toSlug(ch.channel || ch.slug || 'live');
+        ch.slug = toSlug((ch.channel || '').trim() || ch.slug || ('canal_' + (idx + 1)));
         const card = document.createElement('div'); card.className = 'ch-card';
         const top = document.createElement('div'); top.className = 'ch-top';
         const slugBadge = document.createElement('span'); slugBadge.className = 'ch-slug'; slugBadge.textContent = 'ch_' + ch.slug;
         const btns = document.createElement('div'); btns.className = 'btns-wrap';
 
         const bVer = document.createElement('button'); bVer.type = 'button'; bVer.className = 'btn-mini'; bVer.textContent = 'Ver';
-        bVer.onclick = () => { $('previewFrame').dataset.loadedSlug = ''; showChannelPreview(toSlug(ch.channel || ch.slug)); };
+        bVer.onclick = () => {
+          const s = toSlug((ch.channel || '').trim() || ch.slug);
+          setEmbedSelection(s);
+          syncPreviewGrid([s]);
+          const pv = $('previewsGrid').querySelector(`[data-pv-slug="${CSS.escape(s)}"]`);
+          if (pv) {
+            const ifr = pv.querySelector('iframe');
+            if (ifr) { delete ifr.dataset.loaded; probePreviewCard(s, pv); }
+            pv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        };
 
         const bEmb = document.createElement('button'); bEmb.type = 'button'; bEmb.className = 'btn-mini sec'; bEmb.textContent = 'Copiar Iframe';
         bEmb.onclick = () => {
-          const { url, html } = buildIframeHtml(toSlug(ch.channel || ch.slug));
-          navigator.clipboard.writeText(html); $('embedCode').value = html; $('embedCode').dataset.url = url;
+          const s = toSlug((ch.channel || '').trim() || ch.slug);
+          const { html } = buildIframeHtml(s);
+          navigator.clipboard.writeText(html); setEmbedSelection(s);
           bEmb.textContent = 'Copiado'; setTimeout(() => (bEmb.textContent = 'Copiar Iframe'), 1300);
         };
 
         const bDel = document.createElement('button'); bDel.type = 'button'; bDel.className = 'btn-mini err'; bDel.textContent = '✕';
         bDel.onclick = async () => {
           savedChannels.splice(idx, 1);
-          if (!savedChannels.length) savedChannels.push({ slug: 'live', channel: '', platform: '', target_url: '' });
-          persistLocalChannels(); renderChannels();
+          if (!savedChannels.length) savedChannels.push({ slug: 'canal_1', channel: '', platform: '', target_url: '' });
+          persistLocalChannels(); renderChannels(); syncPreviewGrid();
           await pushListToRepo().catch(() => {});
         };
 
@@ -424,30 +524,22 @@
         };
 
         grid.append(
-          mkField('Nombre del canal', 'telediariohd', ch.channel, v => { ch.channel = v; ch.slug = toSlug(v); slugBadge.textContent = 'ch_' + ch.slug; persistLocalChannels(); }),
+          mkField('Nombre del canal', 'telediariohd', ch.channel, v => {
+            ch.channel = v; ch.slug = toSlug(v.trim() || ('canal_' + (idx + 1)));
+            slugBadge.textContent = 'ch_' + ch.slug; persistLocalChannels();
+          }),
           mkField('Plataforma (opcional)', 'ejemplo-web', ch.platform, v => { ch.platform = v; persistLocalChannels(); }),
           mkField('URL directa', 'https://ejemplo.com/live', ch.target_url, v => { ch.target_url = v; persistLocalChannels(); })
         );
         card.append(top, grid); box.appendChild(card);
       });
+      syncPreviewGrid();
     }
 
     $('btnAddRow').addEventListener('click', () => {
-      savedChannels.push({ slug: 'nuevo_' + (savedChannels.length + 1), channel: '', platform: '', target_url: '' });
+      savedChannels.push({ slug: 'canal_' + (savedChannels.length + 1), channel: '', platform: '', target_url: '' });
       persistLocalChannels(); renderChannels();
     });
-
-    function getCleanChannels() {
-      const seen = new Set(), out = [];
-      for (const c of savedChannels) {
-        const channel = (c.channel || '').trim(), platform = (c.platform || '').trim(), target_url = (c.target_url || '').trim();
-        if (!target_url && !platform) continue;
-        const slug = toSlug(channel || 'live');
-        if (seen.has(slug)) continue; seen.add(slug);
-        out.push({ slug, channel: channel || slug, platform, target_url });
-      }
-      return out;
-    }
 
     async function pushListToRepo() {
       const owner = $('owner').value.trim(), repo = $('repo').value.trim(), branch = $('branch').value.trim() || 'main', pat = $('pat').value.trim();
@@ -464,6 +556,7 @@
       });
       if (!putRes.ok) { const err = await putRes.json().catch(() => ({})); throw new Error(err.message || 'No se pudo guardar channels/list.json'); }
       $('chCount').textContent = `${cleanList.length} ${cleanList.length === 1 ? 'canal' : 'canales'}`;
+      syncPreviewGrid();
       return cleanList;
     }
 
@@ -482,7 +575,7 @@
       if (forceReplace || !hasLocalChannels || getCleanChannels().length === 0) {
         savedChannels = validRemote;
       } else {
-        const localSlugs = new Set(savedChannels.map(c => toSlug(c.channel || c.slug)));
+        const localSlugs = new Set(savedChannels.map((c, i) => toSlug((c.channel || '').trim() || c.slug || ('canal_' + (i + 1)))));
         for (const item of validRemote) {
           if (!localSlugs.has(item.slug)) savedChannels.push(item);
         }
@@ -505,17 +598,18 @@
     }
 
     async function saveAndRun(msgLabel) {
-      $('msg').textContent = 'Sincronizando canales y Secrets en GitHub...';
+      $('msg').textContent = 'Guardando todos los canales y Secrets en GitHub...';
       const list = await pushListToRepo();
       if (!list.length) { $('msg').textContent = 'Completá al menos un canal con URL directa o Plataforma.'; return; }
       await syncGitHubSecrets().catch(() => {});
       await dispatchCloudRun();
       startWorkerMonitor();
-      showChannelPreview(list[0].slug);
+      setEmbedSelection(list[0].slug);
+      syncPreviewGrid(list.map(c => c.slug));
       $('msg').textContent = `${msgLabel} (${list.length} canales en la nube 24/7).`;
     }
 
-    $('btnSaveAll').addEventListener('click', () => saveAndRun('Guardado en main y Secrets sincronizados').catch(e => { $('msg').textContent = 'Error: ' + e.message; }));
+    $('btnSaveAll').addEventListener('click', () => saveAndRun('Canales guardados y creándose').catch(e => { $('msg').textContent = 'Error: ' + e.message; }));
     $('btnRun').addEventListener('click', () => saveAndRun('Ejecutando 24/7').catch(e => { $('msg').textContent = 'Error: ' + e.message; }));
 
     function extractUrls(obj, found = new Set()) {
@@ -551,7 +645,10 @@
       meta.textContent = `Run #${data.run_number} · ch_${data.input?.channel || 'live'} · ${new Date(data.timestamp).toLocaleString()}`;
       header.append(badge, meta); resBox.appendChild(header);
 
-      if (data.ok && data.input?.channel) showChannelPreview(data.input.channel);
+      if (data.input?.channel) {
+        setEmbedSelection(data.input.channel);
+        syncPreviewGrid([data.input.channel]);
+      }
 
       const urls = extractUrls(data.reports);
       const streamUrls = urls.filter(u => /\.(mpd|m3u8)|manifest|license|widevine|playready/i.test(u));
@@ -635,7 +732,7 @@
 
     renderChannels();
     const lastSlug = localStorage.getItem('panel_last_embed_slug');
-    if (lastSlug) showChannelPreview(lastSlug);
+    if (lastSlug) setEmbedSelection(lastSlug);
     if ($('owner').value.trim() && $('repo').value.trim() && $('pat').value.trim()) {
       pullListFromRepo(false).catch(() => {});
       startWorkerMonitor();
