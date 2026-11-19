@@ -4,5 +4,11 @@
     "channel": "Canal 9 La Rioja",
     "platform": "",
     "target_url": "https://streaming7.locucionar.com:2020/public/canal9larioja"
+  },
+  {
+    "slug": "unife",
+    "channel": "Unife",
+    "platform": "Unife TV",
+    "target_url": "https://www.unifetv.com/"
   }
 ]
