@@ -10,5 +10,11 @@
     "channel": "Unife",
     "platform": "Unife TV",
     "target_url": "https://www.unifetv.com/"
+  },
+  {
+    "slug": "canal_7_jujuy",
+    "channel": "Canal 7 Jujuy",
+    "platform": "Arcast",
+    "target_url": "https://www.arcast.com.ar/canal7jujuy/"
   }
 ]
