@@ -1,6 +1,8 @@
 name: Headless F12 Inspector
 
 on:
+  schedule:
+    - cron: '0 */4 * * *'
   workflow_dispatch:
     inputs:
       platform:
@@ -74,7 +76,7 @@ jobs:
           fi
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
 
-      - name: Headless continuo + crear archivos de canales
+      - name: Headless continuo 24/7 + todo cifrado
         env:
           INPUT_PLATFORM: ${{ inputs.platform }}
           INPUT_CHANNEL: ${{ inputs.channel }}
@@ -89,6 +91,7 @@ jobs:
           SUBMIT_SELECTOR: ${{ secrets.SUBMIT_SELECTOR }}
           EMBED_KEY: ${{ inputs.embed_key || secrets.EMBED_SECRET }}
           IMPERIO_UI: ${{ secrets.IMPERIO_UI }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -99,13 +102,14 @@ jobs:
           const crypto = require('crypto');
           const { execFileSync, execSync } = require('child_process');
 
-          const MAX_LOOP_MS = 300 * 60 * 1000;
+          const MAX_LOOP_MS = 285 * 60 * 1000;
           const startedAt = Date.now();
           const waitMs = String(Math.max(1000, Number(process.env.INPUT_WAIT_MS ?? 7000)));
           const chromeBin = process.env.CHROME_BIN || '';
           const pass = process.env.PLATFORM_PASS || '';
           const embedPassword = process.env.EMBED_KEY || '';
           const rawUi = process.env.IMPERIO_UI || '';
+          const ghPat = (process.env.GH_PAT || '').trim();
           const refName = process.env.GITHUB_REF_NAME || 'main';
           const sanitize = (str) => {
             let out = str;
@@ -119,22 +123,6 @@ jobs:
             if (!existing.length) return;
             execSync(`git add -f ${existing.map(p => `"${p}"`).join(' ')}`, { stdio: 'ignore' });
             execSync(`git diff --staged --quiet || (git commit -m "${msg} [skip ci]" && git pull --rebase --autostash origin "${refName}" && git push origin "${refName}")`, { stdio: 'inherit' });
-          }
-
-          if (!rawUi.trim()) {
-            fs.writeFileSync('latest.json', JSON.stringify({
-              run_id: process.env.GITHUB_RUN_ID,
-              run_number: Number(process.env.GITHUB_RUN_NUMBER),
-              ok: false,
-              exit_code: 1,
-              timestamp: new Date().toISOString(),
-              input: { platform: process.env.INPUT_PLATFORM || '', channel: process.env.INPUT_CHANNEL || '', target_url: process.env.INPUT_URL || '' },
-              reports: [],
-              screenshot: null,
-              log: 'Falta crear el Secret IMPERIO_UI en GitHub -> Settings -> Secrets and variables -> Actions.'
-            }, null, 2));
-            try { pushFiles(['latest.json'], 'Falta Secret IMPERIO_UI'); } catch {}
-            process.exit(0);
           }
 
           function walk(dir) {
@@ -183,14 +171,46 @@ jobs:
           }
 
           function getChannelIkm(slug) {
-            const masterSeed = embedPassword || (process.env.GITHUB_REPOSITORY + ':' + slug);
-            const pbkdfSalt = crypto.createHash('sha256').update('imperio:' + process.env.GITHUB_REPOSITORY + ':' + slug).digest();
+            const masterSeed = embedPassword || ((process.env.GITHUB_REPOSITORY || '') + ':' + slug);
+            const pbkdfSalt = crypto.createHash('sha256').update('imperio:' + (process.env.GITHUB_REPOSITORY || '') + ':' + slug).digest();
             return crypto.pbkdf2Sync(Buffer.from(masterSeed, 'utf8'), pbkdfSalt, 100000, 32, 'sha512');
+          }
+
+          function getAdminIkm() {
+            const adminSeed = embedPassword || ((process.env.GITHUB_REPOSITORY || '').toLowerCase() + ':__admin__');
+            const adminSalt = crypto.createHash('sha256').update('imperio:admin-latest').digest();
+            return crypto.pbkdf2Sync(Buffer.from(adminSeed, 'utf8'), adminSalt, 100000, 32, 'sha512');
+          }
+
+          function writeEncryptedLatest(payloadObj) {
+            const env = sealEnvelope(JSON.stringify(payloadObj), getAdminIkm(), 'admin-latest');
+            fs.writeFileSync('latest.json', JSON.stringify(env));
+          }
+
+          if (!rawUi.trim()) {
+            writeEncryptedLatest({
+              run_id: process.env.GITHUB_RUN_ID,
+              run_number: Number(process.env.GITHUB_RUN_NUMBER),
+              ok: false,
+              exit_code: 1,
+              timestamp: new Date().toISOString(),
+              input: { platform: process.env.INPUT_PLATFORM || '', channel: process.env.INPUT_CHANNEL || '', target_url: process.env.INPUT_URL || '' },
+              reports: [],
+              screenshot_b64: null,
+              log: 'Falta crear el Secret IMPERIO_UI en GitHub -> Settings -> Secrets and variables -> Actions.'
+            });
+            try {
+              try { execSync('git rm -f --ignore-unmatch latest.png', { stdio: 'ignore' }); } catch {}
+              pushFiles(['latest.json'], 'Falta Secret IMPERIO_UI');
+            } catch {}
+            process.exit(0);
           }
 
           function readTargets() {
             const rawCh = (process.env.INPUT_CHANNEL || '').trim();
-            if (rawCh.toUpperCase() === 'ALL' && fs.existsSync('channels/list.json')) {
+            const rawUrl = (process.env.INPUT_URL || '').trim();
+            const rawPlat = (process.env.INPUT_PLATFORM || '').trim();
+            if ((!rawCh && !rawUrl && !rawPlat || rawCh.toUpperCase() === 'ALL') && fs.existsSync('channels/list.json')) {
               try {
                 const list = JSON.parse(fs.readFileSync('channels/list.json', 'utf8'));
                 if (Array.isArray(list) && list.length) {
@@ -199,7 +219,7 @@ jobs:
               } catch {}
             }
             const slug = (rawCh || 'live').toLowerCase().replace(/^ch_/, '').replace(/[^a-z0-9_-]+/g, '_') || 'live';
-            return [{ slug, channel: rawCh, platform: process.env.INPUT_PLATFORM || '', target_url: process.env.INPUT_URL || '' }];
+            return [{ slug, channel: rawCh, platform: rawPlat, target_url: rawUrl }];
           }
 
           function buildProtectedPayload(slug, chIkm) {
@@ -553,9 +573,6 @@ jobs:
 
                 if (isFirst || changed || needCreate) {
                   prevStreams[slug] = streamUrl;
-                  let screenshot = null;
-                  if (pngBuf) { fs.writeFileSync('latest.png', pngBuf); screenshot = 'latest.png'; }
-
                   const payload = {
                     run_id: process.env.GITHUB_RUN_ID,
                     run_number: Number(process.env.GITHUB_RUN_NUMBER),
@@ -563,9 +580,11 @@ jobs:
                     exit_code: exitCode,
                     timestamp: new Date().toISOString(),
                     input: { platform: target.platform, channel: slug, target_url: target.target_url },
-                    reports, screenshot, log: sanitize(runOut).split('\n').slice(-120).join('\n')
+                    reports,
+                    screenshot_b64: pngBuf ? pngBuf.toString('base64') : null,
+                    log: sanitize(runOut).split('\n').slice(-120).join('\n')
                   };
-                  fs.writeFileSync('latest.json', JSON.stringify(payload, null, 2));
+                  writeEncryptedLatest(payload);
 
                   if (streamUrl) {
                     const chIkm = getChannelIkm(slug);
@@ -576,12 +595,30 @@ jobs:
                   }
 
                   try {
-                    pushFiles(['latest.json', 'latest.png', 'channels', `ch_${slug}`], `Live #${process.env.GITHUB_RUN_NUMBER}.${cycle} (${slug})`);
+                    try { execSync('git rm -f --ignore-unmatch latest.png', { stdio: 'ignore' }); } catch {}
+                    pushFiles(['latest.json', 'channels', `ch_${slug}`], `Live #${process.env.GITHUB_RUN_NUMBER}.${cycle} (${slug})`);
                   } catch (gitErr) {
                     console.log('Push retry:', gitErr.message);
                   }
                 }
                 await new Promise(r => setTimeout(r, 1000));
+              }
+            }
+
+            if (ghPat && process.env.GITHUB_REPOSITORY) {
+              try {
+                await fetch(`https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/actions/workflows/inspect.yml/dispatches`, {
+                  method: 'POST',
+                  headers: {
+                    'Accept': 'application/vnd.github+json',
+                    'Authorization': 'Bearer ' + ghPat,
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ ref: refName, inputs: { channel: 'ALL', wait_ms: waitMs } })
+                });
+                console.log('Auto-relevo disparado.');
+              } catch (e) {
+                console.log('Auto-relevo falló:', e.message);
               }
             }
           })().catch(err => console.log('Fin limpio:', err.message));
